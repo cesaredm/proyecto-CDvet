@@ -12,12 +12,12 @@ import java.util.LinkedList;
  */
 public class Clientes {
 
-    Conexiondb conexion = new Conexiondb();
+    Conexiondb conexion;
     String nombres, apellidos, telefono, direccion;
     IMenu menu;
 
     public Clientes() {
-
+        conexion = new Conexiondb();
     }
 
     public void Guardar(String nombres, String apellidos, String telefono, String direccion) {
@@ -63,10 +63,6 @@ public class Clientes {
         try
         {
             PreparedStatement pst = cn.prepareStatement(consulta);
-            /*pst.setString(1,"");
-            pst.setString(2,"");
-            pst.setString(3,"");
-            pst.setString(4,"");*/
             int banderin = pst.executeUpdate();
             if(banderin>0)
             {
@@ -84,7 +80,13 @@ public class Clientes {
         String Consulta = "SELECT id, nombres, apellidos, telefono, direccion FROM clientes WHERE CONCAT(nombres,apellidos) LIKE '%" + Buscar + "%'";
         String[] registro = new String[5];
         String[] titulos = {"Id", "Nombres", "Apellidos", "Telefono", "Dirección"};
-        DefaultTableModel modelo = new DefaultTableModel(null, titulos);
+        DefaultTableModel modelo = new DefaultTableModel(null, titulos)
+            {
+                public boolean isCellEditable(int row, int col)
+                {
+                return false;
+                }
+            };
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(Consulta);
