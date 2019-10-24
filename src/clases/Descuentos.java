@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author CESAR DIAZ MARADIAGA
  */
-public class Descuentos {
+/*public class Descuentos {
 
     DefaultTableModel modelo;
     Conexiondb conexion;
@@ -32,12 +32,39 @@ public class Descuentos {
         }
     }
 
-    public void Actualizar(String id) {
-
+    public void Actualizar(String id, String descuento) {
+        Connection cn = conexion.Conexion();
+        String consulta = "UPDATE descuentos SET porcentajeDescuento=? WHERE id="+id;
+        try
+        {
+            PreparedStatement pst = cn.prepareStatement(consulta);
+            pst.setString(1, descuento);
+            int banderin = pst.executeUpdate();
+            if(banderin > 0)
+            {
+                JOptionPane.showMessageDialog(null, "Dato Actualizado Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(null,e);
+        }
     }
 
     public void Eliminar(String id) {
-
+        Connection cn = conexion.Conexion();
+        String consulta = "DELETE FROM descuentos WHERE id="+id;
+        try
+        {
+            PreparedStatement pst = cn.prepareStatement(consulta);
+            int banderin = pst.executeUpdate();
+            if(banderin > 0)
+            {
+                JOptionPane.showMessageDialog(null, "Dato Borrado Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(null,e);
+        }
     }
 
     public DefaultTableModel Consulta(String buscar) {
@@ -63,4 +90,4 @@ public class Descuentos {
         }
         return modelo;
     }
-}
+}*/
