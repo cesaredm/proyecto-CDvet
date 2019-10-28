@@ -39,7 +39,7 @@ public class Clientes {
 
     }
 
-    public void Actualzar(String id, String nombres, String apellidos, String telefono, String direccion) {
+    public void Actualizar(String id, String nombres, String apellidos, String telefono, String direccion) {
         Connection cn = conexion.Conexion();
         String Consulta = " UPDATE clientes SET nombres = ?, apellidos = ?, telefono = ?, direccion = ? WHERE id="+id;
         try {

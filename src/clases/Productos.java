@@ -54,7 +54,32 @@ public class Productos {
     }
 
     public void Actualizar(String id, String codigoBarra, String nombre, String precioCompra, String precioVenta, String fechaVencimiento, String stock, String categoria, String descuento, String laboratorio, String ubicacion, String descripcion) {
-        
+        this.consulta = "UPDATE productos SET codigoBarra=?, nombre=?, precioCompra=?, precioVenta=?, fechaVencimiento=?, stock=?, categoria=?, descuento=?, laboratorio=?, ubicacion=?, descripcion=? WHERE id ="+id;
+        float compra=Float.parseFloat(precioCompra), venta=Float.parseFloat(precioVenta), cantidad=Float.parseFloat(stock);
+        int Idcategoria = Integer.parseInt(categoria), Idlaboratorio = Integer.parseInt(laboratorio), Iddescuento = Integer.parseInt(descuento);
+        try
+        {
+            PreparedStatement pst = this.cn.prepareStatement(this.consulta);
+            pst.setString(1, codigoBarra);
+            pst.setString(2, nombre);
+            pst.setFloat(3, compra);
+            pst.setFloat(4, venta);
+            pst.setString(5, fechaVencimiento);
+            pst.setFloat(6, cantidad);
+            pst.setInt(7, Idcategoria);
+            pst.setInt(8, Iddescuento);
+            pst.setInt(9, Idlaboratorio);
+            pst.setString(10, ubicacion);
+            pst.setString(11, descripcion);
+            this.banderin = pst.executeUpdate();
+            if(this.banderin>0)
+                {
+                  JOptionPane.showMessageDialog(null, "Producto Actualizado Exitosamente","Informacion",JOptionPane.INFORMATION_MESSAGE);      
+                }
+        }catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     public void Eliminar(String id) {
@@ -79,6 +104,7 @@ public class Productos {
         String[] titulos = {"Id", "Codigo Barra","Nombre", "precioCompra", "precioVenta", "Fecha Vencimiento", "Stock", "Categoria","Laboratorio","Descuento", "Ubicacion", "Descripcion"};
         modelo = new DefaultTableModel(null, titulos)
         {
+            @Override
             public boolean isCellEditable(int row, int col)
             {
                 return false;
@@ -118,6 +144,7 @@ public class Productos {
         String[] titulos = {"Id","Nombre","Descripcion"};
         modelo = new DefaultTableModel(null, titulos)
         {
+            @Override
             public boolean isCellEditable(int row, int col)
             {
                 return false;
@@ -133,7 +160,7 @@ public class Productos {
                 resultados[0] = rs.getString("id");
                 resultados[1] = rs.getString("nombre");
                 resultados[2] = rs.getString("descripcion");
-                modelo.addRow(resultados);
+                this.modelo.addRow(resultados);
             }
         }catch(SQLException e)
         {
@@ -147,6 +174,7 @@ public class Productos {
         String[] titulos = {"Id","Nombre","Descripcion"};
         modelo = new DefaultTableModel(null, titulos)
         {
+            @Override
             public boolean isCellEditable(int row, int col)
             {
                 return false;
@@ -200,10 +228,28 @@ public class Productos {
         }
         return modelo;
     }*/
-    public String ObtenerIdLaboratorio(String nombre)
+    public String ObtenerIdLaboratorio(String nombre)//metodo para obtener Id de laboratorio para modificar producto
     {
         String id = "";
         
+        this.consulta = "SELECT id FROM laboratorios WHERE nombre='"+nombre+"'";
+        try
+        {
+            Statement st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(this.consulta);
+            while(rs.next())
+            {
+                id = rs.getString("id");
+            }
+        }catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return id;
+    }
+    public String ObtenerIdCategoria(String nombre)//metodo para obtener Id de categoria para modificar producto
+    {
+        String id = "";
         this.consulta = "SELECT id FROM categorias WHERE nombre='"+nombre+"'";
         try
         {
@@ -219,22 +265,24 @@ public class Productos {
         }
         return id;
     }
-    public String ObtenerIdCategoria(String nombre)
+    public void AgregarProductoStock(String id, String cantidad)//metodo para agregar producto al stock
     {
-        String id = "";
-        this.consulta = "SELECT id FROM categorias WHERE nombre="+nombre;
+        float c = Float.parseFloat(cantidad);
+        int idP = Integer.parseInt(id);
+        this.consulta = "{CALL agregarProductoStock(?,?)}";
         try
         {
-            Statement st = this.cn.createStatement();
-            ResultSet rs = st.executeQuery(this.consulta);
-            while(rs.next())
+            CallableStatement cst = this.cn.prepareCall(this.consulta);
+            cst.setInt(1, idP);
+            cst.setFloat(2, c);
+            this.banderin = cst.executeUpdate();
+            if(banderin>0)
             {
-                id = rs.getString("id");
+                JOptionPane.showMessageDialog(null, "Se Agrego Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
         }catch(SQLException e)
         {
             JOptionPane.showMessageDialog(null, e);
         }
-        return id;
     }
 }
