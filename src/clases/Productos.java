@@ -24,10 +24,10 @@ public class Productos {
         this.combo = new DefaultComboBoxModel();
     }
 
-    public void Guardar(String codigoBarra, String nombre, String precioCompra, String precioVenta, String fechaVencimiento, String stock, String categoria, String descuento, String laboratorio, String ubicacion, String descripcion) {
-        this.consulta = "INSERT INTO productos(codigoBarra, nombre, precioCompra, precioVenta, fechaVencimiento, stock, categoria, descuento, laboratorio, ubicacion, descripcion) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+    public void Guardar(String codigoBarra, String nombre, String precioCompra, String precioVenta, String fechaVencimiento, String stock, String categoria, String laboratorio, String ubicacion, String descripcion) {
+        this.consulta = "INSERT INTO productos(codigoBarra, nombre, precioCompra, precioVenta, fechaVencimiento, stock, categoria, laboratorio, ubicacion, descripcion) VALUES(?,?,?,?,?,?,?,?,?,?)";
         float compra=Float.parseFloat(precioCompra), venta=Float.parseFloat(precioVenta), cantidad=Float.parseFloat(stock);
-        int Idcategoria = Integer.parseInt(categoria), Idlaboratorio = Integer.parseInt(laboratorio), Iddescuento = Integer.parseInt(descuento);
+        int Idcategoria = Integer.parseInt(categoria), Idlaboratorio = Integer.parseInt(laboratorio);
         try
         {
             PreparedStatement pst = this.cn.prepareStatement(this.consulta);
@@ -38,10 +38,9 @@ public class Productos {
             pst.setString(5, fechaVencimiento);
             pst.setFloat(6, cantidad);
             pst.setInt(7, Idcategoria);
-            pst.setInt(8, Iddescuento);
-            pst.setInt(9, Idlaboratorio);
-            pst.setString(10, ubicacion);
-            pst.setString(11, descripcion);
+            pst.setInt(8, Idlaboratorio);
+            pst.setString(9, ubicacion);
+            pst.setString(10, descripcion);
             this.banderin = pst.executeUpdate();
             if(this.banderin>0)
                 {
@@ -53,10 +52,10 @@ public class Productos {
         }
     }
 
-    public void Actualizar(String id, String codigoBarra, String nombre, String precioCompra, String precioVenta, String fechaVencimiento, String stock, String categoria, String descuento, String laboratorio, String ubicacion, String descripcion) {
-        this.consulta = "UPDATE productos SET codigoBarra=?, nombre=?, precioCompra=?, precioVenta=?, fechaVencimiento=?, stock=?, categoria=?, descuento=?, laboratorio=?, ubicacion=?, descripcion=? WHERE id ="+id;
+    public void Actualizar(String id, String codigoBarra, String nombre, String precioCompra, String precioVenta, String fechaVencimiento, String stock, String categoria, String laboratorio, String ubicacion, String descripcion) {
+        this.consulta = "UPDATE productos SET codigoBarra=?, nombre=?, precioCompra=?, precioVenta=?, fechaVencimiento=?, stock=?, categoria=?, laboratorio=?, ubicacion=?, descripcion=? WHERE id ="+id;
         float compra=Float.parseFloat(precioCompra), venta=Float.parseFloat(precioVenta), cantidad=Float.parseFloat(stock);
-        int Idcategoria = Integer.parseInt(categoria), Idlaboratorio = Integer.parseInt(laboratorio), Iddescuento = Integer.parseInt(descuento);
+        int Idcategoria = Integer.parseInt(categoria), Idlaboratorio = Integer.parseInt(laboratorio);
         try
         {
             PreparedStatement pst = this.cn.prepareStatement(this.consulta);
@@ -67,10 +66,9 @@ public class Productos {
             pst.setString(5, fechaVencimiento);
             pst.setFloat(6, cantidad);
             pst.setInt(7, Idcategoria);
-            pst.setInt(8, Iddescuento);
-            pst.setInt(9, Idlaboratorio);
-            pst.setString(10, ubicacion);
-            pst.setString(11, descripcion);
+            pst.setInt(8, Idlaboratorio);
+            pst.setString(9, ubicacion);
+            pst.setString(10, descripcion);
             this.banderin = pst.executeUpdate();
             if(this.banderin>0)
                 {
@@ -99,9 +97,9 @@ public class Productos {
     }
 
     public DefaultTableModel Consulta(String buscar) {
-        this.consulta = "SELECT productos.id, productos.codigoBarra, productos.nombre AS nombreProducto, precioCompra, precioVenta, fechaVencimiento, stock, descuento, ubicacion, productos.descripcion, categorias.nombre AS nombreCategoria, laboratorios.nombre as nombreLaboratorio FROM productos INNER JOIN categorias ON(productos.categoria=categorias.id) INNER JOIN laboratorios ON(productos.laboratorio=laboratorios.id) WHERE CONCAT(productos.codigoBarra, productos.nombre) LIKE '%"+buscar+"%'";
+        this.consulta = "SELECT productos.id, productos.codigoBarra, productos.nombre AS nombreProducto, precioCompra, precioVenta, fechaVencimiento, stock, ubicacion, productos.descripcion, categorias.nombre AS nombreCategoria, laboratorios.nombre as nombreLaboratorio FROM productos INNER JOIN categorias ON(productos.categoria=categorias.id) INNER JOIN laboratorios ON(productos.laboratorio=laboratorios.id) WHERE CONCAT(productos.codigoBarra, productos.nombre) LIKE '%"+buscar+"%'";
         String[] registros = new String[12];
-        String[] titulos = {"Id", "Codigo Barra","Nombre", "precioCompra", "precioVenta", "Fecha Vencimiento", "Stock", "Categoria","Laboratorio","Descuento", "Ubicacion", "Descripcion"};
+        String[] titulos = {"Id", "Codigo Barra","Nombre", "precioCompra", "precioVenta", "Fecha Vencimiento", "Stock", "Categoria","Laboratorio", "Ubicacion", "Descripcion"};
         modelo = new DefaultTableModel(null, titulos)
         {
             @Override
@@ -125,9 +123,8 @@ public class Productos {
                 registros[6] = rs.getString("stock");
                 registros[7] = rs.getString("nombreCategoria");
                 registros[8] = rs.getString("nombreLaboratorio");
-                registros[9] = rs.getString("descuento");
-                registros[10] = rs.getString("ubicacion");
-                registros[11] = rs.getString("descripcion");
+                registros[9] = rs.getString("ubicacion");
+                registros[10] = rs.getString("descripcion");
                 this.modelo.addRow(registros);
             }
         }catch(SQLException e)

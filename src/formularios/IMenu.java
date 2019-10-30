@@ -5,6 +5,7 @@ import java.awt.Point;
 import javax.swing.table.DefaultTableModel;
 import clases.*;
 import java.awt.List;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -59,6 +60,7 @@ public class IMenu extends javax.swing.JFrame {
         DeshabilitarCategoria();
         DeshabilitarLaboratorio();
         DeshabilitarProductos();
+        DeshabilitarBtnGuardarFactura();
         //DeshabilitarDescuentos();
         llenarAddCategoria("");
         llenarAddLaboratorio(""); 
@@ -66,6 +68,7 @@ public class IMenu extends javax.swing.JFrame {
         Grupo1RadioButton();
         rbBuscarNombreCodBarra.setSelected(true);
         editarISV("");
+        txtNumeroFactura.setText(factura.ObtenerIdFactura());
         id = "";
     }
 
@@ -193,7 +196,6 @@ public class IMenu extends javax.swing.JFrame {
         txtCantidadProducto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         txtUbicacionProducto = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
@@ -204,7 +206,6 @@ public class IMenu extends javax.swing.JFrame {
         btnNuevoProducto = new javax.swing.JButton();
         btnGuardarProducto = new javax.swing.JButton();
         btnActualizarProducto = new javax.swing.JButton();
-        txtDescuentoProducto = new javax.swing.JTextField();
         txtLaboratorioProducto = new javax.swing.JTextField();
         txtCategoriaProducto = new javax.swing.JTextField();
         txtMargenGanancia = new javax.swing.JTextField();
@@ -245,8 +246,9 @@ public class IMenu extends javax.swing.JFrame {
         txtNumeroFactura = new javax.swing.JTextField();
         btnBuscarClienteFactura = new javax.swing.JButton();
         lblIdClienteFactura = new javax.swing.JLabel();
-        btnEliminarFilaFactura1 = new javax.swing.JButton();
-        btnEliminarFilaFactura2 = new javax.swing.JButton();
+        btnLimpiarCliente = new javax.swing.JButton();
+        btnGuardarFactura = new javax.swing.JButton();
+        btnNuevaFactura = new javax.swing.JButton();
         pnlEncabezado = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         btnMaximizar = new javax.swing.JButton();
@@ -931,6 +933,11 @@ public class IMenu extends javax.swing.JFrame {
                 tblAddProductoFacturaMouseClicked(evt);
             }
         });
+        tblAddProductoFactura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblAddProductoFacturaKeyReleased(evt);
+            }
+        });
         jScrollPane11.setViewportView(tblAddProductoFactura);
 
         txtBuscarPorLaboratorio.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -1349,22 +1356,17 @@ public class IMenu extends javax.swing.JFrame {
 
         txtCantidadProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtCantidadProducto.setForeground(new java.awt.Color(64, 64, 64));
-        jPanel2.add(txtCantidadProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 200, -1));
+        jPanel2.add(txtCantidadProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 200, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(64, 64, 64));
         jLabel14.setText("Cantidad:");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 235, -1, -1));
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 33, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(64, 64, 64));
         jLabel15.setText("Categoria:");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 32, -1, -1));
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(64, 64, 64));
-        jLabel16.setText("Descuento:");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(408, 75, -1, -1));
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, -1, -1));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(64, 64, 64));
@@ -1444,10 +1446,6 @@ public class IMenu extends javax.swing.JFrame {
         });
         jPanel2.add(btnActualizarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 240, 100, 40));
 
-        txtDescuentoProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtDescuentoProducto.setForeground(new java.awt.Color(64, 64, 64));
-        jPanel2.add(txtDescuentoProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 71, 50, -1));
-
         txtLaboratorioProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtLaboratorioProducto.setForeground(new java.awt.Color(64, 64, 64));
         txtLaboratorioProducto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1464,7 +1462,7 @@ public class IMenu extends javax.swing.JFrame {
                 txtCategoriaProductoMouseClicked(evt);
             }
         });
-        jPanel2.add(txtCategoriaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 32, 50, -1));
+        jPanel2.add(txtCategoriaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, 50, -1));
 
         txtMargenGanancia.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtMargenGanancia.setForeground(new java.awt.Color(64, 64, 64));
@@ -1588,11 +1586,11 @@ public class IMenu extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Cod. Barra", "Cantidad", "Nombre Producto", "Precio", "Importe"
+                "Id", "Cod. Barra", "Cantidad", "Nombre Producto", "Precio", "Importe", "Descuento"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1732,11 +1730,13 @@ public class IMenu extends javax.swing.JFrame {
 
         txtNClienteFactura.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtNClienteFactura.setForeground(new java.awt.Color(64, 64, 64));
+        txtNClienteFactura.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtNClienteFactura.setEnabled(false);
         jPanel10.add(txtNClienteFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 25, 173, -1));
 
         txtAClienteFactura.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtAClienteFactura.setForeground(new java.awt.Color(64, 64, 64));
+        txtAClienteFactura.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtAClienteFactura.setEnabled(false);
         jPanel10.add(txtAClienteFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(345, 25, 173, -1));
 
@@ -1768,12 +1768,14 @@ public class IMenu extends javax.swing.JFrame {
         jLabel37.setText("N° Factura:");
         jPanel10.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 117, -1, -1));
 
-        txtNumeroFactura.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtNumeroFactura.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtNumeroFactura.setForeground(new java.awt.Color(64, 64, 64));
+        txtNumeroFactura.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtNumeroFactura.setEnabled(false);
         jPanel10.add(txtNumeroFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 116, 173, -1));
 
         btnBuscarClienteFactura.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnBuscarClienteFactura.setForeground(new java.awt.Color(64, 64, 64));
         btnBuscarClienteFactura.setText("Cliente");
         btnBuscarClienteFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1786,39 +1788,49 @@ public class IMenu extends javax.swing.JFrame {
         lblIdClienteFactura.setForeground(new java.awt.Color(255, 255, 255));
         jPanel10.add(lblIdClienteFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 25, 50, 27));
 
+        btnLimpiarCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnLimpiarCliente.setForeground(new java.awt.Color(64, 64, 64));
+        btnLimpiarCliente.setText("Cancelar");
+        btnLimpiarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarClienteActionPerformed(evt);
+            }
+        });
+        jPanel10.add(btnLimpiarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 23, 100, 31));
+
         pnlVentas.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 720, 160));
 
-        btnEliminarFilaFactura1.setBackground(new java.awt.Color(0, 166, 192));
-        btnEliminarFilaFactura1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        btnEliminarFilaFactura1.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminarFilaFactura1.setText("Guardar");
-        btnEliminarFilaFactura1.setBorder(null);
-        btnEliminarFilaFactura1.setBorderPainted(false);
-        btnEliminarFilaFactura1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEliminarFilaFactura1.setFocusPainted(false);
-        btnEliminarFilaFactura1.setPreferredSize(new java.awt.Dimension(99, 32));
-        btnEliminarFilaFactura1.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardarFactura.setBackground(new java.awt.Color(0, 166, 192));
+        btnGuardarFactura.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnGuardarFactura.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardarFactura.setText("Guardar");
+        btnGuardarFactura.setBorder(null);
+        btnGuardarFactura.setBorderPainted(false);
+        btnGuardarFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardarFactura.setFocusPainted(false);
+        btnGuardarFactura.setPreferredSize(new java.awt.Dimension(99, 32));
+        btnGuardarFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarFilaFactura1ActionPerformed(evt);
+                btnGuardarFacturaActionPerformed(evt);
             }
         });
-        pnlVentas.add(btnEliminarFilaFactura1, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 410, 121, 50));
+        pnlVentas.add(btnGuardarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 410, 121, 50));
 
-        btnEliminarFilaFactura2.setBackground(new java.awt.Color(0, 166, 192));
-        btnEliminarFilaFactura2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        btnEliminarFilaFactura2.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminarFilaFactura2.setText("Nuevo");
-        btnEliminarFilaFactura2.setBorder(null);
-        btnEliminarFilaFactura2.setBorderPainted(false);
-        btnEliminarFilaFactura2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEliminarFilaFactura2.setFocusPainted(false);
-        btnEliminarFilaFactura2.setPreferredSize(new java.awt.Dimension(111, 23));
-        btnEliminarFilaFactura2.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevaFactura.setBackground(new java.awt.Color(0, 166, 192));
+        btnNuevaFactura.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnNuevaFactura.setForeground(new java.awt.Color(255, 255, 255));
+        btnNuevaFactura.setText("Nuevo");
+        btnNuevaFactura.setBorder(null);
+        btnNuevaFactura.setBorderPainted(false);
+        btnNuevaFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevaFactura.setFocusPainted(false);
+        btnNuevaFactura.setPreferredSize(new java.awt.Dimension(111, 23));
+        btnNuevaFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarFilaFactura2ActionPerformed(evt);
+                btnNuevaFacturaActionPerformed(evt);
             }
         });
-        pnlVentas.add(btnEliminarFilaFactura2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 340, 121, 50));
+        pnlVentas.add(btnNuevaFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 340, 121, 50));
 
         pnlPrincipal.add(pnlVentas, "card2");
 
@@ -2813,7 +2825,6 @@ public class IMenu extends javax.swing.JFrame {
                 categoria = txtCategoriaProducto.getText(),
                 laboratorio = txtLaboratorioProducto.getText(),
                 ubicacion = txtUbicacionProducto.getText(),
-                descuento = txtDescuentoProducto.getText(),
                 descripcion = txtDescripcionProducto.getText();
         //Validacion de que sean ingresados los datos correctos y que no esten vacios
         if(nombre.equals(""))
@@ -2857,7 +2868,7 @@ public class IMenu extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Solo Numeros Campo Categoria", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }else
             {   //funcion Guardar de la clase Productos para guardar productos
-                productos.Guardar(codigoBarra, nombre, precioCProducto, precioVProducto, fechaVencimiento, cantidad, categoria, descuento, laboratorio, ubicacion, descripcion);
+                productos.Guardar(codigoBarra, nombre, precioCProducto, precioVProducto, fechaVencimiento, cantidad, categoria, laboratorio, ubicacion, descripcion);
                 MostrarProductos("");
                 LimpiarProducto();
                 btnGuardarProducto.setEnabled(true);
@@ -2877,7 +2888,6 @@ public class IMenu extends javax.swing.JFrame {
         txtFechaVProducto.setText("");
         txtCantidadProducto.setText("");
         txtCategoriaProducto.setText("");
-        txtDescuentoProducto.setText("");
         txtLaboratorioProducto.setText("");
         txtUbicacionProducto.setText("");
         txtDescripcionProducto.setText("");
@@ -2893,7 +2903,6 @@ public class IMenu extends javax.swing.JFrame {
         txtFechaVProducto.setEnabled(false);
         txtCantidadProducto.setEnabled(false);
         txtCategoriaProducto.setEnabled(false);
-        txtDescuentoProducto.setEnabled(false);
         txtLaboratorioProducto.setEnabled(false);
         txtUbicacionProducto.setEnabled(false);
         txtDescripcionProducto.setEnabled(false);
@@ -2912,7 +2921,6 @@ public class IMenu extends javax.swing.JFrame {
         txtFechaVProducto.setEnabled(true);
         txtCantidadProducto.setEnabled(true);
         txtCategoriaProducto.setEnabled(true);
-        txtDescuentoProducto.setEnabled(true);
         txtLaboratorioProducto.setEnabled(true);
         txtUbicacionProducto.setEnabled(true);
         txtDescripcionProducto.setEnabled(true);
@@ -3050,7 +3058,7 @@ public class IMenu extends javax.swing.JFrame {
 
     private void EditarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarProductoActionPerformed
         int filaseleccionada;
-        String id, codBarra, nombre, precioC, precioV, fechaVencimiento, cantidad, categoria, laboratorio, descuento, ubicacion, descripcion;
+        String id, codBarra, nombre, precioC, precioV, fechaVencimiento, cantidad, categoria, laboratorio, ubicacion, descripcion;
         try
         {
             filaseleccionada = tblProductos.getSelectedRow();
@@ -3069,9 +3077,8 @@ public class IMenu extends javax.swing.JFrame {
                 cantidad = (String) modelo.getValueAt(filaseleccionada, 6);
                 categoria = (String) modelo.getValueAt(filaseleccionada, 7);
                 laboratorio = (String) modelo.getValueAt(filaseleccionada, 8);
-                descuento = (String) modelo.getValueAt(filaseleccionada, 9);
-                ubicacion = (String) modelo.getValueAt(filaseleccionada, 10);
-                descripcion = (String) modelo.getValueAt(filaseleccionada, 11);
+                ubicacion = (String) modelo.getValueAt(filaseleccionada, 9);
+                descripcion = (String) modelo.getValueAt(filaseleccionada, 10);
                 HabilitarProductos();
                 LimpiarProducto();
                 txtCodBarraProducto.setText(codBarra);
@@ -3081,7 +3088,6 @@ public class IMenu extends javax.swing.JFrame {
                 txtFechaVProducto.setText(fechaVencimiento);
                 txtCantidadProducto.setText(cantidad);
                 txtCategoriaProducto.setText(productos.ObtenerIdCategoria(categoria));
-                txtDescuentoProducto.setText(descuento);
                 txtLaboratorioProducto.setText(productos.ObtenerIdLaboratorio(laboratorio));
                 txtUbicacionProducto.setText(ubicacion);
                 txtDescripcionProducto.setText(descripcion);
@@ -3108,7 +3114,6 @@ public class IMenu extends javax.swing.JFrame {
                 categoria = txtCategoriaProducto.getText(),
                 laboratorio = txtLaboratorioProducto.getText(),
                 ubicacion = txtUbicacionProducto.getText(),
-                descuento = txtDescuentoProducto.getText(),
                 descripcion = txtDescripcionProducto.getText(); 
         if(nombre.equals(""))
         {
@@ -3153,7 +3158,7 @@ public class IMenu extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Solo Numeros Campo Categoria", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }else
             {   //funcion Guardar de la clase Productos para guardar productos
-                productos.Actualizar(this.id, codigoBarra, nombre, precioCProducto, precioVProducto, fechaVencimiento, cantidad, categoria, descuento, laboratorio, ubicacion, descripcion);
+                productos.Actualizar(this.id, codigoBarra, nombre, precioCProducto, precioVProducto, fechaVencimiento, cantidad, categoria, laboratorio, ubicacion, descripcion);
                 MostrarProductos("");
                 LimpiarProducto();
             }
@@ -3254,7 +3259,9 @@ public class IMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarPorCategoriaCaretUpdate
 
     private void tblAddProductoFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAddProductoFacturaMouseClicked
-        int filaseleccionada = tblAddProductoFactura.getSelectedRow();
+        if(evt.getClickCount() == 2)
+        {
+            int filaseleccionada = tblAddProductoFactura.getSelectedRow();
         try
         {
             String id, codigo, nombre, precio, cantidad, total, importe;
@@ -3265,6 +3272,11 @@ public class IMenu extends javax.swing.JFrame {
                 
             }else
             {
+                
+                if(evt.getClickCount() == 1)
+                {
+                    tblAddProductoFactura.setCellSelectionEnabled(true);
+                }
                 //capturar los datos de la tabla producto para mandarlos a tabla factura
                 this.modelo = (DefaultTableModel) tblAddProductoFactura.getModel();
                 id = modelo.getValueAt(filaseleccionada, 0).toString();
@@ -3289,16 +3301,19 @@ public class IMenu extends javax.swing.JFrame {
                 txtImpuesto.setText(""+this.isv);//establecer el valor impuesto en el campo impuesto de factura
                 txtSubTotal.setText(""+this.subTotal);//establecer el valor impuesto en el campo sub total de factura
                 txtTotal.setText(""+this.total);//establecer el valor impuesto en el campo Total de factura
+                DeshabilitarBtnGuardarFactura();
             }
         }catch(Exception e)
         {
-            
+            //JOptionPane.showMessageDialog(null, e);
         }
+        }
+        
     }//GEN-LAST:event_tblAddProductoFacturaMouseClicked
 
     private void btnEliminarFilaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarFilaFacturaActionPerformed
         int filaseleccionada = tblFactura.getSelectedRow();
-        float importe, impuesto, totalActual;
+        float importe, totalActual;
         try {
             if(filaseleccionada == -1)
             {
@@ -3314,8 +3329,10 @@ public class IMenu extends javax.swing.JFrame {
                 txtSubTotal.setText(""+this.subTotal);
                 txtImpuesto.setText(""+this.isv);
                 this.modelo.removeRow(filaseleccionada);
+                DeshabilitarBtnGuardarFactura();
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_btnEliminarFilaFacturaActionPerformed
 
@@ -3329,14 +3346,72 @@ public class IMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbFormaPagoActionPerformed
 
-    private void btnEliminarFilaFactura1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarFilaFactura1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEliminarFilaFactura1ActionPerformed
+    private void btnGuardarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarFacturaActionPerformed
+        try {
+            this.modelo = (DefaultTableModel) tblFactura.getModel();//obtengo el modelo de tabla factura y sus datos
+            int filas = this.modelo.getRowCount();//Cuento las filas de la tabla Factura
+            String factura ,id, cantidad, precio, totalDetalle, idCliente, fecha, iva, totalFactura, formaPago, idFormaPago;//variables para capturar los datos a guardar
+            idCliente = lblIdClienteFactura.getText();//obtengo el cliente
+            iva = txtImpuesto.getText();//obtengo el iva
+            totalFactura = txtTotal.getText();//obtengo total de factura
+            formaPago =(String) cmbFormaPago.getSelectedItem();//capturo el nombre de forma de pago 
+            idFormaPago = this.factura.ObtenerFormaPago(formaPago);//capturo el id de la forma de pago que retorna la funcion obtenerformapago de la clase facturacion
+            this.factura.GuardarFactura(idCliente, idFormaPago, iva, totalFactura);//envio los datos a guardar de la factura
+            
+            for(int cont = 0; cont<filas; cont++)//for para recorrer la tabla factura
+            {
+                id = (String) this.modelo.getValueAt(cont, 0);//capturo el id de producto para guardar en detallefactura
+                cantidad = (String) this.modelo.getValueAt(cont, 2);//capturo el cantidad de producto para guardar en detallefactura
+                precio = (String) this.modelo.getValueAt(cont, 4);//capturo el precio de producto para guardar en detallefactura
+                totalDetalle = (String) this.modelo.getValueAt(cont, 5);//capturo el total de detalle compra de producto para guardar en detallefactura
+                factura = txtNumeroFactura.getText();//capturo id de factura ala que pertenece el detalle de factura
+                this.factura.DetalleFactura(factura, id, precio, cantidad, totalDetalle);//envio los datos a guardar de los detalles
+            }
+            txtNumeroFactura.setText(this.factura.ObtenerIdFactura());//Actualizo el campo numero de factura con la funcion obtenerIdFactura
+            LimpiarTablaFactura();//limpio la factura
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+    }//GEN-LAST:event_btnGuardarFacturaActionPerformed
 
-    private void btnEliminarFilaFactura2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarFilaFactura2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEliminarFilaFactura2ActionPerformed
-
+    public void LimpiarTablaFactura()//metodo para limpiar la factura
+    {
+        try {
+        this.modelo = (DefaultTableModel) tblFactura.getModel();
+        int filas = this.modelo.getRowCount();
+        for(int i=0; i<filas;i++)
+        {
+            this.modelo.removeRow(0);  
+        }
+        txtNClienteFactura.setText("");
+        txtAClienteFactura.setText("");
+        lblIdClienteFactura.setText("");
+        this.total = 0;
+        this.subTotal = 0;
+        this.isv = 0;
+        txtSubTotal.setText(""+this.total);
+        txtImpuesto.setText(""+this.subTotal);
+        txtTotal.setText(""+this.isv);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+    }
+    
+    private void btnNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaFacturaActionPerformed
+        LimpiarTablaFactura();
+        DeshabilitarBtnGuardarFactura();
+    }//GEN-LAST:event_btnNuevaFacturaActionPerformed
+    public void DeshabilitarBtnGuardarFactura()
+    {
+        if(tblFactura.getRowCount() > 0)
+        {
+            btnGuardarFactura.setEnabled(true);
+        }else{
+            btnGuardarFactura.setEnabled(false);
+        }
+    }
     private void btnBuscarClienteFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteFacturaActionPerformed
         BuscarClienteFactura.setSize(592, 277);
         BuscarClienteFactura.setVisible(true);
@@ -3367,8 +3442,21 @@ public class IMenu extends javax.swing.JFrame {
                 BuscarClienteFactura.setVisible(false);
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_tblAddClienteFacturaMouseClicked
+
+    private void tblAddProductoFacturaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblAddProductoFacturaKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            
+        }
+    }//GEN-LAST:event_tblAddProductoFacturaKeyReleased
+
+    private void btnLimpiarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarClienteActionPerformed
+        txtNClienteFactura.setText("");
+        txtAClienteFactura.setText("");
+    }//GEN-LAST:event_btnLimpiarClienteActionPerformed
 
     public void editarISV(String isv)
     {
@@ -3578,15 +3666,16 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JPanel btnClientes;
     private javax.swing.JPanel btnCreditos;
     private javax.swing.JButton btnEliminarFilaFactura;
-    private javax.swing.JButton btnEliminarFilaFactura1;
-    private javax.swing.JButton btnEliminarFilaFactura2;
     private javax.swing.JButton btnGuardarCategoria;
     private javax.swing.JButton btnGuardarCliente;
     private javax.swing.JButton btnGuardarDescuento;
+    private javax.swing.JButton btnGuardarFactura;
     private javax.swing.JButton btnGuardarLaborotorio;
     private javax.swing.JButton btnGuardarProducto;
     private javax.swing.JPanel btnInventario;
+    private javax.swing.JButton btnLimpiarCliente;
     private javax.swing.JButton btnMaximizar;
+    private javax.swing.JButton btnNuevaFactura;
     private javax.swing.JButton btnNuevoCategoria;
     private javax.swing.JButton btnNuevoDescuento;
     private javax.swing.JButton btnNuevoLaboratorio;
@@ -3607,7 +3696,6 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -3716,7 +3804,6 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JTextArea txtDescripcionCategoria;
     private javax.swing.JTextArea txtDescripcionLaboratorio;
     private javax.swing.JTextField txtDescripcionProducto;
-    private javax.swing.JTextField txtDescuentoProducto;
     private javax.swing.JTextField txtDireccionCliente;
     private javax.swing.JTextField txtFechaFactura;
     private javax.swing.JTextField txtFechaVProducto;
