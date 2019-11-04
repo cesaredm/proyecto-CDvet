@@ -24,7 +24,7 @@ public class Productos {
         this.combo = new DefaultComboBoxModel();
     }
 
-    public void Guardar(String codigoBarra, String nombre, String precioCompra, String precioVenta, String fechaVencimiento, String stock, String categoria, String laboratorio, String ubicacion, String descripcion) {
+    public void Guardar(String codigoBarra, String nombre, String precioCompra, String precioVenta, Date fechaVencimiento, String stock, String categoria, String laboratorio, String ubicacion, String descripcion) {
         this.consulta = "INSERT INTO productos(codigoBarra, nombre, precioCompra, precioVenta, fechaVencimiento, stock, categoria, laboratorio, ubicacion, descripcion) VALUES(?,?,?,?,?,?,?,?,?,?)";
         float compra=Float.parseFloat(precioCompra), venta=Float.parseFloat(precioVenta), cantidad=Float.parseFloat(stock);
         int Idcategoria = Integer.parseInt(categoria), Idlaboratorio = Integer.parseInt(laboratorio);
@@ -35,7 +35,7 @@ public class Productos {
             pst.setString(2, nombre);
             pst.setFloat(3, compra);
             pst.setFloat(4, venta);
-            pst.setString(5, fechaVencimiento);
+            pst.setDate(5, fechaVencimiento);
             pst.setFloat(6, cantidad);
             pst.setInt(7, Idcategoria);
             pst.setInt(8, Idlaboratorio);
@@ -52,7 +52,7 @@ public class Productos {
         }
     }
 
-    public void Actualizar(String id, String codigoBarra, String nombre, String precioCompra, String precioVenta, String fechaVencimiento, String stock, String categoria, String laboratorio, String ubicacion, String descripcion) {
+    public void Actualizar(String id, String codigoBarra, String nombre, String precioCompra, String precioVenta, Date fechaVencimiento, String stock, String categoria, String laboratorio, String ubicacion, String descripcion) {
         this.consulta = "UPDATE productos SET codigoBarra=?, nombre=?, precioCompra=?, precioVenta=?, fechaVencimiento=?, stock=?, categoria=?, laboratorio=?, ubicacion=?, descripcion=? WHERE id ="+id;
         float compra=Float.parseFloat(precioCompra), venta=Float.parseFloat(precioVenta), cantidad=Float.parseFloat(stock);
         int Idcategoria = Integer.parseInt(categoria), Idlaboratorio = Integer.parseInt(laboratorio);
@@ -63,7 +63,7 @@ public class Productos {
             pst.setString(2, nombre);
             pst.setFloat(3, compra);
             pst.setFloat(4, venta);
-            pst.setString(5, fechaVencimiento);
+            pst.setDate(5, fechaVencimiento);
             pst.setFloat(6, cantidad);
             pst.setInt(7, Idcategoria);
             pst.setInt(8, Idlaboratorio);
@@ -275,7 +275,7 @@ public class Productos {
             this.banderin = cst.executeUpdate();
             if(banderin>0)
             {
-                JOptionPane.showMessageDialog(null, "Se Agrego Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(null, "Se Agrego Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
         }catch(SQLException e)
         {

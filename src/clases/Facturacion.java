@@ -23,18 +23,19 @@ public class Facturacion {
         this.cn = this.conexion.Conexion();
     }
 //Guardar Factura
-    public void GuardarFactura(String cliente, String pago, String iva, String total) {
-        this.consulta = "INSERT INTO facturas(cliente, tipoVenta, impuestoISV, totalFactura) VALUES(?,?,?,?)";
+    public void GuardarFactura(Date fecha,String cliente, String pago, String iva, String total) {
+        this.consulta = "INSERT INTO facturas(fecha, cliente, tipoVenta, impuestoISV, totalFactura) VALUES(?,?,?,?,?)";
         int idCliente = 0, formaPago = Integer.parseInt(pago);
         float impuestoIVA = Float.parseFloat(iva), totalFactura = Float.parseFloat(total);
         if (!cliente.equals("")) {
             idCliente = Integer.parseInt(cliente);
             try {
                 PreparedStatement pst = this.cn.prepareStatement(this.consulta);
-                pst.setInt(1, idCliente);
-                pst.setInt(2, formaPago);
-                pst.setFloat(3, impuestoIVA);
-                pst.setFloat(4, totalFactura);
+                pst.setDate(1, fecha);
+                pst.setInt(2, idCliente);
+                pst.setInt(3, formaPago);
+                pst.setFloat(4, impuestoIVA);
+                pst.setFloat(5, totalFactura);
                 this.banderin = pst.executeUpdate();
                 if (banderin > 0) {
                     JOptionPane.showMessageDialog(null, "Factura Guardada Exitosamente", "Informacion", JOptionPane.WARNING_MESSAGE);
@@ -45,10 +46,11 @@ public class Facturacion {
         } else {
             try {
                 PreparedStatement pst = this.cn.prepareStatement(this.consulta);
-                pst.setNull(1, java.sql.Types.INTEGER);
-                pst.setInt(2, formaPago);
-                pst.setFloat(3, impuestoIVA);
-                pst.setFloat(4, totalFactura);
+                pst.setDate(1, fecha);
+                pst.setNull(2, java.sql.Types.INTEGER);
+                pst.setInt(3, formaPago);
+                pst.setFloat(4, impuestoIVA);
+                pst.setFloat(5, totalFactura);
                 this.banderin = pst.executeUpdate();
                 if (banderin > 0) {
                     JOptionPane.showMessageDialog(null, "Factura Guardada Exitosamente", "Informacion", JOptionPane.WARNING_MESSAGE);
@@ -235,5 +237,20 @@ public class Facturacion {
             JOptionPane.showMessageDialog(null, e);
         }
         return id;
+    }
+    
+    public void Vender(String id, String cantidad)
+    {
+        Float cantidadP = Float.parseFloat(cantidad);
+        int idP = Integer.parseInt(id);
+        this.consulta = "{CALL venderProductoStock(?,?)}";
+        try {
+            CallableStatement cst = this.cn.prepareCall(this.consulta);
+            cst.setInt(1, idP);
+            cst.setFloat(2, cantidadP);
+            cst.execute();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 }

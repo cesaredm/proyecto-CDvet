@@ -4,12 +4,13 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import javax.swing.table.DefaultTableModel;
 import clases.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.List;
 import java.awt.event.KeyEvent;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.ButtonGroup;
 
@@ -29,16 +30,20 @@ public class IMenu extends javax.swing.JFrame {
     //Descuentos descuento;
     Productos productos;
     Facturacion factura;
+    Reportes reportes;
     static float total;
-    float subTotal, isv;
+    float subTotal, isv, descuento;
+    Date fecha;
 
     /**
      * Creates new form IMenu
      */
     public IMenu() {
+        this.fecha = new Date();
         this.total = 0;
         this.subTotal = 0;
         this.isv = 0;
+        this.descuento = 0;
         this.clientes = new Clientes();
         this.conexion = new Conexiondb();
         this.categorias = new Categorias();
@@ -46,6 +51,7 @@ public class IMenu extends javax.swing.JFrame {
         //this.descuento = new Descuentos();
         this.productos = new Productos();
         this.factura = new Facturacion();
+        this.reportes =  new Reportes();
         initComponents();
         this.setLocationRelativeTo(null);
         MostrarClientes("");
@@ -55,6 +61,8 @@ public class IMenu extends javax.swing.JFrame {
         MostrarProductosVender("");
         MostrarClienteFactura("");
         MostarFormaPagoFactura();
+        MostrarReporteDiario(this.fecha);
+        MostrarFiltroReporte(this.fecha, this.fecha);
         //MostrarDescuentos("");
         Deshabilitar();
         DeshabilitarCategoria();
@@ -64,12 +72,14 @@ public class IMenu extends javax.swing.JFrame {
         //DeshabilitarDescuentos();
         llenarAddCategoria("");
         llenarAddLaboratorio(""); 
+        FechaActual();
         this.grupo1= new ButtonGroup();
         Grupo1RadioButton();
         rbBuscarNombreCodBarra.setSelected(true);
         editarISV("");
         txtNumeroFactura.setText(factura.ObtenerIdFactura());
         id = "";
+        
     }
 
     /**
@@ -159,9 +169,63 @@ public class IMenu extends javax.swing.JFrame {
         tblAddClienteFactura = new javax.swing.JTable();
         jLabel33 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
+        AddDescuentoProducto = new javax.swing.JPopupMenu();
+        Descuento = new javax.swing.JMenuItem();
         pnlContenedor = new javax.swing.JPanel();
         pnlPrincipal = new javax.swing.JPanel();
+        pnlVentas = new javax.swing.JPanel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        tblFactura = new javax.swing.JTable();
+        btnEliminarFilaFactura = new javax.swing.JButton();
+        btnAgregarProductoFactura = new javax.swing.JButton();
+        txtImpuesto = new javax.swing.JTextField();
+        txtSubTotal = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        lblImpuestoISV = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
+        txtNClienteFactura = new javax.swing.JTextField();
+        txtAClienteFactura = new javax.swing.JTextField();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        cmbFormaPago = new javax.swing.JComboBox<>();
+        jLabel37 = new javax.swing.JLabel();
+        txtNumeroFactura = new javax.swing.JTextField();
+        btnBuscarClienteFactura = new javax.swing.JButton();
+        lblIdClienteFactura = new javax.swing.JLabel();
+        btnLimpiarCliente = new javax.swing.JButton();
+        jcFechaFactura = new com.toedter.calendar.JDateChooser();
+        btnGuardarFactura = new javax.swing.JButton();
+        btnNuevaFactura = new javax.swing.JButton();
         pnlReportes = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        jcFechaActual = new com.toedter.calendar.JDateChooser();
+        jLabel16 = new javax.swing.JLabel();
+        btnBuscarReportePorDia = new javax.swing.JButton();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        lblTotalReporteDiario = new javax.swing.JLabel();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        tblReporteDiario = new javax.swing.JTable();
+        jLabel41 = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        tblReporteFiltro = new javax.swing.JTable();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jcFecha1 = new com.toedter.calendar.JDateChooser();
+        jcFecha2 = new com.toedter.calendar.JDateChooser();
+        btnReporteMensaul = new javax.swing.JButton();
+        jLabel42 = new javax.swing.JLabel();
+        lblTotalFiltroReporte = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
         pnlClientes = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -191,7 +255,6 @@ public class IMenu extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         txtVentaProducto = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        txtFechaVProducto = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         txtCantidadProducto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
@@ -210,6 +273,7 @@ public class IMenu extends javax.swing.JFrame {
         txtCategoriaProducto = new javax.swing.JTextField();
         txtMargenGanancia = new javax.swing.JTextField();
         btnCalcularGanancia = new javax.swing.JButton();
+        jcFechaVProducto = new com.toedter.calendar.JDateChooser();
         btnAgregarCategoria = new javax.swing.JButton();
         btnAgregarLaboratorio = new javax.swing.JButton();
         txtAgregarDescuento = new javax.swing.JButton();
@@ -219,36 +283,7 @@ public class IMenu extends javax.swing.JFrame {
         txtBuscarProducto = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         pnlCreditos = new javax.swing.JPanel();
-        pnlVentas = new javax.swing.JPanel();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        tblFactura = new javax.swing.JTable();
-        btnEliminarFilaFactura = new javax.swing.JButton();
-        btnAgregarProductoFactura = new javax.swing.JButton();
-        txtImpuesto = new javax.swing.JTextField();
-        txtSubTotal = new javax.swing.JTextField();
-        txtTotal = new javax.swing.JTextField();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        lblImpuestoISV = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel32 = new javax.swing.JLabel();
-        txtNClienteFactura = new javax.swing.JTextField();
-        txtAClienteFactura = new javax.swing.JTextField();
-        txtFechaFactura = new javax.swing.JTextField();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        cmbFormaPago = new javax.swing.JComboBox<>();
-        jLabel37 = new javax.swing.JLabel();
-        txtNumeroFactura = new javax.swing.JTextField();
-        btnBuscarClienteFactura = new javax.swing.JButton();
-        lblIdClienteFactura = new javax.swing.JLabel();
-        btnLimpiarCliente = new javax.swing.JButton();
-        btnGuardarFactura = new javax.swing.JButton();
-        btnNuevaFactura = new javax.swing.JButton();
+        pnlUsuarios = new javax.swing.JPanel();
         pnlEncabezado = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         btnMaximizar = new javax.swing.JButton();
@@ -362,6 +397,8 @@ public class IMenu extends javax.swing.JFrame {
             }
         });
 
+        tblCategorias.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblCategorias.setForeground(new java.awt.Color(102, 102, 102));
         tblCategorias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -374,6 +411,12 @@ public class IMenu extends javax.swing.JFrame {
             }
         ));
         tblCategorias.setComponentPopupMenu(Categorias);
+        tblCategorias.setGridColor(new java.awt.Color(204, 204, 204));
+        tblCategorias.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tblCategorias.setRowHeight(22);
+        tblCategorias.setSelectionBackground(new java.awt.Color(0, 153, 204));
+        tblCategorias.setSelectionForeground(new java.awt.Color(233, 233, 245));
+        tblCategorias.setShowVerticalLines(false);
         jScrollPane3.setViewportView(tblCategorias);
 
         txtDescripcionCategoria.setColumns(20);
@@ -497,6 +540,8 @@ public class IMenu extends javax.swing.JFrame {
             }
         });
 
+        tblLaboratorio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblLaboratorio.setForeground(new java.awt.Color(102, 102, 102));
         tblLaboratorio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -509,6 +554,12 @@ public class IMenu extends javax.swing.JFrame {
             }
         ));
         tblLaboratorio.setComponentPopupMenu(Laboratorios);
+        tblLaboratorio.setGridColor(new java.awt.Color(204, 204, 204));
+        tblLaboratorio.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tblLaboratorio.setRowHeight(22);
+        tblLaboratorio.setSelectionBackground(new java.awt.Color(0, 153, 204));
+        tblLaboratorio.setSelectionForeground(new java.awt.Color(233, 233, 245));
+        tblLaboratorio.setShowVerticalLines(false);
         jScrollPane4.setViewportView(tblLaboratorio);
 
         txtDescripcionLaboratorio.setColumns(20);
@@ -758,6 +809,8 @@ public class IMenu extends javax.swing.JFrame {
             }
         });
 
+        tblAddCategoria.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblAddCategoria.setForeground(new java.awt.Color(102, 102, 102));
         tblAddCategoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -769,6 +822,12 @@ public class IMenu extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblAddCategoria.setGridColor(new java.awt.Color(204, 204, 204));
+        tblAddCategoria.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tblAddCategoria.setRowHeight(22);
+        tblAddCategoria.setSelectionBackground(new java.awt.Color(0, 153, 204));
+        tblAddCategoria.setSelectionForeground(new java.awt.Color(233, 233, 245));
+        tblAddCategoria.setShowVerticalLines(false);
         tblAddCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblAddCategoriaMouseClicked(evt);
@@ -826,6 +885,8 @@ public class IMenu extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
+        tblAddLaboratorio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblAddLaboratorio.setForeground(new java.awt.Color(102, 102, 102));
         tblAddLaboratorio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -837,6 +898,12 @@ public class IMenu extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblAddLaboratorio.setGridColor(new java.awt.Color(204, 204, 204));
+        tblAddLaboratorio.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tblAddLaboratorio.setRowHeight(22);
+        tblAddLaboratorio.setSelectionBackground(new java.awt.Color(0, 153, 204));
+        tblAddLaboratorio.setSelectionForeground(new java.awt.Color(233, 233, 245));
+        tblAddLaboratorio.setShowVerticalLines(false);
         tblAddLaboratorio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblAddLaboratorioMouseClicked(evt);
@@ -919,6 +986,8 @@ public class IMenu extends javax.swing.JFrame {
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
+        tblAddProductoFactura.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblAddProductoFactura.setForeground(new java.awt.Color(102, 102, 102));
         tblAddProductoFactura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -928,6 +997,14 @@ public class IMenu extends javax.swing.JFrame {
             }
         ));
         tblAddProductoFactura.setToolTipText("");
+        tblAddProductoFactura.setComponentPopupMenu(AddDescuentoProducto);
+        tblAddProductoFactura.setGridColor(new java.awt.Color(204, 204, 204));
+        tblAddProductoFactura.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tblAddProductoFactura.setRowHeight(22);
+        tblAddProductoFactura.setSelectionBackground(new java.awt.Color(0, 153, 204));
+        tblAddProductoFactura.setSelectionForeground(new java.awt.Color(233, 233, 245));
+        tblAddProductoFactura.setShowVerticalLines(false);
+        tblAddProductoFactura.getTableHeader().setReorderingAllowed(false);
         tblAddProductoFactura.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblAddProductoFacturaMouseClicked(evt);
@@ -1001,7 +1078,7 @@ public class IMenu extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 832, Short.MAX_VALUE)
+                    .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 1044, Short.MAX_VALUE)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(rbBuscarCategoria)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1038,7 +1115,9 @@ public class IMenu extends javax.swing.JFrame {
         AddProductoFactura.getContentPane().setLayout(AddProductoFacturaLayout);
         AddProductoFacturaLayout.setHorizontalGroup(
             AddProductoFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(AddProductoFacturaLayout.createSequentialGroup()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         AddProductoFacturaLayout.setVerticalGroup(
             AddProductoFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1047,6 +1126,7 @@ public class IMenu extends javax.swing.JFrame {
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
 
+        tblAddClienteFactura.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblAddClienteFactura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -1058,6 +1138,12 @@ public class IMenu extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblAddClienteFactura.setGridColor(new java.awt.Color(204, 204, 204));
+        tblAddClienteFactura.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tblAddClienteFactura.setRowHeight(20);
+        tblAddClienteFactura.setSelectionBackground(new java.awt.Color(0, 153, 204));
+        tblAddClienteFactura.setSelectionForeground(new java.awt.Color(233, 233, 245));
+        tblAddClienteFactura.setShowVerticalLines(false);
         tblAddClienteFactura.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblAddClienteFacturaMouseClicked(evt);
@@ -1114,6 +1200,14 @@ public class IMenu extends javax.swing.JFrame {
             .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        Descuento.setText("Descuento");
+        Descuento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DescuentoActionPerformed(evt);
+            }
+        });
+        AddDescuentoProducto.add(Descuento);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(1260, 610));
@@ -1137,466 +1231,33 @@ public class IMenu extends javax.swing.JFrame {
         pnlPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         pnlPrincipal.setLayout(new java.awt.CardLayout());
 
-        pnlReportes.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout pnlReportesLayout = new javax.swing.GroupLayout(pnlReportes);
-        pnlReportes.setLayout(pnlReportesLayout);
-        pnlReportesLayout.setHorizontalGroup(
-            pnlReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1054, Short.MAX_VALUE)
-        );
-        pnlReportesLayout.setVerticalGroup(
-            pnlReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 574, Short.MAX_VALUE)
-        );
-
-        pnlPrincipal.add(pnlReportes, "card3");
-
-        pnlClientes.setBackground(new java.awt.Color(255, 255, 255));
-        pnlClientes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel1.setBackground(new java.awt.Color(227, 236, 249));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "Nuevo Cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel2.setText("Nombres :");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, -1));
-
-        txtNombresCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtNombresCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombresClienteActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtNombresCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 194, -1));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel3.setText("Apellidos :");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel5.setText("Telefono  :");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel6.setText("Dirección :");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, -1));
-
-        txtApellidosCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtApellidosCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtApellidosClienteActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtApellidosCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 194, -1));
-
-        txtTelefonoCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtTelefonoCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonoClienteActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtTelefonoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 194, -1));
-
-        txtDireccionCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jPanel1.add(txtDireccionCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 194, -1));
-
-        btnNuevorClientes.setBackground(new java.awt.Color(0, 166, 192));
-        btnNuevorClientes.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        btnNuevorClientes.setForeground(new java.awt.Color(255, 255, 255));
-        btnNuevorClientes.setText("Nuevo");
-        btnNuevorClientes.setBorder(null);
-        btnNuevorClientes.setBorderPainted(false);
-        btnNuevorClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnNuevorClientes.setFocusPainted(false);
-        btnNuevorClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevorClientesActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnNuevorClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 100, 40));
-
-        btnGuardarCliente.setBackground(new java.awt.Color(0, 166, 192));
-        btnGuardarCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        btnGuardarCliente.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardarCliente.setText("Guardar");
-        btnGuardarCliente.setBorder(null);
-        btnGuardarCliente.setBorderPainted(false);
-        btnGuardarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardarCliente.setFocusPainted(false);
-        btnGuardarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarClienteActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnGuardarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, 100, 40));
-
-        btnActualizarCliente.setBackground(new java.awt.Color(0, 166, 192));
-        btnActualizarCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        btnActualizarCliente.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizarCliente.setText("Actualizar");
-        btnActualizarCliente.setBorder(null);
-        btnActualizarCliente.setBorderPainted(false);
-        btnActualizarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnActualizarCliente.setFocusPainted(false);
-        btnActualizarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarClienteActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnActualizarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, 100, 40));
-
-        pnlClientes.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 11, 639, 230));
-
-        jScrollPane1.setBackground(new java.awt.Color(64, 64, 64));
-        jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-
-        tblClientes.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Id Cliente", "Nombre", "Apellidos", "Telefono", "Direccion"
-            }
-        ));
-        tblClientes.setComponentPopupMenu(Clientes);
-        jScrollPane1.setViewportView(tblClientes);
-
-        pnlClientes.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 297, 990, 245));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_Search_32px.png"))); // NOI18N
-        pnlClientes.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, 27));
-
-        txtBuscarCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtBuscarCliente.setBorder(null);
-        txtBuscarCliente.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtBuscarClienteCaretUpdate(evt);
-            }
-        });
-        txtBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscarClienteActionPerformed(evt);
-            }
-        });
-        pnlClientes.add(txtBuscarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 211, 29));
-
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/man_user_client_16776.png"))); // NOI18N
-        pnlClientes.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 0, -1, 244));
-
-        jSeparator1.setForeground(new java.awt.Color(64, 64, 64));
-        jSeparator1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        pnlClientes.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 247, 6));
-
-        pnlPrincipal.add(pnlClientes, "card4");
-
-        pnlInventario.setBackground(new java.awt.Color(255, 255, 255));
-        pnlInventario.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "Ingresar Nuevo Producto", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16), new java.awt.Color(64, 64, 64))); // NOI18N
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(64, 64, 64));
-        jLabel8.setText("Codigo Barra:");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 32, -1, -1));
-
-        txtCodBarraProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtCodBarraProducto.setForeground(new java.awt.Color(64, 64, 64));
-        jPanel2.add(txtCodBarraProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 200, -1));
-
-        txtNombreProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtNombreProducto.setForeground(new java.awt.Color(64, 64, 64));
-        txtNombreProducto.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtNombreProductoCaretUpdate(evt);
-            }
-        });
-        jPanel2.add(txtNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 200, -1));
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(64, 64, 64));
-        jLabel10.setText("Nombre:");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 72, -1, -1));
-
-        txtCompraProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtCompraProducto.setForeground(new java.awt.Color(64, 64, 64));
-        jPanel2.add(txtCompraProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 100, -1));
-
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(64, 64, 64));
-        jLabel11.setText("Precio Compra:");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 113, -1, -1));
-
-        txtVentaProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtVentaProducto.setForeground(new java.awt.Color(64, 64, 64));
-        jPanel2.add(txtVentaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 100, -1));
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(64, 64, 64));
-        jLabel12.setText("Precio Venta:");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 153, -1, -1));
-
-        txtFechaVProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtFechaVProducto.setForeground(new java.awt.Color(64, 64, 64));
-        jPanel2.add(txtFechaVProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 200, -1));
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(64, 64, 64));
-        jLabel13.setText("Fecha Vencimiento:");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 195, -1, -1));
-
-        txtCantidadProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtCantidadProducto.setForeground(new java.awt.Color(64, 64, 64));
-        jPanel2.add(txtCantidadProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 200, -1));
-
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(64, 64, 64));
-        jLabel14.setText("Cantidad:");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 33, -1, -1));
-
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(64, 64, 64));
-        jLabel15.setText("Categoria:");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, -1, -1));
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(64, 64, 64));
-        jLabel17.setText("Laboratorio:");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 113, -1, -1));
-
-        txtUbicacionProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtUbicacionProducto.setForeground(new java.awt.Color(64, 64, 64));
-        jPanel2.add(txtUbicacionProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, 200, -1));
-
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(64, 64, 64));
-        jLabel18.setText("Ubicación:");
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 155, -1, -1));
-
-        txtDescripcionProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtDescripcionProducto.setForeground(new java.awt.Color(64, 64, 64));
-        jPanel2.add(txtDescripcionProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 200, -1));
-
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(64, 64, 64));
-        jLabel19.setText("Descripción:");
-        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 195, -1, -1));
-
-        txtGananciaProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtGananciaProducto.setForeground(new java.awt.Color(64, 64, 64));
-        jPanel2.add(txtGananciaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 30, -1));
-
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(64, 64, 64));
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel20.setText("Ganancia %:");
-        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 88, -1));
-
-        btnNuevoProducto.setBackground(new java.awt.Color(0, 166, 192));
-        btnNuevoProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        btnNuevoProducto.setForeground(new java.awt.Color(255, 255, 255));
-        btnNuevoProducto.setText("Nuevo");
-        btnNuevoProducto.setBorder(null);
-        btnNuevoProducto.setBorderPainted(false);
-        btnNuevoProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnNuevoProducto.setFocusPainted(false);
-        btnNuevoProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoProductoActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnNuevoProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 240, 100, 40));
-
-        btnGuardarProducto.setBackground(new java.awt.Color(0, 166, 192));
-        btnGuardarProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        btnGuardarProducto.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardarProducto.setText("Guardar");
-        btnGuardarProducto.setBorder(null);
-        btnGuardarProducto.setBorderPainted(false);
-        btnGuardarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardarProducto.setFocusPainted(false);
-        btnGuardarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarProductoActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnGuardarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, 100, 40));
-
-        btnActualizarProducto.setBackground(new java.awt.Color(0, 166, 192));
-        btnActualizarProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        btnActualizarProducto.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizarProducto.setText("Actualizar");
-        btnActualizarProducto.setBorder(null);
-        btnActualizarProducto.setBorderPainted(false);
-        btnActualizarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnActualizarProducto.setFocusPainted(false);
-        btnActualizarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarProductoActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnActualizarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 240, 100, 40));
-
-        txtLaboratorioProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtLaboratorioProducto.setForeground(new java.awt.Color(64, 64, 64));
-        txtLaboratorioProducto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtLaboratorioProductoMouseClicked(evt);
-            }
-        });
-        jPanel2.add(txtLaboratorioProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, 50, -1));
-
-        txtCategoriaProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtCategoriaProducto.setForeground(new java.awt.Color(64, 64, 64));
-        txtCategoriaProducto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtCategoriaProductoMouseClicked(evt);
-            }
-        });
-        jPanel2.add(txtCategoriaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, 50, -1));
-
-        txtMargenGanancia.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtMargenGanancia.setForeground(new java.awt.Color(64, 64, 64));
-        jPanel2.add(txtMargenGanancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 120, 56, -1));
-
-        btnCalcularGanancia.setBackground(new java.awt.Color(0, 166, 192));
-        btnCalcularGanancia.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        btnCalcularGanancia.setForeground(new java.awt.Color(255, 255, 255));
-        btnCalcularGanancia.setText("Calcular");
-        btnCalcularGanancia.setBorder(null);
-        btnCalcularGanancia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalcularGananciaActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnCalcularGanancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 86, 25));
-
-        pnlInventario.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 736, 298));
-
-        btnAgregarCategoria.setBackground(new java.awt.Color(44, 201, 144));
-        btnAgregarCategoria.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnAgregarCategoria.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregarCategoria.setText("Crear Categoria");
-        btnAgregarCategoria.setBorder(null);
-        btnAgregarCategoria.setBorderPainted(false);
-        btnAgregarCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAgregarCategoria.setFocusPainted(false);
-        btnAgregarCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarCategoriaActionPerformed(evt);
-            }
-        });
-        pnlInventario.add(btnAgregarCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(772, 30, 255, 52));
-
-        btnAgregarLaboratorio.setBackground(new java.awt.Color(44, 201, 144));
-        btnAgregarLaboratorio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnAgregarLaboratorio.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregarLaboratorio.setText("Agregar Laboratorio");
-        btnAgregarLaboratorio.setBorder(null);
-        btnAgregarLaboratorio.setBorderPainted(false);
-        btnAgregarLaboratorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAgregarLaboratorio.setFocusPainted(false);
-        btnAgregarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarLaboratorioActionPerformed(evt);
-            }
-        });
-        pnlInventario.add(btnAgregarLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(772, 100, 255, 52));
-
-        txtAgregarDescuento.setBackground(new java.awt.Color(44, 201, 144));
-        txtAgregarDescuento.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtAgregarDescuento.setForeground(new java.awt.Color(255, 255, 255));
-        txtAgregarDescuento.setText("Agregar Descuento");
-        txtAgregarDescuento.setBorder(null);
-        txtAgregarDescuento.setBorderPainted(false);
-        txtAgregarDescuento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        txtAgregarDescuento.setFocusPainted(false);
-        txtAgregarDescuento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAgregarDescuentoActionPerformed(evt);
-            }
-        });
-        pnlInventario.add(txtAgregarDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(772, 170, 255, 52));
-
-        tblProductos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblProductos.setComponentPopupMenu(Productos);
-        jScrollPane2.setViewportView(tblProductos);
-
-        pnlInventario.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 352, 1034, 210));
-
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(60, 60, 60));
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_Search_32px.png"))); // NOI18N
-        pnlInventario.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 316, -1, 30));
-
-        txtBuscarProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtBuscarProducto.setForeground(new java.awt.Color(60, 60, 60));
-        txtBuscarProducto.setBorder(null);
-        txtBuscarProducto.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtBuscarProductoCaretUpdate(evt);
-            }
-        });
-        pnlInventario.add(txtBuscarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 316, 295, 29));
-
-        jSeparator2.setForeground(new java.awt.Color(64, 64, 64));
-        pnlInventario.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 347, 330, 10));
-
-        pnlPrincipal.add(pnlInventario, "card5");
-
-        pnlCreditos.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout pnlCreditosLayout = new javax.swing.GroupLayout(pnlCreditos);
-        pnlCreditos.setLayout(pnlCreditosLayout);
-        pnlCreditosLayout.setHorizontalGroup(
-            pnlCreditosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1054, Short.MAX_VALUE)
-        );
-        pnlCreditosLayout.setVerticalGroup(
-            pnlCreditosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 574, Short.MAX_VALUE)
-        );
-
-        pnlPrincipal.add(pnlCreditos, "card6");
-
         pnlVentas.setBackground(new java.awt.Color(255, 255, 255));
         pnlVentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tblFactura.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        tblFactura.setForeground(new java.awt.Color(102, 102, 102));
         tblFactura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Cod. Barra", "Cantidad", "Nombre Producto", "Precio", "Importe", "Descuento"
+                "Id", "Cod. Barra", "Cantidad", "Nombre Producto", "Precio", "Importe"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tblFactura.setFocusable(false);
+        tblFactura.setGridColor(new java.awt.Color(204, 204, 204));
+        tblFactura.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tblFactura.setRowHeight(22);
+        tblFactura.setSelectionBackground(new java.awt.Color(0, 153, 204));
+        tblFactura.setSelectionForeground(new java.awt.Color(233, 233, 245));
         jScrollPane10.setViewportView(tblFactura);
 
         pnlVentas.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 199, 903, 272));
@@ -1740,10 +1401,6 @@ public class IMenu extends javax.swing.JFrame {
         txtAClienteFactura.setEnabled(false);
         jPanel10.add(txtAClienteFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(345, 25, 173, -1));
 
-        txtFechaFactura.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtFechaFactura.setForeground(new java.awt.Color(64, 64, 64));
-        jPanel10.add(txtFechaFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 71, 173, -1));
-
         jLabel35.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(64, 64, 64));
         jLabel35.setText("Fecha:");
@@ -1797,6 +1454,7 @@ public class IMenu extends javax.swing.JFrame {
             }
         });
         jPanel10.add(btnLimpiarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 23, 100, 31));
+        jPanel10.add(jcFechaFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 170, 30));
 
         pnlVentas.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 720, 160));
 
@@ -1833,6 +1491,680 @@ public class IMenu extends javax.swing.JFrame {
         pnlVentas.add(btnNuevaFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 340, 121, 50));
 
         pnlPrincipal.add(pnlVentas, "card2");
+
+        pnlReportes.setBackground(new java.awt.Color(255, 255, 255));
+        pnlReportes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jcFechaActual.setDateFormatString("yyyy-MM-d");
+        jcFechaActual.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                jcFechaActualCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(64, 64, 64));
+        jLabel16.setText("Fecha :");
+
+        btnBuscarReportePorDia.setText("Buscar");
+        btnBuscarReportePorDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarReportePorDiaActionPerformed(evt);
+            }
+        });
+
+        jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel34.setText("Total");
+
+        jLabel38.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel38.setText("C$");
+
+        lblTotalReporteDiario.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblTotalReporteDiario.setText("0.00");
+
+        jScrollPane13.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane13.setBorder(null);
+        jScrollPane13.setForeground(new java.awt.Color(64, 64, 64));
+        jScrollPane13.setToolTipText("");
+
+        tblReporteDiario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tblReporteDiario.setForeground(new java.awt.Color(102, 102, 102));
+        tblReporteDiario.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"cesar", "edf", "sds", "dfdfs"},
+                {"fdsd", "dfsdf", "sdffd", "sdsfd"},
+                {"sfddffds", "sfdds", "dfssd", "dfsdfs"},
+                {"sfd", "fd", "dsffsd", "dfss"}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblReporteDiario.setGridColor(new java.awt.Color(204, 204, 204));
+        tblReporteDiario.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tblReporteDiario.setRowHeight(20);
+        tblReporteDiario.setSelectionBackground(new java.awt.Color(0, 153, 204));
+        tblReporteDiario.setSelectionForeground(new java.awt.Color(233, 233, 245));
+        tblReporteDiario.setShowGrid(false);
+        jScrollPane13.setViewportView(tblReporteDiario);
+
+        jLabel41.setBackground(new java.awt.Color(64, 64, 64));
+        jLabel41.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel41.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel41.setText("Reporte Diario");
+        jLabel41.setOpaque(true);
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblTotalReporteDiario)
+                .addGap(24, 24, 24))
+            .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(102, 102, 102)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jcFechaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(btnBuscarReportePorDia)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBuscarReportePorDia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcFechaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTotalReporteDiario)
+                    .addComponent(jLabel38)
+                    .addComponent(jLabel34))
+                .addContainerGap())
+        );
+
+        pnlReportes.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1030, 300));
+
+        jPanel13.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        tblReporteFiltro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tblReporteFiltro.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblReporteFiltro.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tblReporteFiltro.setRowHeight(22);
+        tblReporteFiltro.setSelectionBackground(new java.awt.Color(0, 153, 204));
+        tblReporteFiltro.setSelectionForeground(new java.awt.Color(233, 233, 245));
+        tblReporteFiltro.setShowHorizontalLines(false);
+        tblReporteFiltro.setShowVerticalLines(false);
+        jScrollPane14.setViewportView(tblReporteFiltro);
+
+        jLabel39.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel39.setForeground(new java.awt.Color(64, 64, 64));
+        jLabel39.setText("Fecha Inicio");
+
+        jLabel40.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel40.setForeground(new java.awt.Color(64, 64, 64));
+        jLabel40.setText("Fecha Final");
+
+        btnReporteMensaul.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnReporteMensaul.setText("Mostrar");
+        btnReporteMensaul.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteMensaulActionPerformed(evt);
+            }
+        });
+
+        jLabel42.setBackground(new java.awt.Color(64, 64, 64));
+        jLabel42.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel42.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel42.setText("Reporte Mensual");
+        jLabel42.setOpaque(true);
+
+        lblTotalFiltroReporte.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblTotalFiltroReporte.setText("0.00");
+
+        jLabel43.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel43.setText("C$");
+
+        jLabel44.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel44.setText("Total");
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane14)
+            .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(208, 208, 208)
+                .addComponent(jLabel39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jcFecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel40)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jcFecha2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnReporteMensaul)
+                .addContainerGap(243, Short.MAX_VALUE))
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel44)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel43)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblTotalFiltroReporte)
+                .addGap(23, 23, 23))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel39)
+                    .addComponent(jcFecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel40)
+                    .addComponent(jcFecha2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReporteMensaul))
+                .addGap(9, 9, 9)
+                .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel44)
+                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblTotalFiltroReporte)
+                        .addComponent(jLabel43)))
+                .addGap(4, 4, 4))
+        );
+
+        pnlReportes.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 1030, 240));
+
+        pnlPrincipal.add(pnlReportes, "card3");
+
+        pnlClientes.setBackground(new java.awt.Color(255, 255, 255));
+        pnlClientes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(227, 236, 249));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "Nuevo Cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel2.setText("Nombres :");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, -1));
+
+        txtNombresCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtNombresCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombresClienteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtNombresCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 194, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel3.setText("Apellidos :");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel5.setText("Telefono  :");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel6.setText("Dirección :");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, -1));
+
+        txtApellidosCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtApellidosCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidosClienteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtApellidosCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 194, -1));
+
+        txtTelefonoCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtTelefonoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefonoClienteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtTelefonoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 194, -1));
+
+        txtDireccionCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jPanel1.add(txtDireccionCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 194, -1));
+
+        btnNuevorClientes.setBackground(new java.awt.Color(0, 166, 192));
+        btnNuevorClientes.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnNuevorClientes.setForeground(new java.awt.Color(255, 255, 255));
+        btnNuevorClientes.setText("Nuevo");
+        btnNuevorClientes.setBorder(null);
+        btnNuevorClientes.setBorderPainted(false);
+        btnNuevorClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevorClientes.setFocusPainted(false);
+        btnNuevorClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevorClientesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnNuevorClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 100, 40));
+
+        btnGuardarCliente.setBackground(new java.awt.Color(0, 166, 192));
+        btnGuardarCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnGuardarCliente.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardarCliente.setText("Guardar");
+        btnGuardarCliente.setBorder(null);
+        btnGuardarCliente.setBorderPainted(false);
+        btnGuardarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardarCliente.setFocusPainted(false);
+        btnGuardarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarClienteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnGuardarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, 100, 40));
+
+        btnActualizarCliente.setBackground(new java.awt.Color(0, 166, 192));
+        btnActualizarCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnActualizarCliente.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizarCliente.setText("Actualizar");
+        btnActualizarCliente.setBorder(null);
+        btnActualizarCliente.setBorderPainted(false);
+        btnActualizarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizarCliente.setFocusPainted(false);
+        btnActualizarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarClienteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnActualizarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, 100, 40));
+
+        pnlClientes.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 11, 639, 230));
+
+        jScrollPane1.setBackground(new java.awt.Color(64, 64, 64));
+        jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
+        tblClientes.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        tblClientes.setForeground(new java.awt.Color(102, 102, 102));
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Id Cliente", "Nombre", "Apellidos", "Telefono", "Direccion"
+            }
+        ));
+        tblClientes.setComponentPopupMenu(Clientes);
+        tblClientes.setGridColor(new java.awt.Color(204, 204, 204));
+        tblClientes.setRowHeight(22);
+        tblClientes.setSelectionBackground(new java.awt.Color(0, 153, 204));
+        tblClientes.setSelectionForeground(new java.awt.Color(233, 233, 245));
+        tblClientes.setShowVerticalLines(false);
+        jScrollPane1.setViewportView(tblClientes);
+
+        pnlClientes.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 297, 1030, 260));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_Search_32px.png"))); // NOI18N
+        pnlClientes.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, 27));
+
+        txtBuscarCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtBuscarCliente.setBorder(null);
+        txtBuscarCliente.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtBuscarClienteCaretUpdate(evt);
+            }
+        });
+        txtBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarClienteActionPerformed(evt);
+            }
+        });
+        pnlClientes.add(txtBuscarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 211, 29));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/man_user_client_16776.png"))); // NOI18N
+        pnlClientes.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 0, -1, 244));
+
+        jSeparator1.setForeground(new java.awt.Color(64, 64, 64));
+        jSeparator1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        pnlClientes.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 247, 6));
+
+        pnlPrincipal.add(pnlClientes, "card4");
+
+        pnlInventario.setBackground(new java.awt.Color(255, 255, 255));
+        pnlInventario.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "Ingresar Nuevo Producto", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16), new java.awt.Color(64, 64, 64))); // NOI18N
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(64, 64, 64));
+        jLabel8.setText("Codigo Barra:");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 32, -1, -1));
+
+        txtCodBarraProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtCodBarraProducto.setForeground(new java.awt.Color(64, 64, 64));
+        jPanel2.add(txtCodBarraProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 200, -1));
+
+        txtNombreProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtNombreProducto.setForeground(new java.awt.Color(64, 64, 64));
+        txtNombreProducto.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtNombreProductoCaretUpdate(evt);
+            }
+        });
+        jPanel2.add(txtNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 200, -1));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(64, 64, 64));
+        jLabel10.setText("Nombre:");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 72, -1, -1));
+
+        txtCompraProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtCompraProducto.setForeground(new java.awt.Color(64, 64, 64));
+        jPanel2.add(txtCompraProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 100, -1));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(64, 64, 64));
+        jLabel11.setText("Precio Compra:");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 113, -1, -1));
+
+        txtVentaProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtVentaProducto.setForeground(new java.awt.Color(64, 64, 64));
+        jPanel2.add(txtVentaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 100, -1));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(64, 64, 64));
+        jLabel12.setText("Precio Venta:");
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 153, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(64, 64, 64));
+        jLabel13.setText("Fecha Vencimiento:");
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 195, -1, -1));
+
+        txtCantidadProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtCantidadProducto.setForeground(new java.awt.Color(64, 64, 64));
+        jPanel2.add(txtCantidadProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 200, -1));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(64, 64, 64));
+        jLabel14.setText("Cantidad:");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 33, -1, -1));
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(64, 64, 64));
+        jLabel15.setText("Categoria:");
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, -1, -1));
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(64, 64, 64));
+        jLabel17.setText("Laboratorio:");
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 113, -1, -1));
+
+        txtUbicacionProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtUbicacionProducto.setForeground(new java.awt.Color(64, 64, 64));
+        jPanel2.add(txtUbicacionProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, 200, -1));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(64, 64, 64));
+        jLabel18.setText("Ubicación:");
+        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 155, -1, -1));
+
+        txtDescripcionProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtDescripcionProducto.setForeground(new java.awt.Color(64, 64, 64));
+        jPanel2.add(txtDescripcionProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 200, -1));
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(64, 64, 64));
+        jLabel19.setText("Descripción:");
+        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 195, -1, -1));
+
+        txtGananciaProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtGananciaProducto.setForeground(new java.awt.Color(64, 64, 64));
+        jPanel2.add(txtGananciaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 30, -1));
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(64, 64, 64));
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel20.setText("Ganancia %:");
+        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 88, -1));
+
+        btnNuevoProducto.setBackground(new java.awt.Color(0, 166, 192));
+        btnNuevoProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnNuevoProducto.setForeground(new java.awt.Color(255, 255, 255));
+        btnNuevoProducto.setText("Nuevo");
+        btnNuevoProducto.setBorder(null);
+        btnNuevoProducto.setBorderPainted(false);
+        btnNuevoProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevoProducto.setFocusPainted(false);
+        btnNuevoProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoProductoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnNuevoProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 240, 100, 40));
+
+        btnGuardarProducto.setBackground(new java.awt.Color(0, 166, 192));
+        btnGuardarProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnGuardarProducto.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardarProducto.setText("Guardar");
+        btnGuardarProducto.setBorder(null);
+        btnGuardarProducto.setBorderPainted(false);
+        btnGuardarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardarProducto.setFocusPainted(false);
+        btnGuardarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarProductoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnGuardarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, 100, 40));
+
+        btnActualizarProducto.setBackground(new java.awt.Color(0, 166, 192));
+        btnActualizarProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnActualizarProducto.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizarProducto.setText("Actualizar");
+        btnActualizarProducto.setBorder(null);
+        btnActualizarProducto.setBorderPainted(false);
+        btnActualizarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizarProducto.setFocusPainted(false);
+        btnActualizarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarProductoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnActualizarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 240, 100, 40));
+
+        txtLaboratorioProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtLaboratorioProducto.setForeground(new java.awt.Color(64, 64, 64));
+        txtLaboratorioProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtLaboratorioProductoMouseClicked(evt);
+            }
+        });
+        jPanel2.add(txtLaboratorioProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, 50, -1));
+
+        txtCategoriaProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtCategoriaProducto.setForeground(new java.awt.Color(64, 64, 64));
+        txtCategoriaProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCategoriaProductoMouseClicked(evt);
+            }
+        });
+        jPanel2.add(txtCategoriaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, 50, -1));
+
+        txtMargenGanancia.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtMargenGanancia.setForeground(new java.awt.Color(64, 64, 64));
+        jPanel2.add(txtMargenGanancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(292, 120, 56, -1));
+
+        btnCalcularGanancia.setBackground(new java.awt.Color(0, 166, 192));
+        btnCalcularGanancia.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btnCalcularGanancia.setForeground(new java.awt.Color(255, 255, 255));
+        btnCalcularGanancia.setText("Calcular");
+        btnCalcularGanancia.setBorder(null);
+        btnCalcularGanancia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalcularGananciaActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnCalcularGanancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 86, 25));
+        jPanel2.add(jcFechaVProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 200, 30));
+
+        pnlInventario.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 736, 298));
+
+        btnAgregarCategoria.setBackground(new java.awt.Color(44, 201, 144));
+        btnAgregarCategoria.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAgregarCategoria.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregarCategoria.setText("Crear Categoria");
+        btnAgregarCategoria.setBorder(null);
+        btnAgregarCategoria.setBorderPainted(false);
+        btnAgregarCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarCategoria.setFocusPainted(false);
+        btnAgregarCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCategoriaActionPerformed(evt);
+            }
+        });
+        pnlInventario.add(btnAgregarCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(772, 30, 255, 52));
+
+        btnAgregarLaboratorio.setBackground(new java.awt.Color(44, 201, 144));
+        btnAgregarLaboratorio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAgregarLaboratorio.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregarLaboratorio.setText("Agregar Laboratorio");
+        btnAgregarLaboratorio.setBorder(null);
+        btnAgregarLaboratorio.setBorderPainted(false);
+        btnAgregarLaboratorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarLaboratorio.setFocusPainted(false);
+        btnAgregarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarLaboratorioActionPerformed(evt);
+            }
+        });
+        pnlInventario.add(btnAgregarLaboratorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(772, 100, 255, 52));
+
+        txtAgregarDescuento.setBackground(new java.awt.Color(44, 201, 144));
+        txtAgregarDescuento.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtAgregarDescuento.setForeground(new java.awt.Color(255, 255, 255));
+        txtAgregarDescuento.setText("Agregar Descuento");
+        txtAgregarDescuento.setBorder(null);
+        txtAgregarDescuento.setBorderPainted(false);
+        txtAgregarDescuento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtAgregarDescuento.setFocusPainted(false);
+        txtAgregarDescuento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAgregarDescuentoActionPerformed(evt);
+            }
+        });
+        pnlInventario.add(txtAgregarDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(772, 170, 255, 52));
+
+        tblProductos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblProductos.setForeground(new java.awt.Color(102, 102, 102));
+        tblProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblProductos.setComponentPopupMenu(Productos);
+        tblProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblProductos.setGridColor(new java.awt.Color(204, 204, 204));
+        tblProductos.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tblProductos.setOpaque(false);
+        tblProductos.setRowHeight(22);
+        tblProductos.setSelectionBackground(new java.awt.Color(0, 153, 204));
+        tblProductos.setSelectionForeground(new java.awt.Color(233, 233, 245));
+        tblProductos.setShowVerticalLines(false);
+        jScrollPane2.setViewportView(tblProductos);
+
+        pnlInventario.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 352, 1034, 210));
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(60, 60, 60));
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_Search_32px.png"))); // NOI18N
+        pnlInventario.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 316, -1, 30));
+
+        txtBuscarProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtBuscarProducto.setForeground(new java.awt.Color(60, 60, 60));
+        txtBuscarProducto.setBorder(null);
+        txtBuscarProducto.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtBuscarProductoCaretUpdate(evt);
+            }
+        });
+        pnlInventario.add(txtBuscarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 316, 295, 29));
+
+        jSeparator2.setForeground(new java.awt.Color(64, 64, 64));
+        pnlInventario.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 347, 330, 10));
+
+        pnlPrincipal.add(pnlInventario, "card5");
+
+        pnlCreditos.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout pnlCreditosLayout = new javax.swing.GroupLayout(pnlCreditos);
+        pnlCreditos.setLayout(pnlCreditosLayout);
+        pnlCreditosLayout.setHorizontalGroup(
+            pnlCreditosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1054, Short.MAX_VALUE)
+        );
+        pnlCreditosLayout.setVerticalGroup(
+            pnlCreditosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 574, Short.MAX_VALUE)
+        );
+
+        pnlPrincipal.add(pnlCreditos, "card6");
+
+        pnlUsuarios.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout pnlUsuariosLayout = new javax.swing.GroupLayout(pnlUsuarios);
+        pnlUsuarios.setLayout(pnlUsuariosLayout);
+        pnlUsuariosLayout.setHorizontalGroup(
+            pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1054, Short.MAX_VALUE)
+        );
+        pnlUsuariosLayout.setVerticalGroup(
+            pnlUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 574, Short.MAX_VALUE)
+        );
+
+        pnlPrincipal.add(pnlUsuarios, "card7");
 
         pnlContenedor.add(pnlPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 32, 1054, 574));
 
@@ -2174,15 +2506,52 @@ public class IMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public void Grupo1RadioButton()
+   
+    public void SumaTotalReporteDiario()
+    {
+        float totalReporteDiario = 0;
+        this.modelo = (DefaultTableModel) tblReporteDiario.getModel();
+        int filas = this.modelo.getRowCount();
+        for(int cont = 0;cont<filas;cont++)
+        {
+            totalReporteDiario += Float.parseFloat(this.modelo.getValueAt(cont, 3).toString());
+        }
+        lblTotalReporteDiario.setText(String.valueOf(totalReporteDiario));
+    }
+    
+    public void SumaTotalFiltroReporte()
+    {
+        float totalFiltroReporte = 0;
+        this.modelo = (DefaultTableModel) tblReporteFiltro.getModel();
+        int filas = this.modelo.getRowCount();
+        for(int cont = 0;cont<filas;cont++)
+        {
+            totalFiltroReporte += Float.parseFloat(this.modelo.getValueAt(cont, 3).toString());
+        }
+        lblTotalFiltroReporte.setText(String.valueOf(totalFiltroReporte));
+    }
+    
+    //metodo para obtener la fecha actual de sistema 
+    //este metod tambien sirve para cargar las tablas de todos los reportes cargalos al constructor
+    public void FechaActual()
+    {
+        jcFechaActual.setDate(this.fecha);
+        jcFechaFactura.setDate(this.fecha);
+        jcFecha1.setDate(this.fecha);
+        jcFecha2.setDate(this.fecha);
+        SumaTotalReporteDiario();
+        SumaTotalFiltroReporte();
+        
+    }
+    
+    public void Grupo1RadioButton()//creo grupo de radioButton para filtros de busqueda en la ventana addProductoFactura
     {
         this.grupo1.add(rbBuscarNombreCodBarra);
         this.grupo1.add(rbBuscarCategoria);
         this.grupo1.add(rbBuscarLaboratorio);
     }
     
-    public boolean isNumeric(String cadena) {
+    public boolean isNumeric(String cadena) {//metod para la validacion de campos numericos
         try {
             Float.parseFloat(cadena);
             return true;
@@ -2217,6 +2586,7 @@ public class IMenu extends javax.swing.JFrame {
         pnlReportes.setVisible(false);
         pnlInventario.setVisible(false);
         pnlCreditos.setVisible(false);
+        pnlUsuarios.setVisible(false);
 
     }//GEN-LAST:event_btnVentasMouseClicked
 
@@ -2241,6 +2611,13 @@ public class IMenu extends javax.swing.JFrame {
 
         btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
         lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        
+        pnlClientes.setVisible(false);
+        pnlVentas.setVisible(false);
+        pnlReportes.setVisible(true);
+        pnlInventario.setVisible(false);
+        pnlCreditos.setVisible(false);
+        pnlUsuarios.setVisible(false);
     }//GEN-LAST:event_btnReportesMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -2291,6 +2668,7 @@ public class IMenu extends javax.swing.JFrame {
         pnlReportes.setVisible(false);
         pnlInventario.setVisible(false);
         pnlCreditos.setVisible(false);
+        pnlUsuarios.setVisible(false);
     }//GEN-LAST:event_btnClientesMouseClicked
 
     private void btnInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInventarioMouseClicked
@@ -2320,6 +2698,7 @@ public class IMenu extends javax.swing.JFrame {
         pnlReportes.setVisible(false);
         pnlInventario.setVisible(true);
         pnlCreditos.setVisible(false);
+        pnlUsuarios.setVisible(false);
     }//GEN-LAST:event_btnInventarioMouseClicked
 
     private void btnCreditosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreditosMouseClicked
@@ -2343,6 +2722,13 @@ public class IMenu extends javax.swing.JFrame {
 
         btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
         lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        
+        pnlClientes.setVisible(false);
+        pnlVentas.setVisible(false);
+        pnlReportes.setVisible(false);
+        pnlInventario.setVisible(false);
+        pnlCreditos.setVisible(true);
+        pnlUsuarios.setVisible(false);
     }//GEN-LAST:event_btnCreditosMouseClicked
 
     private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
@@ -2814,18 +3200,19 @@ public class IMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_BorrarDescuentosActionPerformed
 
     private void btnGuardarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarProductoActionPerformed
-
         String codigoBarra = txtCodBarraProducto.getText(),
-                nombre = txtNombreProducto.getText(),
-                precioCProducto = txtCompraProducto.getText(),
-                precioVProducto = txtVentaProducto.getText(),
-                ganancia = txtGananciaProducto.getText(),
-                fechaVencimiento = txtFechaVProducto.getText(),
-                cantidad = txtCantidadProducto.getText(),
-                categoria = txtCategoriaProducto.getText(),
-                laboratorio = txtLaboratorioProducto.getText(),
-                ubicacion = txtUbicacionProducto.getText(),
-                descripcion = txtDescripcionProducto.getText();
+        nombre = txtNombreProducto.getText(),
+        precioCProducto = txtCompraProducto.getText(),
+        precioVProducto = txtVentaProducto.getText(),
+        ganancia = txtGananciaProducto.getText(),
+        cantidad = txtCantidadProducto.getText(),
+        categoria = txtCategoriaProducto.getText(),
+        laboratorio = txtLaboratorioProducto.getText(),
+        ubicacion = txtUbicacionProducto.getText(),
+        descripcion = txtDescripcionProducto.getText();
+        Date fechaVencimiento = jcFechaVProducto.getDate();
+        long fechaV = fechaVencimiento.getTime();
+        java.sql.Date fecha = new java.sql.Date(fechaV);
         //Validacion de que sean ingresados los datos correctos y que no esten vacios
         if(nombre.equals(""))
         {
@@ -2836,7 +3223,7 @@ public class IMenu extends javax.swing.JFrame {
         }else if(precioVProducto.equals(""))
         {
             JOptionPane.showMessageDialog(null, "Llene el campo Precio Venta", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else if(fechaVencimiento.equals(""))
+        }else if(fechaVencimiento == null)
         {
             JOptionPane.showMessageDialog(null, "Llene el campo Fecha Vencimiento", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }else if(cantidad.equals(""))
@@ -2852,8 +3239,8 @@ public class IMenu extends javax.swing.JFrame {
         {//validacion para ingreso de nuemeros 
             if(!isNumeric(precioCProducto))
             {
-                txtCompraProducto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-                //JOptionPane.showMessageDialog(null, "Solo numeros campo Precio Compra", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                //txtCompraProducto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+                JOptionPane.showMessageDialog(null, "Solo numeros campo Precio Compra", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }else if(!isNumeric(precioVProducto))
             {
                 JOptionPane.showMessageDialog(null, "Solo numeros campo Precio Venta", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -2868,7 +3255,7 @@ public class IMenu extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Solo Numeros Campo Categoria", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }else
             {   //funcion Guardar de la clase Productos para guardar productos
-                productos.Guardar(codigoBarra, nombre, precioCProducto, precioVProducto, fechaVencimiento, cantidad, categoria, laboratorio, ubicacion, descripcion);
+                productos.Guardar(codigoBarra, nombre, precioCProducto, precioVProducto, fecha, cantidad, categoria, laboratorio, ubicacion, descripcion);
                 MostrarProductos("");
                 LimpiarProducto();
                 btnGuardarProducto.setEnabled(true);
@@ -2885,7 +3272,6 @@ public class IMenu extends javax.swing.JFrame {
         txtNombreProducto.setText("");
         txtCompraProducto.setText("");
         txtVentaProducto.setText("");
-        txtFechaVProducto.setText("");
         txtCantidadProducto.setText("");
         txtCategoriaProducto.setText("");
         txtLaboratorioProducto.setText("");
@@ -2900,7 +3286,7 @@ public class IMenu extends javax.swing.JFrame {
         txtNombreProducto.setEnabled(false);
         txtCompraProducto.setEnabled(false);
         txtVentaProducto.setEnabled(false);
-        txtFechaVProducto.setEnabled(false);
+        jcFechaVProducto.setEnabled(false);
         txtCantidadProducto.setEnabled(false);
         txtCategoriaProducto.setEnabled(false);
         txtLaboratorioProducto.setEnabled(false);
@@ -2918,7 +3304,7 @@ public class IMenu extends javax.swing.JFrame {
         txtNombreProducto.setEnabled(true);
         txtCompraProducto.setEnabled(true);
         txtVentaProducto.setEnabled(true);
-        txtFechaVProducto.setEnabled(true);
+        jcFechaVProducto.setEnabled(true);
         txtCantidadProducto.setEnabled(true);
         txtCategoriaProducto.setEnabled(true);
         txtLaboratorioProducto.setEnabled(true);
@@ -2932,6 +3318,10 @@ public class IMenu extends javax.swing.JFrame {
     }
     public void MostrarProductos(String buscar)
     {
+        tblProductos.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
+        tblProductos.getTableHeader().setOpaque(false);
+        tblProductos.getTableHeader().setBackground(new Color(100,100,100));
+        tblProductos.getTableHeader().setForeground(new Color(255,255,255));
         tblProductos.setModel(productos.Consulta(buscar));
     }
     private void txtCategoriaProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCategoriaProductoMouseClicked
@@ -3058,7 +3448,9 @@ public class IMenu extends javax.swing.JFrame {
 
     private void EditarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarProductoActionPerformed
         int filaseleccionada;
-        String id, codBarra, nombre, precioC, precioV, fechaVencimiento, cantidad, categoria, laboratorio, ubicacion, descripcion;
+        String id, codBarra, nombre, precioC, precioV, cantidad, categoria, laboratorio, ubicacion, descripcion;
+        Date fechaVencimiento;
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         try
         {
             filaseleccionada = tblProductos.getSelectedRow();
@@ -3073,7 +3465,7 @@ public class IMenu extends javax.swing.JFrame {
                 nombre = (String) modelo.getValueAt(filaseleccionada, 2);
                 precioC = (String) modelo.getValueAt(filaseleccionada, 3);
                 precioV = (String) modelo.getValueAt(filaseleccionada, 4);
-                fechaVencimiento = (String) modelo.getValueAt(filaseleccionada, 5);
+                fechaVencimiento = formatoFecha.parse(modelo.getValueAt(filaseleccionada, 5).toString());
                 cantidad = (String) modelo.getValueAt(filaseleccionada, 6);
                 categoria = (String) modelo.getValueAt(filaseleccionada, 7);
                 laboratorio = (String) modelo.getValueAt(filaseleccionada, 8);
@@ -3085,7 +3477,7 @@ public class IMenu extends javax.swing.JFrame {
                 txtNombreProducto.setText(nombre);
                 txtCompraProducto.setText(precioC);
                 txtVentaProducto.setText(precioV);
-                txtFechaVProducto.setText(fechaVencimiento);
+                jcFechaVProducto.setDate(fechaVencimiento);
                 txtCantidadProducto.setText(cantidad);
                 txtCategoriaProducto.setText(productos.ObtenerIdCategoria(categoria));
                 txtLaboratorioProducto.setText(productos.ObtenerIdLaboratorio(laboratorio));
@@ -3109,12 +3501,14 @@ public class IMenu extends javax.swing.JFrame {
                 precioCProducto = txtCompraProducto.getText(),
                 precioVProducto = txtVentaProducto.getText(),
                 ganancia = txtGananciaProducto.getText(),
-                fechaVencimiento = txtFechaVProducto.getText(),
                 cantidad = txtCantidadProducto.getText(),
                 categoria = txtCategoriaProducto.getText(),
                 laboratorio = txtLaboratorioProducto.getText(),
                 ubicacion = txtUbicacionProducto.getText(),
                 descripcion = txtDescripcionProducto.getText(); 
+        Date fechaVencimiento = jcFechaVProducto.getDate();
+        long fechaV = fechaVencimiento.getTime();
+        java.sql.Date fecha = new java.sql.Date(fechaV);
         if(nombre.equals(""))
         {
             JOptionPane.showMessageDialog(null, "Llene el campo Nombre", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -3158,9 +3552,11 @@ public class IMenu extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Solo Numeros Campo Categoria", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }else
             {   //funcion Guardar de la clase Productos para guardar productos
-                productos.Actualizar(this.id, codigoBarra, nombre, precioCProducto, precioVProducto, fechaVencimiento, cantidad, categoria, laboratorio, ubicacion, descripcion);
+                productos.Actualizar(this.id, codigoBarra, nombre, precioCProducto, precioVProducto, fecha, cantidad, categoria, laboratorio, ubicacion, descripcion);
                 MostrarProductos("");
                 LimpiarProducto();
+                btnGuardarProducto.setEnabled(true);
+                btnActualizarProducto.setEnabled(false);
             }
             
         }
@@ -3185,6 +3581,7 @@ public class IMenu extends javax.swing.JFrame {
                 String Cantidad = JOptionPane.showInputDialog("Ingrese la Cantidad de "+nombre);
                 productos.AgregarProductoStock(id, Cantidad);
                 MostrarProductos("");
+                MostrarProductosVender("");
             }
         }
         catch(Exception e)
@@ -3199,7 +3596,7 @@ public class IMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreProductoCaretUpdate
 
     private void btnAgregarProductoFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoFacturaActionPerformed
-        AddProductoFactura.setSize(859, 456);
+        AddProductoFactura.setSize(1071, 456);
         AddProductoFactura.setVisible(true);
         AddProductoFactura.setLocationRelativeTo(null);
         if(rbBuscarNombreCodBarra.isSelected() == true)
@@ -3264,8 +3661,8 @@ public class IMenu extends javax.swing.JFrame {
             int filaseleccionada = tblAddProductoFactura.getSelectedRow();
         try
         {
-            String id, codigo, nombre, precio, cantidad, total, importe;
-            float imp, calcula , impuesto;
+            String id, codigo, nombre, precio, cantidad, total, importe, stockA;
+            float imp, calcula , impuesto, descProduct = 0, stock;//"descProduct = descuento de producto"
             
             if(filaseleccionada == -1)
             {
@@ -3273,35 +3670,80 @@ public class IMenu extends javax.swing.JFrame {
             }else
             {
                 
-                if(evt.getClickCount() == 1)
-                {
-                    tblAddProductoFactura.setCellSelectionEnabled(true);
+                if(this.descuento == 0)
+                {   //no se aplica descuento
+                    //capturar los datos de la tabla producto para mandarlos a tabla factura
+                    this.modelo = (DefaultTableModel) tblAddProductoFactura.getModel();
+                    id = modelo.getValueAt(filaseleccionada, 0).toString();
+                    codigo = modelo.getValueAt(filaseleccionada, 1).toString();
+                    nombre = modelo.getValueAt(filaseleccionada, 2).toString();
+                    precio = modelo.getValueAt(filaseleccionada, 3).toString();
+                    //stockA = modelo.getValueAt(filaseleccionada, 5).toString();
+                    cantidad = JOptionPane.showInputDialog(null, "Cantidad:");
+                    imp = (Float.parseFloat(precio) * Float.parseFloat(cantidad));
+                    importe = String.valueOf(imp);
+
+                    /*stock = Float.parseFloat(stockA)- Float.parseFloat(cantidad);
+                    stockA = String.valueOf(stock);
+                    modelo.setValueAt(stockA, filaseleccionada, 5);*/
+                    
+                    //realizando los calculos de importe
+                    this.modelo = (DefaultTableModel) tblFactura.getModel();
+                    //pasar producto de tabla productos a tabla de factura
+                    String[] FilaElementos = {id, codigo, cantidad, nombre, precio, importe};
+                    this.modelo.addRow(FilaElementos);
+                    calcula = (Float.parseFloat(importe));//convertir importe a float
+                    this.total = this.total + calcula;//calcular el total de factura
+                    impuesto = (float) (this.total * Float.parseFloat(lblImpuestoISV.getText())) / 100;//calcular el impuesto
+                    this.isv = impuesto;//impuesto
+                    this.subTotal = this.total - this.isv;//clacular subtotal de factura
+
+                    txtImpuesto.setText(""+this.isv);//establecer el valor impuesto en el campo impuesto de factura
+                    txtSubTotal.setText(""+this.subTotal);//establecer el valor impuesto en el campo sub total de factura
+                    txtTotal.setText(""+this.total);//establecer el valor impuesto en el campo Total de factura
+                    this.factura.Vender(id, cantidad);
+                    MostrarProductosVender("");
+                    MostrarProductosVender("");
+                    DeshabilitarBtnGuardarFactura();
+                }else if(this.descuento > 0)
+                {   //aplicar descuento
+                    //capturar los datos de la tabla producto para mandarlos a tabla factura
+                    this.modelo = (DefaultTableModel) tblAddProductoFactura.getModel();
+                    id = modelo.getValueAt(filaseleccionada, 0).toString();
+                    codigo = modelo.getValueAt(filaseleccionada, 1).toString();
+                    nombre = modelo.getValueAt(filaseleccionada, 2).toString();
+                    precio = modelo.getValueAt(filaseleccionada, 3).toString();
+                    //stockA = modelo.getValueAt(filaseleccionada, 5).toString();
+                    descProduct = Float.parseFloat(precio) - this.descuento;
+                    cantidad = JOptionPane.showInputDialog(null, "Cantidad:");
+                    imp = (descProduct * Float.parseFloat(cantidad));//
+                    importe = String.valueOf(imp);
+                    
+                    /*stock = Float.parseFloat(stockA)- Float.parseFloat(cantidad);
+                    stockA = String.valueOf(stock);
+                    modelo.setValueAt(stockA, filaseleccionada, 5);*/
+                    
+                    //realizando los calculos de importe
+                    this.modelo = (DefaultTableModel) tblFactura.getModel();
+                    //pasar producto de tabla productos a tabla de factura
+                    String[] FilaElementos = {id, codigo, cantidad, nombre, String.valueOf(descProduct), importe};
+                    this.modelo.addRow(FilaElementos);
+                    calcula = (Float.parseFloat(importe));//convertir importe a float
+                    this.total = this.total + calcula;//calcular el total de factura
+                    impuesto = (float) (this.total * Float.parseFloat(lblImpuestoISV.getText())) / 100;//calcular el impuesto
+                    this.isv = impuesto;//impuesto
+                    this.subTotal = this.total - this.isv;//clacular subtotal de factura
+
+                    txtImpuesto.setText(""+this.isv);//establecer el valor impuesto en el campo impuesto de factura
+                    txtSubTotal.setText(""+this.subTotal);//establecer el valor impuesto en el campo sub total de factura
+                    txtTotal.setText(""+this.total);//establecer el valor impuesto en el campo Total de factura
+                    this.descuento = 0;
+                    this.factura.Vender(id, cantidad);
+                    MostrarProductosVender("");
+                    MostrarProductosVender("");
+                    DeshabilitarBtnGuardarFactura();
                 }
-                //capturar los datos de la tabla producto para mandarlos a tabla factura
-                this.modelo = (DefaultTableModel) tblAddProductoFactura.getModel();
-                id = modelo.getValueAt(filaseleccionada, 0).toString();
-                codigo = modelo.getValueAt(filaseleccionada, 1).toString();
-                nombre = modelo.getValueAt(filaseleccionada, 2).toString();
-                precio = modelo.getValueAt(filaseleccionada, 3).toString();
-                cantidad = JOptionPane.showInputDialog(null, "Cantidad:");
-                imp = (Float.parseFloat(precio) * Float.parseFloat(cantidad));
-                importe = String.valueOf(imp);
                 
-                //realizando los calculos de importe
-                this.modelo = (DefaultTableModel) tblFactura.getModel();
-                //pasar producto de tabla productos a tabla de factura
-                String[] FilaElementos = {id, codigo, cantidad, nombre, precio, importe};
-                this.modelo.addRow(FilaElementos);
-                calcula = (Float.parseFloat(importe));//convertir importe a float
-                this.total = this.total + calcula;//calcular el total de factura
-                impuesto = (float) (this.total * Float.parseFloat(lblImpuestoISV.getText())) / 100;//calcular el impuesto
-                this.isv = impuesto;//impuesto
-                this.subTotal = this.total - this.isv;//clacular subtotal de factura
-                
-                txtImpuesto.setText(""+this.isv);//establecer el valor impuesto en el campo impuesto de factura
-                txtSubTotal.setText(""+this.subTotal);//establecer el valor impuesto en el campo sub total de factura
-                txtTotal.setText(""+this.total);//establecer el valor impuesto en el campo Total de factura
-                DeshabilitarBtnGuardarFactura();
             }
         }catch(Exception e)
         {
@@ -3314,12 +3756,15 @@ public class IMenu extends javax.swing.JFrame {
     private void btnEliminarFilaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarFilaFacturaActionPerformed
         int filaseleccionada = tblFactura.getSelectedRow();
         float importe, totalActual;
+        String cantidad,id;
         try {
             if(filaseleccionada == -1)
             {
                 
             }else{
                 this.modelo = (DefaultTableModel) tblFactura.getModel();
+                id = (String) modelo.getValueAt(filaseleccionada, 0);
+                cantidad = (String) modelo.getValueAt(filaseleccionada, 2);
                 importe = Float.parseFloat(modelo.getValueAt(filaseleccionada, 5).toString());
                 totalActual = Float.parseFloat(txtTotal.getText());
                 this.total = totalActual - importe;
@@ -3328,6 +3773,8 @@ public class IMenu extends javax.swing.JFrame {
                 txtTotal.setText(""+this.total);
                 txtSubTotal.setText(""+this.subTotal);
                 txtImpuesto.setText(""+this.isv);
+                productos.AgregarProductoStock(id, cantidad);
+                MostrarProductosVender("");
                 this.modelo.removeRow(filaseleccionada);
                 DeshabilitarBtnGuardarFactura();
             }
@@ -3350,25 +3797,37 @@ public class IMenu extends javax.swing.JFrame {
         try {
             this.modelo = (DefaultTableModel) tblFactura.getModel();//obtengo el modelo de tabla factura y sus datos
             int filas = this.modelo.getRowCount();//Cuento las filas de la tabla Factura
-            String factura ,id, cantidad, precio, totalDetalle, idCliente, fecha, iva, totalFactura, formaPago, idFormaPago;//variables para capturar los datos a guardar
+            Date fecha;
+            String factura ,id, cantidad, precio, totalDetalle, idCliente, iva, totalFactura, formaPago, idFormaPago;//variables para capturar los datos a guardar
+            fecha = jcFechaFactura.getDate();//capturo la fecha del dateshooser
+            long fechaF = fecha.getTime();//
+            java.sql.Date fechaFactura = new java.sql.Date(fechaF);//convertir la fecha obtenida a formato sql
             idCliente = lblIdClienteFactura.getText();//obtengo el cliente
             iva = txtImpuesto.getText();//obtengo el iva
             totalFactura = txtTotal.getText();//obtengo total de factura
             formaPago =(String) cmbFormaPago.getSelectedItem();//capturo el nombre de forma de pago 
             idFormaPago = this.factura.ObtenerFormaPago(formaPago);//capturo el id de la forma de pago que retorna la funcion obtenerformapago de la clase facturacion
-            this.factura.GuardarFactura(idCliente, idFormaPago, iva, totalFactura);//envio los datos a guardar de la factura
+            this.factura.GuardarFactura(fechaFactura,idCliente, idFormaPago, iva, totalFactura);//envio los datos a guardar de la factura
             
             for(int cont = 0; cont<filas; cont++)//for para recorrer la tabla factura
             {
                 id = (String) this.modelo.getValueAt(cont, 0);//capturo el id de producto para guardar en detallefactura
-                cantidad = (String) this.modelo.getValueAt(cont, 2);//capturo el cantidad de producto para guardar en detallefactura
+                cantidad = (String) this.modelo.getValueAt(cont, 2);//capturo la cantidad de producto de la columna dos y la paso a String para guardar en detallefactura
                 precio = (String) this.modelo.getValueAt(cont, 4);//capturo el precio de producto para guardar en detallefactura
                 totalDetalle = (String) this.modelo.getValueAt(cont, 5);//capturo el total de detalle compra de producto para guardar en detallefactura
                 factura = txtNumeroFactura.getText();//capturo id de factura ala que pertenece el detalle de factura
                 this.factura.DetalleFactura(factura, id, precio, cantidad, totalDetalle);//envio los datos a guardar de los detalles
+                this.factura.Vender(id, cantidad);//funcion para diminuir el stock segun la cantidad que se venda
             }
             txtNumeroFactura.setText(this.factura.ObtenerIdFactura());//Actualizo el campo numero de factura con la funcion obtenerIdFactura
             LimpiarTablaFactura();//limpio la factura
+            DeshabilitarBtnGuardarFactura();
+            MostrarProductos("");
+            MostrarProductosVender("");
+            MostrarReporteDiario(this.fecha);
+            SumaTotalReporteDiario();
+            MostrarFiltroReporte(this.fecha,this.fecha);
+            SumaTotalFiltroReporte();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -3377,13 +3836,22 @@ public class IMenu extends javax.swing.JFrame {
 
     public void LimpiarTablaFactura()//metodo para limpiar la factura
     {
+        String id, cantidad;
         try {
         this.modelo = (DefaultTableModel) tblFactura.getModel();
         int filas = this.modelo.getRowCount();
         for(int i=0; i<filas;i++)
         {
-            this.modelo.removeRow(0);  
+            id = this.modelo.getValueAt(i, 0).toString();
+            cantidad = this.modelo.getValueAt(i, 2).toString();
+            productos.AgregarProductoStock(id, cantidad); 
+            System.out.println(id +" "+ cantidad);
         }
+        for(int i=0; i<filas;i++)
+        {
+            this.modelo.removeRow(0);
+        }
+        MostrarProductosVender("");
         txtNClienteFactura.setText("");
         txtAClienteFactura.setText("");
         lblIdClienteFactura.setText("");
@@ -3441,6 +3909,7 @@ public class IMenu extends javax.swing.JFrame {
                 lblIdClienteFactura.setText(id);
                 BuscarClienteFactura.setVisible(false);
             }
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -3458,6 +3927,33 @@ public class IMenu extends javax.swing.JFrame {
         txtAClienteFactura.setText("");
     }//GEN-LAST:event_btnLimpiarClienteActionPerformed
 
+    private void DescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescuentoActionPerformed
+        int filaseleccionada = tblAddProductoFactura.getSelectedRow();
+        if(filaseleccionada == -1)
+        {
+            
+        }else
+        {
+            this.descuento = Float.parseFloat(JOptionPane.showInputDialog(null, "Descuento:","",JOptionPane.QUESTION_MESSAGE));
+        }
+    }//GEN-LAST:event_DescuentoActionPerformed
+
+    private void btnReporteMensaulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMensaulActionPerformed
+        Date fecha1 = jcFecha1.getDate(), fecha2 = jcFecha2.getDate();
+        MostrarFiltroReporte(fecha1,fecha2);
+        SumaTotalFiltroReporte();
+    }//GEN-LAST:event_btnReporteMensaulActionPerformed
+
+    private void btnBuscarReportePorDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarReportePorDiaActionPerformed
+
+        MostrarReporteDiario(jcFechaActual.getDate());
+        SumaTotalReporteDiario();
+    }//GEN-LAST:event_btnBuscarReportePorDiaActionPerformed
+
+    private void jcFechaActualCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jcFechaActualCaretPositionChanged
+
+    }//GEN-LAST:event_jcFechaActualCaretPositionChanged
+
     public void editarISV(String isv)
     {
         if(isv.equals(""))
@@ -3470,10 +3966,18 @@ public class IMenu extends javax.swing.JFrame {
     }
     public void llenarAddCategoria(String nombre)//metodo para llenar la tabla de add categoria a productos
     {
+        tblAddCategoria.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
+        tblAddCategoria.getTableHeader().setOpaque(false);
+        tblAddCategoria.getTableHeader().setBackground(new Color(100,100,100));
+        tblAddCategoria.getTableHeader().setForeground(new Color(255,255,255));
         tblAddCategoria.setModel(productos.MostrarCategorias(nombre));
     }
     public void llenarAddLaboratorio(String nombre)//metodo para llenar la tabla de add Laboratorio a productos
     {
+        tblAddLaboratorio.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
+        tblAddLaboratorio.getTableHeader().setOpaque(false);
+        tblAddLaboratorio.getTableHeader().setBackground(new Color(100,100,100));
+        tblAddLaboratorio.getTableHeader().setForeground(new Color(255,255,255));
         tblAddLaboratorio.setModel(productos.MostrarLaboratorios(nombre));
     }
    /* public void MostrarDescuentos(String buscar)
@@ -3496,12 +4000,45 @@ public class IMenu extends javax.swing.JFrame {
         btnGuardarDescuento.setEnabled(true);
         btnActualizarDescuento.setEnabled(false);
     }*/
+    public void MostrarFiltroReporte(Date fecha1, Date fecha2)
+    {
+        long f1 = fecha1.getTime(), f2 = fecha2.getTime();
+        java.sql.Date fechaInicio = new java.sql.Date(f1);
+        java.sql.Date fechaFinal = new java.sql.Date(f2);
+        tblReporteFiltro.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
+        tblReporteFiltro.getTableHeader().setOpaque(false);
+        tblReporteFiltro.getTableHeader().setBackground(new Color(100,100,100));
+        tblReporteFiltro.getTableHeader().setForeground(new Color(255,255,255));
+        try {
+            tblReporteFiltro.setModel(reportes.ReporteMensual(fechaInicio, fechaFinal));
+        } catch (Exception e) {
+        }
+        
+    }
+    public void MostrarReporteDiario(Date fecha)
+    {
+        tblReporteDiario.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
+        tblReporteDiario.getTableHeader().setOpaque(false);
+        tblReporteDiario.getTableHeader().setBackground(new Color(100,100,100));
+        tblReporteDiario.getTableHeader().setForeground(new Color(255,255,255));
+       long fechaV = fecha.getTime();
+       java.sql.Date fechaActual = new java.sql.Date(fechaV);
+        try {
+            tblReporteDiario.setModel(reportes.ReporteDiario(fechaActual));
+        } catch (Exception e) {
+        }
+       
+    }
     public void MostarFormaPagoFactura()
     {
         cmbFormaPago.setModel(factura.FormasPago());
     }
     public void MostrarClienteFactura(String buscar)
     {
+        tblAddClienteFactura.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
+        tblAddClienteFactura.getTableHeader().setOpaque(false);
+        tblAddClienteFactura.getTableHeader().setBackground(new Color(100,100,100));
+        tblAddClienteFactura.getTableHeader().setForeground(new Color(255,255,255));
         tblAddClienteFactura.setModel(clientes.Consulta(buscar));
     }
     public void MostrarPorLaboratorio(String laboratorio)
@@ -3514,9 +4051,17 @@ public class IMenu extends javax.swing.JFrame {
     }
     public void MostrarProductosVender(String Buscar)
     {
+        tblAddProductoFactura.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
+        tblAddProductoFactura.getTableHeader().setOpaque(false);
+        tblAddProductoFactura.getTableHeader().setBackground(new Color(100,100,100));
+        tblAddProductoFactura.getTableHeader().setForeground(new Color(255,255,255));
         tblAddProductoFactura.setModel(factura.BusquedaGeneralProductoVender(Buscar));
     }
     public void MostrarLaboratorio(String Buscar) {
+        tblLaboratorio.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
+        tblLaboratorio.getTableHeader().setOpaque(false);
+        tblLaboratorio.getTableHeader().setBackground(new Color(100,100,100));
+        tblLaboratorio.getTableHeader().setForeground(new Color(255,255,255));
         tblLaboratorio.setModel(laboratorio.Consulta(Buscar));
     }
 
@@ -3542,6 +4087,10 @@ public class IMenu extends javax.swing.JFrame {
     }
 
     public void MostrarCategorias(String Buscar) {
+        tblCategorias.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
+        tblCategorias.getTableHeader().setOpaque(false);
+        tblCategorias.getTableHeader().setBackground(new Color(100,100,100));
+        tblCategorias.getTableHeader().setForeground(new Color(255,255,255));
         tblCategorias.setModel(categorias.Consulta(Buscar));
     }
 
@@ -3567,6 +4116,10 @@ public class IMenu extends javax.swing.JFrame {
     }
 
     public void MostrarClientes(String Buscar) {
+        tblClientes.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
+        tblClientes.getTableHeader().setOpaque(false);
+        tblClientes.getTableHeader().setBackground(new Color(100,100,100));
+        tblClientes.getTableHeader().setForeground(new Color(255,255,255));
         tblClientes.setModel(clientes.Consulta(Buscar));
     }
 
@@ -3633,6 +4186,7 @@ public class IMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog AddCategoria;
     private javax.swing.JDialog AddDescuento;
+    private javax.swing.JPopupMenu AddDescuentoProducto;
     private javax.swing.JDialog AddLaboratorio;
     private javax.swing.JDialog AddProductoFactura;
     private javax.swing.JMenuItem AddProductoStock;
@@ -3644,6 +4198,7 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JDialog BuscarClienteFactura;
     private javax.swing.JPopupMenu Categorias;
     private javax.swing.JPopupMenu Clientes;
+    private javax.swing.JMenuItem Descuento;
     private javax.swing.JPopupMenu Descuentos;
     private javax.swing.JMenuItem EditarCategoria;
     private javax.swing.JMenuItem EditarCliente;
@@ -3661,6 +4216,7 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarLaboratorio;
     private javax.swing.JButton btnAgregarProductoFactura;
     private javax.swing.JButton btnBuscarClienteFactura;
+    private javax.swing.JButton btnBuscarReportePorDia;
     private javax.swing.JButton btnCalcularGanancia;
     private javax.swing.JPanel btnCerrarSesion;
     private javax.swing.JPanel btnClientes;
@@ -3681,6 +4237,7 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevoLaboratorio;
     private javax.swing.JButton btnNuevoProducto;
     private javax.swing.JButton btnNuevorClientes;
+    private javax.swing.JButton btnReporteMensaul;
     private javax.swing.JPanel btnReportes;
     private javax.swing.JButton btnRestablecer;
     private javax.swing.JPanel btnUsuarios;
@@ -3696,6 +4253,7 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -3715,10 +4273,18 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -3727,6 +4293,8 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -3739,6 +4307,8 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -3749,6 +4319,11 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private com.toedter.calendar.JDateChooser jcFecha1;
+    private com.toedter.calendar.JDateChooser jcFecha2;
+    private com.toedter.calendar.JDateChooser jcFechaActual;
+    private com.toedter.calendar.JDateChooser jcFechaFactura;
+    private com.toedter.calendar.JDateChooser jcFechaVProducto;
     private javax.swing.JLabel lblIconCerrarSesion;
     private javax.swing.JLabel lblIconClientes;
     private javax.swing.JLabel lblIconCreditos;
@@ -3765,6 +4340,8 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblMenuReportes;
     private javax.swing.JLabel lblMenuUsuarios;
     private javax.swing.JLabel lblMenuVentas;
+    private javax.swing.JLabel lblTotalFiltroReporte;
+    private javax.swing.JLabel lblTotalReporteDiario;
     private javax.swing.JPanel pnlClientes;
     private javax.swing.JPanel pnlContenedor;
     private javax.swing.JPanel pnlCreditos;
@@ -3773,6 +4350,7 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JPanel pnlMenuLateral;
     private javax.swing.JPanel pnlPrincipal;
     private javax.swing.JPanel pnlReportes;
+    private javax.swing.JPanel pnlUsuarios;
     private javax.swing.JPanel pnlVentas;
     private javax.swing.JRadioButton rbBuscarCategoria;
     private javax.swing.JRadioButton rbBuscarLaboratorio;
@@ -3787,6 +4365,8 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JTable tblFactura;
     private javax.swing.JTable tblLaboratorio;
     private javax.swing.JTable tblProductos;
+    private javax.swing.JTable tblReporteDiario;
+    private javax.swing.JTable tblReporteFiltro;
     private javax.swing.JTextField txtAClienteFactura;
     private javax.swing.JButton txtAgregarDescuento;
     private javax.swing.JTextField txtApellidosCliente;
@@ -3805,8 +4385,6 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JTextArea txtDescripcionLaboratorio;
     private javax.swing.JTextField txtDescripcionProducto;
     private javax.swing.JTextField txtDireccionCliente;
-    private javax.swing.JTextField txtFechaFactura;
-    private javax.swing.JTextField txtFechaVProducto;
     private javax.swing.JTextField txtGananciaProducto;
     private javax.swing.JTextField txtImpuesto;
     private javax.swing.JTextField txtLaboratorioAdd;
