@@ -171,6 +171,9 @@ public class IMenu extends javax.swing.JFrame {
         txtBuscar = new javax.swing.JTextField();
         AddDescuentoProducto = new javax.swing.JPopupMenu();
         Descuento = new javax.swing.JMenuItem();
+        vistaDetalleFacturas = new javax.swing.JDialog();
+        jScrollPane15 = new javax.swing.JScrollPane();
+        tblMostrarDetalleFactura = new javax.swing.JTable();
         pnlContenedor = new javax.swing.JPanel();
         pnlPrincipal = new javax.swing.JPanel();
         pnlVentas = new javax.swing.JPanel();
@@ -1208,6 +1211,46 @@ public class IMenu extends javax.swing.JFrame {
         });
         AddDescuentoProducto.add(Descuento);
 
+        vistaDetalleFacturas.setTitle("Datalle de Factura");
+
+        tblMostrarDetalleFactura.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tblMostrarDetalleFactura.setForeground(new java.awt.Color(64, 64, 64));
+        tblMostrarDetalleFactura.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblMostrarDetalleFactura.setGridColor(new java.awt.Color(204, 204, 204));
+        tblMostrarDetalleFactura.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tblMostrarDetalleFactura.setRowHeight(22);
+        tblMostrarDetalleFactura.setSelectionBackground(new java.awt.Color(0, 153, 204));
+        tblMostrarDetalleFactura.setSelectionForeground(new java.awt.Color(233, 233, 245));
+        tblMostrarDetalleFactura.setShowVerticalLines(false);
+        jScrollPane15.setViewportView(tblMostrarDetalleFactura);
+
+        javax.swing.GroupLayout vistaDetalleFacturasLayout = new javax.swing.GroupLayout(vistaDetalleFacturas.getContentPane());
+        vistaDetalleFacturas.getContentPane().setLayout(vistaDetalleFacturasLayout);
+        vistaDetalleFacturasLayout.setHorizontalGroup(
+            vistaDetalleFacturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vistaDetalleFacturasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        vistaDetalleFacturasLayout.setVerticalGroup(
+            vistaDetalleFacturasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vistaDetalleFacturasLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(1260, 610));
@@ -1551,6 +1594,11 @@ public class IMenu extends javax.swing.JFrame {
         tblReporteDiario.setSelectionBackground(new java.awt.Color(0, 153, 204));
         tblReporteDiario.setSelectionForeground(new java.awt.Color(233, 233, 245));
         tblReporteDiario.setShowGrid(false);
+        tblReporteDiario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblReporteDiarioMouseClicked(evt);
+            }
+        });
         jScrollPane13.setViewportView(tblReporteDiario);
 
         jLabel41.setBackground(new java.awt.Color(64, 64, 64));
@@ -3954,6 +4002,29 @@ public class IMenu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jcFechaActualCaretPositionChanged
 
+    private void tblReporteDiarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReporteDiarioMouseClicked
+       if(evt.getClickCount() == 2)
+       {
+           int id = 0, filaseleccionada = tblReporteDiario.getSelectedRow();
+           try {
+            if(filaseleccionada == -1)
+           {
+               
+           }else
+           {
+               this.modelo = (DefaultTableModel) tblReporteDiario.getModel();
+               id = Integer.parseInt(this.modelo.getValueAt(filaseleccionada, 0).toString());
+               MostrarDetalleFactura(id);
+               vistaDetalleFacturas.setSize(750, 260);
+               vistaDetalleFacturas.setVisible(true);
+               vistaDetalleFacturas.setLocationRelativeTo(null);
+           }
+           } catch (Exception e) {
+               JOptionPane.showMessageDialog(null, e);
+           }
+       }
+    }//GEN-LAST:event_tblReporteDiarioMouseClicked
+
     public void editarISV(String isv)
     {
         if(isv.equals(""))
@@ -4000,6 +4071,14 @@ public class IMenu extends javax.swing.JFrame {
         btnGuardarDescuento.setEnabled(true);
         btnActualizarDescuento.setEnabled(false);
     }*/
+    public void MostrarDetalleFactura(int id)
+    {
+        tblMostrarDetalleFactura.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
+        tblMostrarDetalleFactura.getTableHeader().setOpaque(false);
+        tblMostrarDetalleFactura.getTableHeader().setBackground(new Color(100,100,100));
+        tblMostrarDetalleFactura.getTableHeader().setForeground(new Color(255,255,255));
+        tblMostrarDetalleFactura.setModel(reportes.DetalleFactura(id));
+    }
     public void MostrarFiltroReporte(Date fecha1, Date fecha2)
     {
         long f1 = fecha1.getTime(), f2 = fecha2.getTime();
@@ -4012,6 +4091,7 @@ public class IMenu extends javax.swing.JFrame {
         try {
             tblReporteFiltro.setModel(reportes.ReporteMensual(fechaInicio, fechaFinal));
         } catch (Exception e) {
+            
         }
         
     }
@@ -4309,6 +4389,7 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
+    private javax.swing.JScrollPane jScrollPane15;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -4364,6 +4445,7 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JTable tblDescuentos;
     private javax.swing.JTable tblFactura;
     private javax.swing.JTable tblLaboratorio;
+    private javax.swing.JTable tblMostrarDetalleFactura;
     private javax.swing.JTable tblProductos;
     private javax.swing.JTable tblReporteDiario;
     private javax.swing.JTable tblReporteFiltro;
@@ -4405,5 +4487,6 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JDialog ventanaCategoria;
     private javax.swing.JDialog ventanaDescuento;
     private javax.swing.JDialog ventanaLaboratorio;
+    private javax.swing.JDialog vistaDetalleFacturas;
     // End of variables declaration//GEN-END:variables
 }

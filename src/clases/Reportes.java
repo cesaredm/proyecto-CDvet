@@ -50,7 +50,7 @@ public class Reportes {
                 Resultados[5] = rs.getString("tipoVenta");
                 modelo.addRow(Resultados);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
         return modelo;
@@ -80,7 +80,37 @@ public class Reportes {
                 registros[5] = rs.getString("tipoVenta");
                 this.modelo.addRow(registros);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return modelo;
+    }
+    public DefaultTableModel DetalleFactura(int id)
+    {
+        this.consulta = "SELECT productos.id,codigoBarra,nombre, detallefactura.precioProducto,cantidadProducto,totalVenta FROM productos INNER JOIN detallefactura ON(productos.id = detallefactura.producto) INNER JOIN facturas ON(detallefactura.factura = facturas.id) WHERE facturas.id = "+id;
+        String[] registros = new String[6];
+        String[] titulos = {"Id","Codigo Barra", "Producto", "Cantidad", "Precio","Total"};
+        this.modelo = new DefaultTableModel(null, titulos)
+        {
+            public boolean isCellEditable(int row, int col)
+            {
+                return false;
+            }
+        };
+        try {
+            Statement st = this.cn.createStatement();
+            ResultSet rs = st.executeQuery(this.consulta);
+            while(rs.next())
+            {
+                registros[0] = rs.getString("id");
+                registros[1] = rs.getString("codigoBarra");
+                registros[2] = rs.getString("nombre");
+                registros[3] = rs.getString("cantidadProducto");
+                registros[4] = rs.getString("precioProducto");
+                registros[5] = rs.getString("totalVenta");
+                this.modelo.addRow(registros);
+            }
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
         return modelo;

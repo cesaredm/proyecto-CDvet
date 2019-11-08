@@ -216,7 +216,7 @@ public class Facturacion {
                 sumaId = Integer.parseInt(obtenerId) + 1;
                 id = String.valueOf(sumaId);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
         return id;
@@ -233,7 +233,7 @@ public class Facturacion {
             {
                 id = rs.getString("id");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
         return id;
@@ -249,7 +249,7 @@ public class Facturacion {
             cst.setInt(1, idP);
             cst.setFloat(2, cantidadP);
             cst.execute();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
