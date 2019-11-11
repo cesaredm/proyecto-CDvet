@@ -9,10 +9,17 @@ import java.awt.Font;
 import java.awt.List;
 import java.awt.event.KeyEvent;
 import java.sql.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 /**
  *
@@ -59,6 +66,7 @@ public class IMenu extends javax.swing.JFrame {
         MostrarLaboratorio("");
         MostrarProductos("");
         MostrarProductosVender("");
+        Notificacion();
         MostrarClienteFactura("");
         MostarFormaPagoFactura();
         MostrarReporteDiario(this.fecha);
@@ -285,8 +293,12 @@ public class IMenu extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         txtBuscarProducto = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
+        jButton4 = new javax.swing.JButton();
         pnlCreditos = new javax.swing.JPanel();
         pnlUsuarios = new javax.swing.JPanel();
+        pnlNotificaciones = new javax.swing.JPanel();
+        jScrollPane16 = new javax.swing.JScrollPane();
+        jlListaNotificaciones = new javax.swing.JList<>();
         pnlEncabezado = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         btnMaximizar = new javax.swing.JButton();
@@ -315,6 +327,8 @@ public class IMenu extends javax.swing.JFrame {
         btnUsuarios = new javax.swing.JPanel();
         lblIconUsuario = new javax.swing.JLabel();
         lblMenuUsuarios = new javax.swing.JLabel();
+        btnNotificaciones = new javax.swing.JPanel();
+        lblMenuNotificacion = new javax.swing.JLabel();
 
         EditarCliente.setText("Editar");
         EditarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -2182,6 +2196,14 @@ public class IMenu extends javax.swing.JFrame {
         jSeparator2.setForeground(new java.awt.Color(64, 64, 64));
         pnlInventario.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 347, 330, 10));
 
+        jButton4.setText("jButton4");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        pnlInventario.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 250, -1, -1));
+
         pnlPrincipal.add(pnlInventario, "card5");
 
         pnlCreditos.setBackground(new java.awt.Color(255, 255, 255));
@@ -2214,9 +2236,52 @@ public class IMenu extends javax.swing.JFrame {
 
         pnlPrincipal.add(pnlUsuarios, "card7");
 
+        pnlNotificaciones.setBackground(new java.awt.Color(255, 255, 255));
+
+        jlListaNotificaciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jlListaNotificaciones.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jlListaNotificaciones.setForeground(new java.awt.Color(64, 64, 64));
+        jlListaNotificaciones.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jlListaNotificaciones.setSelectionBackground(new java.awt.Color(51, 176, 255));
+        jlListaNotificaciones.setSelectionForeground(new java.awt.Color(255, 239, 255));
+        jScrollPane16.setViewportView(jlListaNotificaciones);
+
+        javax.swing.GroupLayout pnlNotificacionesLayout = new javax.swing.GroupLayout(pnlNotificaciones);
+        pnlNotificaciones.setLayout(pnlNotificacionesLayout);
+        pnlNotificacionesLayout.setHorizontalGroup(
+            pnlNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlNotificacionesLayout.createSequentialGroup()
+                .addGap(221, 221, 221)
+                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(232, Short.MAX_VALUE))
+        );
+        pnlNotificacionesLayout.setVerticalGroup(
+            pnlNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlNotificacionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(100, Short.MAX_VALUE))
+        );
+
+        pnlPrincipal.add(pnlNotificaciones, "card8");
+
         pnlContenedor.add(pnlPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 32, 1054, 574));
 
         pnlEncabezado.setBackground(new java.awt.Color(239, 244, 245));
+        pnlEncabezado.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                pnlEncabezadoMouseDragged(evt);
+            }
+        });
+        pnlEncabezado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pnlEncabezadoMousePressed(evt);
+            }
+        });
         pnlEncabezado.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setBackground(new java.awt.Color(204, 0, 0));
@@ -2537,6 +2602,38 @@ public class IMenu extends javax.swing.JFrame {
 
         pnlMenuLateral.add(btnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 200, 50));
 
+        btnNotificaciones.setBackground(new java.awt.Color(64, 64, 64));
+        btnNotificaciones.setForeground(new java.awt.Color(64, 64, 64));
+        btnNotificaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNotificaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNotificacionesMouseClicked(evt);
+            }
+        });
+
+        lblMenuNotificacion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lblMenuNotificacion.setForeground(new java.awt.Color(255, 255, 255));
+        lblMenuNotificacion.setText("Notificaciones");
+
+        javax.swing.GroupLayout btnNotificacionesLayout = new javax.swing.GroupLayout(btnNotificaciones);
+        btnNotificaciones.setLayout(btnNotificacionesLayout);
+        btnNotificacionesLayout.setHorizontalGroup(
+            btnNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnNotificacionesLayout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(lblMenuNotificacion)
+                .addContainerGap(47, Short.MAX_VALUE))
+        );
+        btnNotificacionesLayout.setVerticalGroup(
+            btnNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnNotificacionesLayout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addComponent(lblMenuNotificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        pnlMenuLateral.add(btnNotificaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 200, 50));
+
         pnlContenedor.add(pnlMenuLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 200, 606));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -2579,6 +2676,39 @@ public class IMenu extends javax.swing.JFrame {
         lblTotalFiltroReporte.setText(String.valueOf(totalFiltroReporte));
     }
     
+    public void Notificacion()
+    {   
+        ArrayList lista = new ArrayList();//instancia de un nuevo array list
+        DefaultListModel modeloLista = new DefaultListModel();//modelo para el Jlist
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//formateador de fecha
+        Date fechaFinal ,fechaInicio = this.fecha;//fecha de venvimiento de producto y fecha actual del sistema
+        this.modelo = (DefaultTableModel) tblProductos.getModel();
+        int filas = this.modelo.getRowCount();//cuenta las filas de la tabla productos
+        for(int i=0;i<filas;i++)//recorro la tabla productos
+        {
+            try {
+                fechaFinal = sdf.parse(this.modelo.getValueAt(i, 5).toString());//obtengo la fecha del producto de la tabla producto lo paso a formato Date
+                int dias = (int) ((fechaFinal.getTime() - fechaInicio.getTime()) / 86400000);//calculo de diferencias de dias "conversion de milesegundos a dias"
+                String nombre = (String) this.modelo.getValueAt(i, 2);//obtengo el nombre del producto de la tabla producto
+                if(dias == 30)//
+                {
+                    lblMenuNotificacion.setForeground(new java.awt.Color(255,7,5,255));//cambio de color si hay productos cerca de vencer
+                    lista.add("Quedan "+dias+" Dias para que el Producto "+nombre+" Caduque");//agrego un elemeto a lista
+                    modeloLista.removeAllElements();//limpio el JList para que no repita los datos a mostrar
+                    for(int l = 0;l<lista.size();l++)//recorro la lista para ingresarla al modelo de Jlist
+                    {
+                      modeloLista.addElement(lista.get(l));    
+                    }
+                    
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+            
+        }  
+        jlListaNotificaciones.setModel(modeloLista);//establesco el modeloLista  Jlist para mostrar las notificaciones
+    }
+    
     //metodo para obtener la fecha actual de sistema 
     //este metod tambien sirve para cargar las tablas de todos los reportes cargalos al constructor
     public void FechaActual()
@@ -2599,7 +2729,7 @@ public class IMenu extends javax.swing.JFrame {
         this.grupo1.add(rbBuscarLaboratorio);
     }
     
-    public boolean isNumeric(String cadena) {//metod para la validacion de campos numericos
+    public boolean isNumeric(String cadena) {//metodo para la validacion de campos numericos
         try {
             Float.parseFloat(cadena);
             return true;
@@ -2607,6 +2737,7 @@ public class IMenu extends javax.swing.JFrame {
             return false;
         }
     }
+    
     private void btnVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVentasMouseClicked
         btnVentas.setBackground(new java.awt.Color(239, 244, 245));
         lblMenuVentas.setForeground(new java.awt.Color(0, 222, 171));
@@ -2629,12 +2760,16 @@ public class IMenu extends javax.swing.JFrame {
         btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
         lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
         
+        btnNotificaciones.setBackground(new java.awt.Color(64,64,64));
+        lblMenuNotificacion.setForeground(new java.awt.Color(255,255,255));
+        
         pnlClientes.setVisible(false);
         pnlVentas.setVisible(true);
         pnlReportes.setVisible(false);
         pnlInventario.setVisible(false);
         pnlCreditos.setVisible(false);
         pnlUsuarios.setVisible(false);
+        pnlNotificaciones.setVisible(false);
 
     }//GEN-LAST:event_btnVentasMouseClicked
 
@@ -2660,12 +2795,16 @@ public class IMenu extends javax.swing.JFrame {
         btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
         lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
         
+        btnNotificaciones.setBackground(new java.awt.Color(64,64,64));
+        lblMenuNotificacion.setForeground(new java.awt.Color(255,255,255));
+        
         pnlClientes.setVisible(false);
         pnlVentas.setVisible(false);
         pnlReportes.setVisible(true);
         pnlInventario.setVisible(false);
         pnlCreditos.setVisible(false);
         pnlUsuarios.setVisible(false);
+        pnlNotificaciones.setVisible(false);
     }//GEN-LAST:event_btnReportesMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -2710,6 +2849,9 @@ public class IMenu extends javax.swing.JFrame {
 
         btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
         lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        
+        btnNotificaciones.setBackground(new java.awt.Color(64,64,64));
+        lblMenuNotificacion.setForeground(new java.awt.Color(255,255,255));
 
         pnlClientes.setVisible(true);
         pnlVentas.setVisible(false);
@@ -2717,6 +2859,7 @@ public class IMenu extends javax.swing.JFrame {
         pnlInventario.setVisible(false);
         pnlCreditos.setVisible(false);
         pnlUsuarios.setVisible(false);
+        pnlNotificaciones.setVisible(false);
     }//GEN-LAST:event_btnClientesMouseClicked
 
     private void btnInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInventarioMouseClicked
@@ -2740,6 +2883,9 @@ public class IMenu extends javax.swing.JFrame {
 
         btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
         lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        
+        btnNotificaciones.setBackground(new java.awt.Color(64,64,64));
+        lblMenuNotificacion.setForeground(new java.awt.Color(255,255,255));
 
         pnlClientes.setVisible(false);
         pnlVentas.setVisible(false);
@@ -2747,6 +2893,7 @@ public class IMenu extends javax.swing.JFrame {
         pnlInventario.setVisible(true);
         pnlCreditos.setVisible(false);
         pnlUsuarios.setVisible(false);
+        pnlNotificaciones.setVisible(false);
     }//GEN-LAST:event_btnInventarioMouseClicked
 
     private void btnCreditosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreditosMouseClicked
@@ -2771,12 +2918,16 @@ public class IMenu extends javax.swing.JFrame {
         btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
         lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
         
+        btnNotificaciones.setBackground(new java.awt.Color(64,64,64));
+        lblMenuNotificacion.setForeground(new java.awt.Color(255,255,255));
+        
         pnlClientes.setVisible(false);
         pnlVentas.setVisible(false);
         pnlReportes.setVisible(false);
         pnlInventario.setVisible(false);
         pnlCreditos.setVisible(true);
         pnlUsuarios.setVisible(false);
+        pnlNotificaciones.setVisible(false);
     }//GEN-LAST:event_btnCreditosMouseClicked
 
     private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
@@ -2800,6 +2951,10 @@ public class IMenu extends javax.swing.JFrame {
 
         btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
         lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        
+        btnNotificaciones.setBackground(new java.awt.Color(64,64,64));
+        lblMenuNotificacion.setForeground(new java.awt.Color(255,255,255));
+        
         ILogin login = new ILogin();
         this.dispose();
         login.setVisible(true);
@@ -2837,6 +2992,17 @@ public class IMenu extends javax.swing.JFrame {
 
         btnClientes.setBackground(new java.awt.Color(64, 64, 64));
         lblMenuClientes.setForeground(new java.awt.Color(255, 255, 255));
+        
+        btnNotificaciones.setBackground(new java.awt.Color(64,64,64));
+        lblMenuNotificacion.setForeground(new java.awt.Color(255,255,255));
+        
+        pnlClientes.setVisible(false);
+        pnlVentas.setVisible(false);
+        pnlReportes.setVisible(false);
+        pnlInventario.setVisible(false);
+        pnlCreditos.setVisible(true);
+        pnlUsuarios.setVisible(true);
+        pnlNotificaciones.setVisible(false);
     }//GEN-LAST:event_btnUsuariosMouseClicked
 
     private void btnGuardarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClienteActionPerformed
@@ -4025,6 +4191,52 @@ public class IMenu extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_tblReporteDiarioMouseClicked
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       Notificacion();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void btnNotificacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNotificacionesMouseClicked
+        btnNotificaciones.setBackground(new java.awt.Color(239, 244, 245));
+        lblMenuNotificacion.setForeground(new java.awt.Color(0, 222, 171));
+        
+        btnReportes.setBackground(new java.awt.Color(64,64,64));
+        lblMenuReportes.setForeground(new java.awt.Color(255, 249, 252));
+
+        btnVentas.setBackground(new java.awt.Color(64, 64, 64));
+        lblMenuVentas.setForeground(new java.awt.Color(255, 249, 252));
+
+        btnClientes.setBackground(new java.awt.Color(64, 64, 64));
+        lblMenuClientes.setForeground(new java.awt.Color(255, 255, 255));
+
+        btnInventario.setBackground(new java.awt.Color(64, 64, 64));
+        lblMenuInventario.setForeground(new java.awt.Color(255, 255, 255));
+
+        btnCreditos.setBackground(new java.awt.Color(64, 64, 64));
+        lblMenuCreditos.setForeground(new java.awt.Color(255, 255, 255));
+
+        btnCerrarSesion.setBackground(new java.awt.Color(64, 64, 64));
+        lblMenuCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+
+        btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
+        lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        
+        pnlClientes.setVisible(false);
+        pnlVentas.setVisible(false);
+        pnlReportes.setVisible(false);
+        pnlInventario.setVisible(false);
+        pnlCreditos.setVisible(false);
+        pnlUsuarios.setVisible(false);
+        pnlNotificaciones.setVisible(true);
+    }//GEN-LAST:event_btnNotificacionesMouseClicked
+
+    private void pnlEncabezadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEncabezadoMousePressed
+        
+    }//GEN-LAST:event_pnlEncabezadoMousePressed
+
+    private void pnlEncabezadoMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEncabezadoMouseDragged
+        
+    }//GEN-LAST:event_pnlEncabezadoMouseDragged
+
     public void editarISV(String isv)
     {
         if(isv.equals(""))
@@ -4311,6 +4523,7 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JPanel btnInventario;
     private javax.swing.JButton btnLimpiarCliente;
     private javax.swing.JButton btnMaximizar;
+    private javax.swing.JPanel btnNotificaciones;
     private javax.swing.JButton btnNuevaFactura;
     private javax.swing.JButton btnNuevoCategoria;
     private javax.swing.JButton btnNuevoDescuento;
@@ -4326,6 +4539,7 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -4390,6 +4604,7 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane15;
+    private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -4405,6 +4620,7 @@ public class IMenu extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jcFechaActual;
     private com.toedter.calendar.JDateChooser jcFechaFactura;
     private com.toedter.calendar.JDateChooser jcFechaVProducto;
+    private javax.swing.JList<String> jlListaNotificaciones;
     private javax.swing.JLabel lblIconCerrarSesion;
     private javax.swing.JLabel lblIconClientes;
     private javax.swing.JLabel lblIconCreditos;
@@ -4418,6 +4634,7 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblMenuClientes;
     private javax.swing.JLabel lblMenuCreditos;
     private javax.swing.JLabel lblMenuInventario;
+    private javax.swing.JLabel lblMenuNotificacion;
     private javax.swing.JLabel lblMenuReportes;
     private javax.swing.JLabel lblMenuUsuarios;
     private javax.swing.JLabel lblMenuVentas;
@@ -4429,6 +4646,7 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JPanel pnlEncabezado;
     private javax.swing.JPanel pnlInventario;
     private javax.swing.JPanel pnlMenuLateral;
+    private javax.swing.JPanel pnlNotificaciones;
     private javax.swing.JPanel pnlPrincipal;
     private javax.swing.JPanel pnlReportes;
     private javax.swing.JPanel pnlUsuarios;
