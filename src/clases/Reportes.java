@@ -27,7 +27,7 @@ public class Reportes {
     
     public DefaultTableModel ReporteDiario(Date Fecha)
     {
-        this.consulta = "SELECT facturas.id, fecha, impuestoISV, totalFactura, cliente, tipoVenta.tipoVenta from facturas INNER JOIN tipoVenta ON(tipoVenta.id = facturas.tipoVenta) WHERE facturas.fecha = '"+Fecha+"'";
+        this.consulta = "SELECT facturas.id, fecha, impuestoISV, totalFactura, cliente, tipoVenta.tipoVenta from facturas INNER JOIN tipoVenta ON(tipoVenta.id = facturas.tipoVenta) WHERE facturas.fecha = '"+Fecha+"' ORDER BY facturas.id";
         String[] Resultados = new String[6];
         String[] titulos = {"Factura","Fecha", "Iva", "Total", "Cliente","Forma Pago"}; 
         this.modelo = new DefaultTableModel(null, titulos)
@@ -87,9 +87,9 @@ public class Reportes {
     }
     public DefaultTableModel DetalleFactura(int id)
     {
-        this.consulta = "SELECT productos.id,codigoBarra,nombre, detallefactura.precioProducto,cantidadProducto,totalVenta FROM productos INNER JOIN detallefactura ON(productos.id = detallefactura.producto) INNER JOIN facturas ON(detallefactura.factura = facturas.id) WHERE facturas.id = "+id;
-        String[] registros = new String[6];
-        String[] titulos = {"Id","Codigo Barra", "Producto", "Cantidad", "Precio","Total"};
+        this.consulta = "SELECT productos.id,codigoBarra,nombre, detallefactura.id AS idDetalle,precioProducto,cantidadProducto,totalVenta FROM productos INNER JOIN detallefactura ON(productos.id = detallefactura.producto) INNER JOIN facturas ON(detallefactura.factura = facturas.id) WHERE facturas.id = "+id;
+        String[] registros = new String[7];
+        String[] titulos = {"Detalle","Id","Codigo Barra", "Producto", "Cantidad", "Precio","Total"};
         this.modelo = new DefaultTableModel(null, titulos)
         {
             public boolean isCellEditable(int row, int col)
@@ -102,12 +102,13 @@ public class Reportes {
             ResultSet rs = st.executeQuery(this.consulta);
             while(rs.next())
             {
-                registros[0] = rs.getString("id");
-                registros[1] = rs.getString("codigoBarra");
-                registros[2] = rs.getString("nombre");
-                registros[3] = rs.getString("cantidadProducto");
-                registros[4] = rs.getString("precioProducto");
-                registros[5] = rs.getString("totalVenta");
+                registros[0] = rs.getString("idDetalle");
+                registros[1] = rs.getString("id");
+                registros[2] = rs.getString("codigoBarra");
+                registros[3] = rs.getString("nombre");
+                registros[4] = rs.getString("cantidadProducto");
+                registros[5] = rs.getString("precioProducto");
+                registros[6] = rs.getString("totalVenta");
                 this.modelo.addRow(registros);
             }
         } catch (SQLException e) {
@@ -115,4 +116,49 @@ public class Reportes {
         }
         return modelo;
     }
+    public String TotalCreditosDiario(Date fecha)
+    {
+        String totalCreditos = "";
+        this.consulta = "SELECT SUM(totalFactura) AS totalCredito FROM facturas INNER JOIN tipoventa on(facturas.tipoVenta=tipoventa.id) WHERE facturas.fecha = ? AND tipoventa.tipoVenta='Credito'";
+        try {
+            PreparedStatement pst = this.cn.prepareStatement(this.consulta);
+            pst.setDate(1, fecha);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next())
+            {
+                totalCreditos = rs.getString("totalCredito");
+            }
+            if(totalCreditos == null)
+            {
+               totalCreditos = "0.0";
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return totalCreditos;
+    }
+    public String TotalCreditosMensual(Date fechaInicio, Date fechaFinal)
+    {
+        String totalCreditos = "";
+        this.consulta = "SELECT SUM(totalFactura) AS totalCreditoMensual from facturas INNER JOIN tipoVenta ON(tipoVenta.id = facturas.tipoVenta) WHERE tipoVenta.tipoVenta = 'Credito' AND facturas.fecha BETWEEN ? AND ?";
+        try {
+            PreparedStatement pst = this.cn.prepareStatement(this.consulta);
+            pst.setDate(1, fechaInicio);
+            pst.setDate(2, fechaFinal);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next())
+            {
+                totalCreditos = rs.getString("totalCreditoMensual");
+            }
+            if(totalCreditos == null)
+            {
+               totalCreditos = "0.0";
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return totalCreditos;
+    }
 }
+    
+

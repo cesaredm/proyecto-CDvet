@@ -200,6 +200,9 @@ public class ILogin extends javax.swing.JFrame {
         if(entrar.Validacion()==true)
         {
             this.dispose();
+        }else
+        {
+            
         }
         
     }//GEN-LAST:event_btnAceptarActionPerformed

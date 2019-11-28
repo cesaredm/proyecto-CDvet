@@ -199,7 +199,7 @@ public class Facturacion {
     }
 //metodo que me retorna el id de la factura y sumo 1 para mostrar la factura siguiente 
     public String ObtenerIdFactura() {
-        int sumaId = 0;
+        int sumaId = 0, s;
         String id = "", obtenerId = "";
         this.consulta = "SELECT MAX(id) AS id FROM facturas";
         try {
@@ -208,7 +208,7 @@ public class Facturacion {
             while (rs.next()) {
                 obtenerId = rs.getString("id");
             }
-            if (!obtenerId.equals(null)) {
+            if (obtenerId!=null) {
                 sumaId = Integer.parseInt(obtenerId) + 1;
                 id = String.valueOf(sumaId);
             } else {
@@ -253,4 +253,51 @@ public class Facturacion {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+    public void ActualizarFactura(String id, Date fecha, String formaPago,String cliente, String iva, String total)
+    {
+        if(cliente.equals(""))
+        {
+            cliente = null;
+        }
+        this.consulta = "UPDATE facturas SET cliente = ?, fecha = ? , tipoVenta = ?, impuestoISV = ?, totalFactura = ? WHERE id=?";
+        try {
+            PreparedStatement pst = this.cn.prepareStatement(this.consulta);
+            pst.setString(1, cliente);
+            pst.setDate(2, fecha);
+            pst.setString(3, formaPago);
+            pst.setString(4, iva);
+            pst.setString(5, total);
+            pst.setString(6, id);
+            pst.execute();
+            this.banderin = pst.executeUpdate();
+            if(this.banderin > 0)
+            {
+                JOptionPane.showMessageDialog(null, "factura actualizada correctamente");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    public void ActualizarDetalle(String id, String producto, String precio, String cant, String total)
+    {
+        this.consulta = "UPDATE detalleFactura SET producto = ?, precioProducto = ?, cantidadProducto = ?, totalVenta = ? WHERE id=?";
+        try {
+            PreparedStatement pst = this.cn.prepareStatement(this.consulta);
+            pst.setString(1, producto);
+            pst.setString(2, precio);
+            pst.setString(3, cant);
+            pst.setString(4, total);
+            pst.setString(5, id);
+            pst.execute();
+            this.banderin = pst.executeUpdate();
+            if(this.banderin > 0)
+            {
+                
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+    }
+    
 }

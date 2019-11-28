@@ -282,4 +282,44 @@ public class Productos {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+    public DefaultTableModel MinimoStock(String categoria, int cantidad)
+    {
+        this.consulta = "SELECT productos.id, productos.codigoBarra, productos.nombre AS nombreProducto, precioCompra, precioVenta, fechaVencimiento,stock, ubicacion, productos.descripcion, categorias.nombre AS nombreCategoria, laboratorios.nombre as nombreLaboratorio FROM productos INNER JOIN categorias ON(productos.categoria=categorias.id) INNER JOIN laboratorios ON(productos.laboratorio=laboratorios.id) WHERE productos.stock < "+cantidad+" AND categorias.nombre LIKE '%"+categoria+"%'";
+        String[] titulos = {"Id", "Codigo Barra","Nombre", "precioCompra", "precioVenta", "Fecha Vencimiento", "Stock", "Categoria","Laboratorio", "Ubicacion", "Descripcion"};
+        String[] registros = new String[12];
+        modelo = new DefaultTableModel(null, titulos)
+        {
+            @Override
+            public boolean isCellEditable(int row, int col)
+            {
+                return false;
+            }
+        };
+        try
+        {
+            Statement pst = this.cn.createStatement();
+            //pst.setInt(1, cantidad);
+            //pst.setString(2, categoria);
+            ResultSet rs = pst.executeQuery(consulta);
+            while(rs.next())
+            {
+                registros[0] = rs.getString("id");
+                registros[1] = rs.getString("codigoBarra");
+                registros[2] = rs.getString("nombreProducto");
+                registros[3] = rs.getString("precioCompra");
+                registros[4] = rs.getString("precioVenta");
+                registros[5] = rs.getString("fechaVencimiento");
+                registros[6] = rs.getString("stock");
+                registros[7] = rs.getString("nombreCategoria");
+                registros[8] = rs.getString("nombreLaboratorio");
+                registros[9] = rs.getString("ubicacion");
+                registros[10] = rs.getString("descripcion");
+                this.modelo.addRow(registros);
+            }
+        }catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return this.modelo;
+    }
 }
