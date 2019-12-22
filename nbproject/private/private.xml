@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/clases/Laboratorios.java</file>
-            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/clases/Reportes.java</file>
-            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/clases/Facturacion.java</file>
-            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/clases/Creditos.java</file>
-            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/formularios/IMenu.java</file>
+            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/controlador/CtrlReportes.java</file>
+            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/controlador/CtrlCreditos.java</file>
+            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/controlador/CtrlPagos.java</file>
+            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/modelo/Creditos.java</file>
+            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/modelo/PagosCreditos.java</file>
+            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/vista/IMenu.java</file>
+            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/modelo/Reportes.java</file>
         </group>
     </open-files>
 </project-private>
