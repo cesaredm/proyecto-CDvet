@@ -61,7 +61,7 @@ public class Reportes extends Conexiondb {
     public DefaultTableModel ReporteMensual(Date fecha1, Date fecha2) {
         cn = Conexion();
         String[] registros = new String[8];
-        String[] titulos = {"Factura", "Fecha", "Iva", "Total", "Cliente", "Forma Pago", "Estado Credito", "N° Credito"};
+        String[] titulos = {"Factura", "Fecha", "Iva", "Total", "Comprador", "Forma Pago", "Estado Credito", "N° Credito"};
         this.consulta = "SELECT facturas.id,facturas.fecha AS fechaFactura, impuestoISV, totalFactura, nombre_comprador, formapago.tipoVenta, creditos.estado,creditos.id AS idCredito from facturas LEFT JOIN formapago ON(formapago.id = facturas.tipoVenta) LEFT JOIN creditos ON(facturas.credito = creditos.id) WHERE facturas.fecha BETWEEN ? AND ? ORDER BY facturas.id";
         this.modelo = new DefaultTableModel(null, titulos) {
             public boolean isCellEditable(int row, int col) {
@@ -201,9 +201,10 @@ public class Reportes extends Conexiondb {
         return totalGasto;
     }
 
-    public String totalPagos(Date fecha1, Date fecha2) {
+    public String totalPagos(Date fecha1, Date fecha2){
         String pagos = "";
-        this.consulta = "SELECT SUM(monto) AS totalPagos FROM pagoscreditos WHERE fecha BETWEEN ? AND ?";
+        this.consulta = "SELECT SUM(monto) AS TotalPagos FROM pagoscreditos INNER JOIN creditos ON(pagoscreditos.credito = creditos.id) "
+                + "WHERE creditos.estado = 'Pendiente' AND pagoscreditos.fecha BETWEEN ? AND ?";
         try {
             pst = cn.prepareStatement(consulta);
             pst.setDate(1, fecha1);
@@ -212,6 +213,10 @@ public class Reportes extends Conexiondb {
             while(rs.next())
             {
                 pagos = rs.getString("totalPagos");
+            }
+            if(pagos == null)
+            {
+                pagos = "0";
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);

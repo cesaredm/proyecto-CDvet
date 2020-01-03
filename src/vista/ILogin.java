@@ -134,7 +134,7 @@ public class ILogin extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 2, 30, 30));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 1, 30, 30));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/restar (1).png"))); // NOI18N
         jButton1.setBorder(null);

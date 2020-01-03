@@ -1,37 +1,8 @@
 package vista;
 
-import modelo.Clientes;
-import modelo.Productos;
-import modelo.Reportes;
-import modelo.Laboratorios;
-import modelo.Conexiondb;
-import modelo.Facturacion;
-import modelo.Usuarios;
-import modelo.Creditos;
-import modelo.Gastos;
-import modelo.PagosCreditos;
-import modelo.Categorias;
 import java.awt.MouseInfo;
 import java.awt.Point;
-//import javax.swing.table.DefaultTableModel;
-/*import java.awt.Color;
-import java.awt.Font;
-import java.awt.List;
-import java.awt.event.KeyEvent;
-import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;*/
-import java.util.Date;
-/*import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;*/
 import javax.swing.ButtonGroup;
-/*import javax.swing.DefaultListModel;
-import javax.swing.JList;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;*/
 
 /**
  *
@@ -39,14 +10,13 @@ import javax.swing.border.LineBorder;*/
  */
 public class IMenu extends javax.swing.JFrame {
     ButtonGroup grupo1;
-    String id;
+    //String id;
     private int x = 0, y = 0;
     //DefaultTableModel modelo;
-    Clientes clientes;
+    /*Clientes clientes;
     Conexiondb conexion;
     Categorias categorias;
     Laboratorios laboratorio;
-    //Descuentos descuento;
     Productos productos;
     Facturacion factura;
     Reportes reportes;
@@ -57,7 +27,7 @@ public class IMenu extends javax.swing.JFrame {
     static float total;
     float subTotal, isv, descuento;
     Date fecha;
-    String[] nD;
+    String[] nD;*/
 
     /**
      * Creates new form IMenu
@@ -119,6 +89,7 @@ public class IMenu extends javax.swing.JFrame {
         FechaActual();*/
         this.grupo1= new ButtonGroup();
         Grupo1RadioButton();
+        btnRestablecer.setVisible(false);
         //rbBuscarNombreCodBarra.setSelected(true);
         //editarISV("");
         //txtNumeroFactura.setText(factura.ObtenerIdFactura());
@@ -163,24 +134,12 @@ public class IMenu extends javax.swing.JFrame {
         tblLaboratorio = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
         txtDescripcionLaboratorio = new javax.swing.JTextArea();
-        ventanaDescuento = new javax.swing.JDialog();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel26 = new javax.swing.JLabel();
-        txtPorcentajeDescuento = new javax.swing.JTextField();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        tblDescuentos = new javax.swing.JTable();
-        btnNuevoDescuento = new javax.swing.JButton();
-        btnGuardarDescuento = new javax.swing.JButton();
-        btnActualizarDescuento = new javax.swing.JButton();
         Categorias = new javax.swing.JPopupMenu();
         EditarCategoria = new javax.swing.JMenuItem();
         BorrarCategoria = new javax.swing.JMenuItem();
         Laboratorios = new javax.swing.JPopupMenu();
         EditarLaboratorio = new javax.swing.JMenuItem();
         BorrarLaboratorio = new javax.swing.JMenuItem();
-        Descuentos = new javax.swing.JPopupMenu();
-        EditarDescuentos = new javax.swing.JMenuItem();
-        BorrarDescuentos = new javax.swing.JMenuItem();
         AddCategoria = new javax.swing.JDialog();
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -216,10 +175,10 @@ public class IMenu extends javax.swing.JFrame {
         rbBuscarNombreCodBarra = new javax.swing.JRadioButton();
         rbBuscarCategoria = new javax.swing.JRadioButton();
         rbBuscarLaboratorio = new javax.swing.JRadioButton();
-        BuscarClienteFactura = new javax.swing.JDialog();
+        BuscarClienteCredito = new javax.swing.JDialog();
         jPanel11 = new javax.swing.JPanel();
         jScrollPane12 = new javax.swing.JScrollPane();
-        tblAddClienteFactura = new javax.swing.JTable();
+        tblAddClienteCredito = new javax.swing.JTable();
         jLabel33 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         AddDescuentoProducto = new javax.swing.JPopupMenu();
@@ -258,21 +217,33 @@ public class IMenu extends javax.swing.JFrame {
         jLabel85 = new javax.swing.JLabel();
         lblSaldo = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
+        jLabel34 = new javax.swing.JLabel();
+        txtBuscarPago = new javax.swing.JTextField();
         pagosDeCreditos = new javax.swing.JPopupMenu();
         GenerarPago = new javax.swing.JMenuItem();
         Pagos = new javax.swing.JPopupMenu();
         EditarPago = new javax.swing.JMenuItem();
+        BorrarPago = new javax.swing.JMenuItem();
         mnCreditos = new javax.swing.JPopupMenu();
         EditarCredito = new javax.swing.JMenuItem();
         EliminarCredito = new javax.swing.JMenuItem();
         mnGastos = new javax.swing.JPopupMenu();
         EditarGastos = new javax.swing.JMenuItem();
         EliminarGasto = new javax.swing.JMenuItem();
-        jTextField1 = new javax.swing.JTextField();
         FacturasPorCreditos = new javax.swing.JDialog();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane14 = new javax.swing.JScrollPane();
         tblFacturasCreditos = new javax.swing.JTable();
+        VentanaAddProductoStock = new javax.swing.JDialog();
+        lblNombreProductStock = new javax.swing.JLabel();
+        txtCantidadAgregar = new javax.swing.JTextField();
+        btnAgregarProducto = new javax.swing.JButton();
+        ConfimarEliminarCredito = new javax.swing.JDialog();
+        jLabel26 = new javax.swing.JLabel();
+        btnYes = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        AddProductoStock1 = new javax.swing.JPopupMenu();
+        AgregarProductoStock = new javax.swing.JMenuItem();
         pnlContenedor = new javax.swing.JPanel();
         pnlPrincipal = new javax.swing.JPanel();
         pnlVentas = new javax.swing.JPanel();
@@ -339,6 +310,12 @@ public class IMenu extends javax.swing.JFrame {
         tblReporte = new javax.swing.JTable();
         jLabel41 = new javax.swing.JLabel();
         lblTotalPagos = new javax.swing.JLabel();
+        lblInversion = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        btnMostrarInversion = new javax.swing.JButton();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
         pnlClientes = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -481,23 +458,19 @@ public class IMenu extends javax.swing.JFrame {
         lblMenuUsuarios = new javax.swing.JLabel();
         btnNotificaciones = new javax.swing.JPanel();
         lblMenuNotificacion = new javax.swing.JLabel();
+        lblIconNotificaciones = new javax.swing.JLabel();
+        lblNumeroNotificaciones = new javax.swing.JLabel();
         btnComprasGastos = new javax.swing.JPanel();
         lblGastosMenu = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+
+        Clientes.setForeground(new java.awt.Color(255, 255, 255));
 
         EditarCliente.setText("Editar");
-        EditarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditarClienteActionPerformed(evt);
-            }
-        });
+        EditarCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Clientes.add(EditarCliente);
 
         BorrarCliente.setText("Borrar");
-        BorrarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BorrarClienteActionPerformed(evt);
-            }
-        });
         Clientes.add(BorrarCliente);
 
         ventanaCategoria.setTitle("Crear Categoria");
@@ -533,11 +506,6 @@ public class IMenu extends javax.swing.JFrame {
         btnNuevoCategoria.setBorderPainted(false);
         btnNuevoCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNuevoCategoria.setFocusPainted(false);
-        btnNuevoCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoCategoriaActionPerformed(evt);
-            }
-        });
 
         btnGuardarCategoria.setBackground(new java.awt.Color(0, 166, 192));
         btnGuardarCategoria.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -546,11 +514,6 @@ public class IMenu extends javax.swing.JFrame {
         btnGuardarCategoria.setBorderPainted(false);
         btnGuardarCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardarCategoria.setFocusPainted(false);
-        btnGuardarCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarCategoriaActionPerformed(evt);
-            }
-        });
 
         btnActualizarCategoria.setBackground(new java.awt.Color(0, 166, 192));
         btnActualizarCategoria.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -559,11 +522,6 @@ public class IMenu extends javax.swing.JFrame {
         btnActualizarCategoria.setBorderPainted(false);
         btnActualizarCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnActualizarCategoria.setFocusPainted(false);
-        btnActualizarCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarCategoriaActionPerformed(evt);
-            }
-        });
 
         tblCategorias.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblCategorias.setForeground(new java.awt.Color(102, 102, 102));
@@ -671,11 +629,6 @@ public class IMenu extends javax.swing.JFrame {
         btnNuevoLaboratorio.setBorderPainted(false);
         btnNuevoLaboratorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNuevoLaboratorio.setFocusPainted(false);
-        btnNuevoLaboratorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoLaboratorioActionPerformed(evt);
-            }
-        });
 
         btnGuardarLaborotorio.setBackground(new java.awt.Color(0, 166, 192));
         btnGuardarLaborotorio.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -684,11 +637,6 @@ public class IMenu extends javax.swing.JFrame {
         btnGuardarLaborotorio.setBorderPainted(false);
         btnGuardarLaborotorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardarLaborotorio.setFocusPainted(false);
-        btnGuardarLaborotorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarLaborotorioActionPerformed(evt);
-            }
-        });
 
         btnActualizarLaboratorio.setBackground(new java.awt.Color(0, 166, 192));
         btnActualizarLaboratorio.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -697,11 +645,6 @@ public class IMenu extends javax.swing.JFrame {
         btnActualizarLaboratorio.setBorderPainted(false);
         btnActualizarLaboratorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnActualizarLaboratorio.setFocusPainted(false);
-        btnActualizarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarLaboratorioActionPerformed(evt);
-            }
-        });
 
         tblLaboratorio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblLaboratorio.setForeground(new java.awt.Color(102, 102, 102));
@@ -791,167 +734,17 @@ public class IMenu extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        ventanaDescuento.setTitle("Agregar Descuentos");
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel26.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel26.setText("Descuento %:");
-
-        txtPorcentajeDescuento.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-
-        tblDescuentos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblDescuentos.setComponentPopupMenu(Descuentos);
-        tblDescuentos.setFocusable(false);
-        jScrollPane8.setViewportView(tblDescuentos);
-
-        btnNuevoDescuento.setBackground(new java.awt.Color(0, 166, 192));
-        btnNuevoDescuento.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        btnNuevoDescuento.setForeground(new java.awt.Color(255, 255, 255));
-        btnNuevoDescuento.setText("Nuevo");
-        btnNuevoDescuento.setBorderPainted(false);
-        btnNuevoDescuento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnNuevoDescuento.setFocusable(false);
-        btnNuevoDescuento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoDescuentoActionPerformed(evt);
-            }
-        });
-
-        btnGuardarDescuento.setBackground(new java.awt.Color(0, 166, 192));
-        btnGuardarDescuento.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        btnGuardarDescuento.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardarDescuento.setText("Guardar");
-        btnGuardarDescuento.setBorderPainted(false);
-        btnGuardarDescuento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardarDescuento.setFocusable(false);
-        btnGuardarDescuento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarDescuentoActionPerformed(evt);
-            }
-        });
-
-        btnActualizarDescuento.setBackground(new java.awt.Color(0, 166, 192));
-        btnActualizarDescuento.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        btnActualizarDescuento.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizarDescuento.setText("Actualizar");
-        btnActualizarDescuento.setBorderPainted(false);
-        btnActualizarDescuento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnActualizarDescuento.setFocusable(false);
-        btnActualizarDescuento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarDescuentoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel26)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtPorcentajeDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(btnNuevoDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(36, 36, 36)
-                                .addComponent(btnGuardarDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnActualizarDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel26)
-                    .addComponent(txtPorcentajeDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNuevoDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardarDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnActualizarDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout ventanaDescuentoLayout = new javax.swing.GroupLayout(ventanaDescuento.getContentPane());
-        ventanaDescuento.getContentPane().setLayout(ventanaDescuentoLayout);
-        ventanaDescuentoLayout.setHorizontalGroup(
-            ventanaDescuentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        ventanaDescuentoLayout.setVerticalGroup(
-            ventanaDescuentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
         EditarCategoria.setText("Editar");
-        EditarCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditarCategoriaActionPerformed(evt);
-            }
-        });
         Categorias.add(EditarCategoria);
 
         BorrarCategoria.setText("Borrar");
-        BorrarCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BorrarCategoriaActionPerformed(evt);
-            }
-        });
         Categorias.add(BorrarCategoria);
 
         EditarLaboratorio.setText("Editar");
-        EditarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditarLaboratorioActionPerformed(evt);
-            }
-        });
         Laboratorios.add(EditarLaboratorio);
 
         BorrarLaboratorio.setText("Borrar");
-        BorrarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BorrarLaboratorioActionPerformed(evt);
-            }
-        });
         Laboratorios.add(BorrarLaboratorio);
-
-        EditarDescuentos.setText("Editar");
-        EditarDescuentos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditarDescuentosActionPerformed(evt);
-            }
-        });
-        Descuentos.add(EditarDescuentos);
-
-        BorrarDescuentos.setText("Borrar");
-        BorrarDescuentos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BorrarDescuentosActionPerformed(evt);
-            }
-        });
-        Descuentos.add(BorrarDescuentos);
 
         AddCategoria.setTitle("Categorias");
 
@@ -962,11 +755,6 @@ public class IMenu extends javax.swing.JFrame {
         jLabel1.setText("Buscar: ");
 
         txtBuscarCategoriaAdd.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtBuscarCategoriaAdd.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtBuscarCategoriaAddCaretUpdate(evt);
-            }
-        });
 
         tblAddCategoria.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblAddCategoria.setForeground(new java.awt.Color(102, 102, 102));
@@ -988,11 +776,6 @@ public class IMenu extends javax.swing.JFrame {
         tblAddCategoria.setSelectionBackground(new java.awt.Color(0, 173, 123));
         tblAddCategoria.setSelectionForeground(new java.awt.Color(233, 233, 245));
         tblAddCategoria.setShowVerticalLines(false);
-        tblAddCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblAddCategoriaMouseClicked(evt);
-            }
-        });
         jScrollPane7.setViewportView(tblAddCategoria);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -1050,6 +833,7 @@ public class IMenu extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblStockMin.setComponentPopupMenu(AddProductoStock1);
         tblStockMin.setFocusable(false);
         tblStockMin.setGridColor(new java.awt.Color(204, 204, 204));
         tblStockMin.setIntercellSpacing(new java.awt.Dimension(0, 0));
@@ -1070,11 +854,6 @@ public class IMenu extends javax.swing.JFrame {
         jLabel53.setText("Stock Min:");
 
         btnBuscarMinStock.setText("Buscar");
-        btnBuscarMinStock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarMinStockActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -1146,22 +925,12 @@ public class IMenu extends javax.swing.JFrame {
         tblAddLaboratorio.setSelectionBackground(new java.awt.Color(0, 173, 123));
         tblAddLaboratorio.setSelectionForeground(new java.awt.Color(233, 233, 245));
         tblAddLaboratorio.setShowVerticalLines(false);
-        tblAddLaboratorio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblAddLaboratorioMouseClicked(evt);
-            }
-        });
         jScrollPane9.setViewportView(tblAddLaboratorio);
 
         jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel27.setText("Buscar:");
 
         txtLaboratorioAdd.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtLaboratorioAdd.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtLaboratorioAddCaretUpdate(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -1201,27 +970,12 @@ public class IMenu extends javax.swing.JFrame {
         );
 
         EditarProducto.setText("Editar");
-        EditarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditarProductoActionPerformed(evt);
-            }
-        });
         Productos.add(EditarProducto);
 
         BorrarProducto.setText("Borrar");
-        BorrarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BorrarProductoActionPerformed(evt);
-            }
-        });
         Productos.add(BorrarProducto);
 
         AddProductoStock.setText("Agregar");
-        AddProductoStock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddProductoStockActionPerformed(evt);
-            }
-        });
         Productos.add(AddProductoStock);
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
@@ -1246,65 +1000,25 @@ public class IMenu extends javax.swing.JFrame {
         tblAddProductoFactura.setSelectionForeground(new java.awt.Color(233, 233, 245));
         tblAddProductoFactura.setShowVerticalLines(false);
         tblAddProductoFactura.getTableHeader().setReorderingAllowed(false);
-        tblAddProductoFactura.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblAddProductoFacturaMouseClicked(evt);
-            }
-        });
-        tblAddProductoFactura.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                tblAddProductoFacturaKeyReleased(evt);
-            }
-        });
         jScrollPane11.setViewportView(tblAddProductoFactura);
 
         txtBuscarPorLaboratorio.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtBuscarPorLaboratorio.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtBuscarPorLaboratorioCaretUpdate(evt);
-            }
-        });
 
         txtBuscarPorNombre.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtBuscarPorNombre.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtBuscarPorNombreCaretUpdate(evt);
-            }
-        });
 
         txtBuscarPorCategoria.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtBuscarPorCategoria.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtBuscarPorCategoriaCaretUpdate(evt);
-            }
-        });
 
         rbBuscarNombreCodBarra.setBackground(new java.awt.Color(255, 255, 255));
         rbBuscarNombreCodBarra.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         rbBuscarNombreCodBarra.setText("Nombre y Cod Barra");
-        rbBuscarNombreCodBarra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbBuscarNombreCodBarraActionPerformed(evt);
-            }
-        });
 
         rbBuscarCategoria.setBackground(new java.awt.Color(255, 255, 255));
         rbBuscarCategoria.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         rbBuscarCategoria.setText("Categoria");
-        rbBuscarCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbBuscarCategoriaActionPerformed(evt);
-            }
-        });
 
         rbBuscarLaboratorio.setBackground(new java.awt.Color(255, 255, 255));
         rbBuscarLaboratorio.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         rbBuscarLaboratorio.setText("Laboratorio");
-        rbBuscarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbBuscarLaboratorioActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -1361,8 +1075,8 @@ public class IMenu extends javax.swing.JFrame {
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblAddClienteFactura.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tblAddClienteFactura.setModel(new javax.swing.table.DefaultTableModel(
+        tblAddClienteCredito.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblAddClienteCredito.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -1373,29 +1087,19 @@ public class IMenu extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblAddClienteFactura.setFocusable(false);
-        tblAddClienteFactura.setGridColor(new java.awt.Color(204, 204, 204));
-        tblAddClienteFactura.setIntercellSpacing(new java.awt.Dimension(0, 0));
-        tblAddClienteFactura.setRowHeight(20);
-        tblAddClienteFactura.setSelectionBackground(new java.awt.Color(0, 173, 123));
-        tblAddClienteFactura.setSelectionForeground(new java.awt.Color(233, 233, 245));
-        tblAddClienteFactura.setShowVerticalLines(false);
-        tblAddClienteFactura.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblAddClienteFacturaMouseClicked(evt);
-            }
-        });
-        jScrollPane12.setViewportView(tblAddClienteFactura);
+        tblAddClienteCredito.setFocusable(false);
+        tblAddClienteCredito.setGridColor(new java.awt.Color(204, 204, 204));
+        tblAddClienteCredito.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        tblAddClienteCredito.setRowHeight(20);
+        tblAddClienteCredito.setSelectionBackground(new java.awt.Color(0, 173, 123));
+        tblAddClienteCredito.setSelectionForeground(new java.awt.Color(233, 233, 245));
+        tblAddClienteCredito.setShowVerticalLines(false);
+        jScrollPane12.setViewportView(tblAddClienteCredito);
 
         jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel33.setText("Nombre Apellido: ");
 
         txtBuscar.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtBuscar.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtBuscarCaretUpdate(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -1423,23 +1127,18 @@ public class IMenu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout BuscarClienteFacturaLayout = new javax.swing.GroupLayout(BuscarClienteFactura.getContentPane());
-        BuscarClienteFactura.getContentPane().setLayout(BuscarClienteFacturaLayout);
-        BuscarClienteFacturaLayout.setHorizontalGroup(
-            BuscarClienteFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout BuscarClienteCreditoLayout = new javax.swing.GroupLayout(BuscarClienteCredito.getContentPane());
+        BuscarClienteCredito.getContentPane().setLayout(BuscarClienteCreditoLayout);
+        BuscarClienteCreditoLayout.setHorizontalGroup(
+            BuscarClienteCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-        BuscarClienteFacturaLayout.setVerticalGroup(
-            BuscarClienteFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        BuscarClienteCreditoLayout.setVerticalGroup(
+            BuscarClienteCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         Descuento.setText("Descuento");
-        Descuento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DescuentoActionPerformed(evt);
-            }
-        });
         AddDescuentoProducto.add(Descuento);
 
         vistaDetalleFacturas.setTitle("Datalle de Factura");
@@ -1453,11 +1152,6 @@ public class IMenu extends javax.swing.JFrame {
         btnEditarFactura.setBorderPainted(false);
         btnEditarFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditarFactura.setFocusPainted(false);
-        btnEditarFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarFacturaActionPerformed(evt);
-            }
-        });
 
         tblMostrarDetalleFactura.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tblMostrarDetalleFactura.setForeground(new java.awt.Color(64, 64, 64));
@@ -1516,19 +1210,9 @@ public class IMenu extends javax.swing.JFrame {
         );
 
         mnEditarUsuarios.setText("Editar Usuario");
-        mnEditarUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnEditarUsuariosActionPerformed(evt);
-            }
-        });
         Usuarios.add(mnEditarUsuarios);
 
         mnBorrarUsuario.setText("Borrar Usuario");
-        mnBorrarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnBorrarUsuarioActionPerformed(evt);
-            }
-        });
         Usuarios.add(mnBorrarUsuario);
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
@@ -1552,22 +1236,12 @@ public class IMenu extends javax.swing.JFrame {
         tblAddCreditoFactura.setSelectionBackground(new java.awt.Color(0, 173, 123));
         tblAddCreditoFactura.setSelectionForeground(new java.awt.Color(233, 233, 245));
         tblAddCreditoFactura.setShowGrid(false);
-        tblAddCreditoFactura.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblAddCreditoFacturaMouseClicked(evt);
-            }
-        });
         jScrollPane23.setViewportView(tblAddCreditoFactura);
 
         jLabel77.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel77.setText("Buscar:");
 
         txtBuscarCreditoFactura.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtBuscarCreditoFactura.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtBuscarCreditoFacturaCaretUpdate(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -1633,39 +1307,19 @@ public class IMenu extends javax.swing.JFrame {
         jPanel20.add(txtCreditoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 16, 230, -1));
 
         txtMontoPago.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtMontoPago.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtMontoPagoCaretUpdate(evt);
-            }
-        });
         jPanel20.add(txtMontoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 50, 230, -1));
 
         btnNuevoPago.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnNuevoPago.setText("Nuevo");
-        btnNuevoPago.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoPagoActionPerformed(evt);
-            }
-        });
-        jPanel20.add(btnNuevoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 131, -1, -1));
+        jPanel20.add(btnNuevoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 125, -1, -1));
 
         btnActualizarPago.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnActualizarPago.setText("Actualizar");
-        btnActualizarPago.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarPagoActionPerformed(evt);
-            }
-        });
-        jPanel20.add(btnActualizarPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 131, -1, -1));
+        jPanel20.add(btnActualizarPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 125, -1, -1));
 
         btnGuardarPago.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnGuardarPago.setText("Guardar");
-        btnGuardarPago.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarPagoActionPerformed(evt);
-            }
-        });
-        jPanel20.add(btnGuardarPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 131, -1, -1));
+        jPanel20.add(btnGuardarPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(258, 125, -1, -1));
 
         tblPagos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1681,7 +1335,7 @@ public class IMenu extends javax.swing.JFrame {
         tblPagos.setComponentPopupMenu(Pagos);
         jScrollPane24.setViewportView(tblPagos);
 
-        jPanel20.add(jScrollPane24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 173, 628, 181));
+        jPanel20.add(jScrollPane24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 628, 160));
 
         lblCredito.setText("0.0");
         jPanel20.add(lblCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(535, 26, -1, -1));
@@ -1702,6 +1356,14 @@ public class IMenu extends javax.swing.JFrame {
         jPanel20.add(lblSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(535, 80, -1, -1));
         jPanel20.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(475, 70, 118, 5));
 
+        jLabel34.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel34.setText("Buscar:");
+        jLabel34.setToolTipText("");
+        jPanel20.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 165, -1, -1));
+
+        txtBuscarPago.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jPanel20.add(txtBuscarPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 165, 200, -1));
+
         javax.swing.GroupLayout pagosAcreditosLayout = new javax.swing.GroupLayout(pagosAcreditos.getContentPane());
         pagosAcreditos.getContentPane().setLayout(pagosAcreditosLayout);
         pagosAcreditosLayout.setHorizontalGroup(
@@ -1716,54 +1378,25 @@ public class IMenu extends javax.swing.JFrame {
         );
 
         GenerarPago.setText("Generar Pago");
-        GenerarPago.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GenerarPagoActionPerformed(evt);
-            }
-        });
         pagosDeCreditos.add(GenerarPago);
 
         EditarPago.setText("Editar Pago");
-        EditarPago.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditarPagoActionPerformed(evt);
-            }
-        });
         Pagos.add(EditarPago);
 
+        BorrarPago.setText("Eliminar Pago");
+        Pagos.add(BorrarPago);
+
         EditarCredito.setText("Editar Credito");
-        EditarCredito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditarCreditoActionPerformed(evt);
-            }
-        });
         mnCreditos.add(EditarCredito);
 
-        EliminarCredito.setText("Eliminar Credito");
-        EliminarCredito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EliminarCreditoActionPerformed(evt);
-            }
-        });
+        EliminarCredito.setText("Elimar Credito");
         mnCreditos.add(EliminarCredito);
 
         EditarGastos.setText("Editar Gasto");
-        EditarGastos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditarGastosActionPerformed(evt);
-            }
-        });
         mnGastos.add(EditarGastos);
 
         EliminarGasto.setText("Eliminar Gasto");
-        EliminarGasto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EliminarGastoActionPerformed(evt);
-            }
-        });
         mnGastos.add(EliminarGasto);
-
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1817,6 +1450,84 @@ public class IMenu extends javax.swing.JFrame {
             FacturasPorCreditosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        VentanaAddProductoStock.setTitle("Agregar Producto a Stock");
+
+        lblNombreProductStock.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblNombreProductStock.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombreProductStock.setText("jLabel26");
+
+        txtCantidadAgregar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtCantidadAgregar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        btnAgregarProducto.setText("Agregar");
+
+        javax.swing.GroupLayout VentanaAddProductoStockLayout = new javax.swing.GroupLayout(VentanaAddProductoStock.getContentPane());
+        VentanaAddProductoStock.getContentPane().setLayout(VentanaAddProductoStockLayout);
+        VentanaAddProductoStockLayout.setHorizontalGroup(
+            VentanaAddProductoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(VentanaAddProductoStockLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(VentanaAddProductoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNombreProductStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCantidadAgregar))
+                .addContainerGap())
+            .addGroup(VentanaAddProductoStockLayout.createSequentialGroup()
+                .addGap(156, 156, 156)
+                .addComponent(btnAgregarProducto)
+                .addContainerGap(173, Short.MAX_VALUE))
+        );
+        VentanaAddProductoStockLayout.setVerticalGroup(
+            VentanaAddProductoStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(VentanaAddProductoStockLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNombreProductStock)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCantidadAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAgregarProducto)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        ConfimarEliminarCredito.setTitle("Advertencia");
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel26.setText("Seguro Que Quiere Borrar Este Credito");
+
+        btnYes.setText("Yes");
+
+        btnCancel.setText("Cancel");
+
+        javax.swing.GroupLayout ConfimarEliminarCreditoLayout = new javax.swing.GroupLayout(ConfimarEliminarCredito.getContentPane());
+        ConfimarEliminarCredito.getContentPane().setLayout(ConfimarEliminarCreditoLayout);
+        ConfimarEliminarCreditoLayout.setHorizontalGroup(
+            ConfimarEliminarCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ConfimarEliminarCreditoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(ConfimarEliminarCreditoLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(btnYes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancel)
+                .addGap(39, 39, 39))
+        );
+        ConfimarEliminarCreditoLayout.setVerticalGroup(
+            ConfimarEliminarCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ConfimarEliminarCreditoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ConfimarEliminarCreditoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnYes)
+                    .addComponent(btnCancel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        AgregarProductoStock.setText("Agregar Producto");
+        AddProductoStock1.add(AgregarProductoStock);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -1878,11 +1589,6 @@ public class IMenu extends javax.swing.JFrame {
         btnEliminarFilaFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminarFilaFactura.setFocusPainted(false);
         btnEliminarFilaFactura.setPreferredSize(new java.awt.Dimension(111, 23));
-        btnEliminarFilaFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarFilaFacturaActionPerformed(evt);
-            }
-        });
 
         btnAgregarProductoFactura.setBackground(new java.awt.Color(0, 166, 192));
         btnAgregarProductoFactura.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -1891,30 +1597,22 @@ public class IMenu extends javax.swing.JFrame {
         btnAgregarProductoFactura.setBorderPainted(false);
         btnAgregarProductoFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAgregarProductoFactura.setFocusPainted(false);
-        btnAgregarProductoFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarProductoFacturaActionPerformed(evt);
-            }
-        });
 
         txtImpuesto.setBackground(new java.awt.Color(255, 204, 153));
         txtImpuesto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtImpuesto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtImpuesto.setBorder(null);
         txtImpuesto.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         txtImpuesto.setEnabled(false);
 
         txtSubTotal.setBackground(new java.awt.Color(204, 255, 204));
         txtSubTotal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtSubTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtSubTotal.setBorder(null);
         txtSubTotal.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         txtSubTotal.setEnabled(false);
 
         txtTotal.setBackground(new java.awt.Color(153, 255, 153));
         txtTotal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtTotal.setBorder(null);
         txtTotal.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         txtTotal.setEnabled(false);
 
@@ -1935,11 +1633,6 @@ public class IMenu extends javax.swing.JFrame {
         btnEditarImpuesto.setText("Editar");
         btnEditarImpuesto.setBorderPainted(false);
         btnEditarImpuesto.setFocusPainted(false);
-        btnEditarImpuesto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarImpuestoActionPerformed(evt);
-            }
-        });
 
         lblImpuestoISV.setBackground(new java.awt.Color(255, 255, 255));
         lblImpuestoISV.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -1986,7 +1679,6 @@ public class IMenu extends javax.swing.JFrame {
         txtNClienteFactura.setBackground(new java.awt.Color(240, 240, 240));
         txtNClienteFactura.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtNClienteFactura.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNClienteFactura.setBorder(null);
         txtNClienteFactura.setDisabledTextColor(new java.awt.Color(51, 51, 51));
         txtNClienteFactura.setEnabled(false);
         jPanel10.add(txtNClienteFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 25, 173, -1));
@@ -1994,7 +1686,6 @@ public class IMenu extends javax.swing.JFrame {
         txtAClienteFactura.setBackground(new java.awt.Color(240, 240, 240));
         txtAClienteFactura.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtAClienteFactura.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtAClienteFactura.setBorder(null);
         txtAClienteFactura.setDisabledTextColor(new java.awt.Color(51, 51, 51));
         txtAClienteFactura.setEnabled(false);
         jPanel10.add(txtAClienteFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(345, 25, 173, -1));
@@ -2008,11 +1699,6 @@ public class IMenu extends javax.swing.JFrame {
         jPanel10.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 117, -1, -1));
 
         cmbFormaPago.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        cmbFormaPago.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbFormaPagoActionPerformed(evt);
-            }
-        });
         jPanel10.add(cmbFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 116, 124, -1));
 
         jLabel37.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -2022,7 +1708,6 @@ public class IMenu extends javax.swing.JFrame {
         txtNumeroFactura.setBackground(new java.awt.Color(240, 240, 240));
         txtNumeroFactura.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtNumeroFactura.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNumeroFactura.setBorder(null);
         txtNumeroFactura.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         txtNumeroFactura.setEnabled(false);
         jPanel10.add(txtNumeroFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 116, 173, -1));
@@ -2035,11 +1720,6 @@ public class IMenu extends javax.swing.JFrame {
         btnLimpiarCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnLimpiarCliente.setForeground(new java.awt.Color(64, 64, 64));
         btnLimpiarCliente.setText("Cancelar");
-        btnLimpiarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarClienteActionPerformed(evt);
-            }
-        });
         jPanel10.add(btnLimpiarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 23, 100, 31));
         jPanel10.add(jcFechaFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 170, 30));
 
@@ -2050,18 +1730,12 @@ public class IMenu extends javax.swing.JFrame {
         txtCreditoFactura.setBackground(new java.awt.Color(240, 240, 240));
         txtCreditoFactura.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtCreditoFactura.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCreditoFactura.setBorder(null);
         txtCreditoFactura.setDisabledTextColor(new java.awt.Color(102, 102, 102));
         txtCreditoFactura.setEnabled(false);
         jPanel10.add(txtCreditoFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 75, 100, -1));
 
         btnCreditoFactura.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnCreditoFactura.setText("Credito");
-        btnCreditoFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreditoFacturaActionPerformed(evt);
-            }
-        });
         jPanel10.add(btnCreditoFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(522, 23, -1, -1));
 
         txtCompradorFactura.setBackground(new java.awt.Color(240, 240, 240));
@@ -2081,11 +1755,6 @@ public class IMenu extends javax.swing.JFrame {
         btnGuardarFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardarFactura.setFocusPainted(false);
         btnGuardarFactura.setPreferredSize(new java.awt.Dimension(99, 32));
-        btnGuardarFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarFacturaActionPerformed(evt);
-            }
-        });
 
         btnNuevaFactura.setBackground(new java.awt.Color(0, 166, 192));
         btnNuevaFactura.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -2095,26 +1764,11 @@ public class IMenu extends javax.swing.JFrame {
         btnNuevaFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNuevaFactura.setFocusPainted(false);
         btnNuevaFactura.setPreferredSize(new java.awt.Dimension(111, 23));
-        btnNuevaFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevaFacturaActionPerformed(evt);
-            }
-        });
 
         btnRetornar.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnRetornar.setText("Retornar");
-        btnRetornar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRetornarActionPerformed(evt);
-            }
-        });
 
         btnActualizarFactura.setText("Actualizar");
-        btnActualizarFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarFacturaActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnlVentasLayout = new javax.swing.GroupLayout(pnlVentas);
         pnlVentas.setLayout(pnlVentasLayout);
@@ -2132,7 +1786,7 @@ public class IMenu extends javax.swing.JFrame {
                         .addComponent(btnActualizarFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addGroup(pnlVentasLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 903, Short.MAX_VALUE)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 905, Short.MAX_VALUE)
                 .addGap(7, 7, 7)
                 .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAgregarProductoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2169,7 +1823,7 @@ public class IMenu extends javax.swing.JFrame {
                             .addComponent(btnActualizarFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(29, 29, 29)
                 .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
                     .addGroup(pnlVentasLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(btnAgregarProductoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2209,13 +1863,13 @@ public class IMenu extends javax.swing.JFrame {
         jLabel40.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel40.setText("Fecha Final");
 
+        btnReporteMensaul.setBackground(new java.awt.Color(37, 186, 46));
         btnReporteMensaul.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnReporteMensaul.setForeground(new java.awt.Color(255, 255, 255));
         btnReporteMensaul.setText("Mostrar");
-        btnReporteMensaul.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReporteMensaulActionPerformed(evt);
-            }
-        });
+        btnReporteMensaul.setBorderPainted(false);
+        btnReporteMensaul.setFocusPainted(false);
+        btnReporteMensaul.setFocusable(false);
 
         lblTotalFiltroReporte.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lblTotalFiltroReporte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -2300,11 +1954,6 @@ public class IMenu extends javax.swing.JFrame {
         tblReporte.setSelectionBackground(new java.awt.Color(0, 173, 123));
         tblReporte.setSelectionForeground(new java.awt.Color(233, 233, 245));
         tblReporte.setShowGrid(false);
-        tblReporte.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblReporteMouseClicked(evt);
-            }
-        });
         jScrollPane13.setViewportView(tblReporte);
 
         jLabel41.setBackground(new java.awt.Color(64, 64, 64));
@@ -2314,10 +1963,40 @@ public class IMenu extends javax.swing.JFrame {
         jLabel41.setText("Reportes");
         jLabel41.setOpaque(true);
 
+        lblTotalPagos.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblTotalPagos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotalPagos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        lblInversion.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblInversion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblInversion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel38.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel38.setText("Pagos");
+
+        jLabel49.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel49.setText("Inversion");
+        jLabel49.setToolTipText("");
+
+        btnMostrarInversion.setBackground(new java.awt.Color(236, 96, 9));
+        btnMostrarInversion.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnMostrarInversion.setForeground(new java.awt.Color(255, 255, 255));
+        btnMostrarInversion.setText("Mostrar Inversión");
+        btnMostrarInversion.setBorderPainted(false);
+        btnMostrarInversion.setFocusPainted(false);
+        btnMostrarInversion.setFocusable(false);
+
+        jLabel54.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel54.setText("C$");
+
+        jLabel55.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel55.setText("C$");
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGap(208, 208, 208)
                 .addComponent(jLabel39)
@@ -2328,109 +2007,135 @@ public class IMenu extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(jcFecha2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(btnReporteMensaul)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jLabel41, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnReporteMensaul))
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane13)
-                .addContainerGap())
+                .addGap(100, 100, 100)
+                .addComponent(jLabel61)
+                .addGap(313, 313, 313)
+                .addComponent(jLabel60)
+                .addGap(9, 9, 9)
+                .addComponent(lblTotalCajaFiltroReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(112, 112, 112)
+                .addComponent(jLabel38)
+                .addGap(104, 104, 104)
+                .addComponent(jLabel49))
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(177, 177, 177)
+                .addGap(100, 100, 100)
+                .addComponent(jLabel63)
+                .addGap(282, 282, 282)
+                .addComponent(jLabel62)
+                .addGap(9, 9, 9)
+                .addComponent(lblTotalCreditosFiltroReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(jLabel54)
+                .addGap(1, 1, 1)
+                .addComponent(lblTotalPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(jLabel55)
+                .addGap(1, 1, 1)
+                .addComponent(lblInversion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                .addComponent(jLabel59)
+                                .addGap(237, 237, 237)
+                                .addComponent(jLabel44)
+                                .addGap(9, 9, 9)
+                                .addComponent(lblTotalFiltroReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(239, 239, 239)
+                                .addComponent(jLabel43)
+                                .addGap(8, 8, 8)
+                                .addComponent(lblGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(90, 90, 90)
+                .addComponent(btnMostrarInversion))
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(80, 80, 80)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGap(400, 400, 400)
-                        .addComponent(jLabel44))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGap(435, 435, 435)
-                        .addComponent(lblTotalFiltroReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel59))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(260, 260, 260)
-                        .addComponent(jLabel43)
-                        .addGap(12, 12, 12)
-                        .addComponent(lblGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel64, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(160, 160, 160)
-                        .addComponent(jLabel51)
-                        .addGap(14, 14, 14)
                         .addComponent(lblTotalExistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addComponent(jLabel61)
-                                .addGap(333, 333, 333)
-                                .addComponent(jLabel60)
-                                .addGap(14, 14, 14)
-                                .addComponent(lblTotalCajaFiltroReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblTotalPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addComponent(jLabel63)
-                                .addGap(302, 302, 302)
-                                .addComponent(jLabel62)
-                                .addGap(14, 14, 14)
-                                .addComponent(lblTotalCreditosFiltroReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(113, Short.MAX_VALUE))
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel64, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGap(370, 370, 370)
+                        .addComponent(jLabel51))))
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 1012, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel39)
                     .addComponent(jcFecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel40)
                     .addComponent(jcFecha2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReporteMensaul))
-                .addGap(26, 26, 26)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel38)
+                    .addComponent(jLabel49)
                     .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel61)
                             .addComponent(jLabel60)
-                            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblTotalCajaFiltroReporte)
-                                .addComponent(lblTotalPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(8, 8, 8)
+                            .addComponent(lblTotalCajaFiltroReporte))))
+                .addGap(2, 2, 2)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel54)
+                    .addComponent(lblTotalPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel55)
+                    .addComponent(lblInversion, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel63)
                             .addComponent(jLabel62)
-                            .addComponent(lblTotalCreditosFiltroReporte))
-                        .addGap(3, 3, 3)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblTotalCreditosFiltroReporte))))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel44)
-                            .addComponent(lblTotalFiltroReporte)
-                            .addComponent(jLabel59))
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel59)
+                                    .addComponent(jLabel44)
+                                    .addComponent(lblTotalFiltroReporte))))
                         .addGap(8, 8, 8)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel50)
                             .addComponent(jLabel43)
-                            .addComponent(lblGastos))
-                        .addGap(3, 3, 3)
+                            .addComponent(lblGastos)))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(btnMostrarInversion)))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel64)
-                                    .addComponent(jLabel51)
-                                    .addComponent(lblTotalExistencia))))))
+                            .addComponent(lblTotalExistencia)
+                            .addComponent(jLabel64)
+                            .addComponent(jLabel51))))
                 .addGap(31, 31, 31)
-                .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlReportesLayout = new javax.swing.GroupLayout(pnlReportes);
@@ -2462,11 +2167,6 @@ public class IMenu extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, -1));
 
         txtNombresCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtNombresCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombresClienteActionPerformed(evt);
-            }
-        });
         jPanel1.add(txtNombresCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 194, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -2482,19 +2182,9 @@ public class IMenu extends javax.swing.JFrame {
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, -1));
 
         txtApellidosCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtApellidosCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtApellidosClienteActionPerformed(evt);
-            }
-        });
         jPanel1.add(txtApellidosCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 194, -1));
 
         txtTelefonoCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtTelefonoCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelefonoClienteActionPerformed(evt);
-            }
-        });
         jPanel1.add(txtTelefonoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 194, -1));
 
         txtDireccionCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -2507,11 +2197,6 @@ public class IMenu extends javax.swing.JFrame {
         btnNuevorClientes.setBorderPainted(false);
         btnNuevorClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNuevorClientes.setFocusPainted(false);
-        btnNuevorClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevorClientesActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnNuevorClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 100, 40));
 
         btnGuardarCliente.setBackground(new java.awt.Color(0, 166, 192));
@@ -2521,11 +2206,6 @@ public class IMenu extends javax.swing.JFrame {
         btnGuardarCliente.setBorderPainted(false);
         btnGuardarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardarCliente.setFocusPainted(false);
-        btnGuardarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarClienteActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnGuardarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, 100, 40));
 
         btnActualizarCliente.setBackground(new java.awt.Color(0, 166, 192));
@@ -2535,11 +2215,6 @@ public class IMenu extends javax.swing.JFrame {
         btnActualizarCliente.setBorderPainted(false);
         btnActualizarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnActualizarCliente.setFocusPainted(false);
-        btnActualizarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarClienteActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnActualizarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, 100, 40));
 
         jScrollPane1.setBackground(new java.awt.Color(64, 64, 64));
@@ -2577,16 +2252,6 @@ public class IMenu extends javax.swing.JFrame {
 
         txtBuscarCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtBuscarCliente.setBorder(null);
-        txtBuscarCliente.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtBuscarClienteCaretUpdate(evt);
-            }
-        });
-        txtBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscarClienteActionPerformed(evt);
-            }
-        });
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/man_user_client_16776.png"))); // NOI18N
 
@@ -2614,7 +2279,7 @@ public class IMenu extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(pnlClientesLayout.createSequentialGroup()
                 .addGap(13, 13, 13)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1030, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1032, Short.MAX_VALUE)
                 .addGap(11, 11, 11))
         );
         pnlClientesLayout.setVerticalGroup(
@@ -2651,11 +2316,6 @@ public class IMenu extends javax.swing.JFrame {
         jPanel2.add(txtCodBarraProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 200, -1));
 
         txtNombreProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtNombreProducto.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtNombreProductoCaretUpdate(evt);
-            }
-        });
         jPanel2.add(txtNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 200, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -2724,11 +2384,6 @@ public class IMenu extends javax.swing.JFrame {
         btnNuevoProducto.setBorderPainted(false);
         btnNuevoProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNuevoProducto.setFocusPainted(false);
-        btnNuevoProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoProductoActionPerformed(evt);
-            }
-        });
         jPanel2.add(btnNuevoProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 240, 100, 40));
 
         btnGuardarProducto.setBackground(new java.awt.Color(0, 166, 192));
@@ -2738,11 +2393,6 @@ public class IMenu extends javax.swing.JFrame {
         btnGuardarProducto.setBorderPainted(false);
         btnGuardarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardarProducto.setFocusPainted(false);
-        btnGuardarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarProductoActionPerformed(evt);
-            }
-        });
         jPanel2.add(btnGuardarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, 100, 40));
 
         btnActualizarProducto.setBackground(new java.awt.Color(0, 166, 192));
@@ -2752,27 +2402,12 @@ public class IMenu extends javax.swing.JFrame {
         btnActualizarProducto.setBorderPainted(false);
         btnActualizarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnActualizarProducto.setFocusPainted(false);
-        btnActualizarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarProductoActionPerformed(evt);
-            }
-        });
         jPanel2.add(btnActualizarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 240, 100, 40));
 
         txtLaboratorioProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtLaboratorioProducto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtLaboratorioProductoMouseClicked(evt);
-            }
-        });
         jPanel2.add(txtLaboratorioProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, 50, -1));
 
         txtCategoriaProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtCategoriaProducto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtCategoriaProductoMouseClicked(evt);
-            }
-        });
         jPanel2.add(txtCategoriaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 70, 50, -1));
 
         txtMargenGanancia.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -2783,11 +2418,6 @@ public class IMenu extends javax.swing.JFrame {
         btnCalcularGanancia.setForeground(new java.awt.Color(255, 255, 255));
         btnCalcularGanancia.setText("Calcular");
         btnCalcularGanancia.setBorder(null);
-        btnCalcularGanancia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalcularGananciaActionPerformed(evt);
-            }
-        });
         jPanel2.add(btnCalcularGanancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 86, 25));
         jPanel2.add(jcFechaVProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 200, 30));
 
@@ -2798,11 +2428,6 @@ public class IMenu extends javax.swing.JFrame {
         btnAgregarLaboratorio.setBorderPainted(false);
         btnAgregarLaboratorio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAgregarLaboratorio.setFocusPainted(false);
-        btnAgregarLaboratorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarLaboratorioActionPerformed(evt);
-            }
-        });
 
         btnMostrarStockMinimo.setBackground(new java.awt.Color(44, 201, 144));
         btnMostrarStockMinimo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -2811,11 +2436,6 @@ public class IMenu extends javax.swing.JFrame {
         btnMostrarStockMinimo.setBorderPainted(false);
         btnMostrarStockMinimo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMostrarStockMinimo.setFocusPainted(false);
-        btnMostrarStockMinimo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMostrarStockMinimoActionPerformed(evt);
-            }
-        });
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 
@@ -2851,31 +2471,15 @@ public class IMenu extends javax.swing.JFrame {
         txtBuscarProducto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtBuscarProducto.setForeground(new java.awt.Color(60, 60, 60));
         txtBuscarProducto.setBorder(null);
-        txtBuscarProducto.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtBuscarProductoCaretUpdate(evt);
-            }
-        });
-        txtBuscarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscarProductoActionPerformed(evt);
-            }
-        });
 
         jSeparator2.setForeground(new java.awt.Color(64, 64, 64));
 
         btnVerificarVencimientos.setText("Verificar Vencimientos");
-        btnVerificarVencimientos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVerificarVencimientosActionPerformed(evt);
-            }
-        });
 
         btnAgregarCategorias.setBackground(new java.awt.Color(44, 201, 144));
         btnAgregarCategorias.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAgregarCategorias.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregarCategorias.setText("Agregar Categoria");
-        btnAgregarCategorias.setBorder(null);
         btnAgregarCategorias.setBorderPainted(false);
         btnAgregarCategorias.setFocusPainted(false);
 
@@ -2886,7 +2490,7 @@ public class IMenu extends javax.swing.JFrame {
             .addGroup(pnlInventarioLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(pnlInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1034, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1036, Short.MAX_VALUE)
                     .addGroup(pnlInventarioLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -2990,11 +2594,6 @@ public class IMenu extends javax.swing.JFrame {
         btnAddClienteCredito.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnAddClienteCredito.setForeground(new java.awt.Color(64, 64, 64));
         btnAddClienteCredito.setText("Cliente");
-        btnAddClienteCredito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddClienteCreditoActionPerformed(evt);
-            }
-        });
         jPanel15.add(btnAddClienteCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, -1, -1));
 
         jLabel70.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -3018,29 +2617,14 @@ public class IMenu extends javax.swing.JFrame {
 
         btnCrearCredito.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnCrearCredito.setText("Crear");
-        btnCrearCredito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearCreditoActionPerformed(evt);
-            }
-        });
         jPanel15.add(btnCrearCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
 
         btnActualizarCredito.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnActualizarCredito.setText("Actualizar");
-        btnActualizarCredito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarCreditoActionPerformed(evt);
-            }
-        });
         jPanel15.add(btnActualizarCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, -1, -1));
 
         btnNuevoCredito.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnNuevoCredito.setText("Nuevo");
-        btnNuevoCredito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoCreditoActionPerformed(evt);
-            }
-        });
         jPanel15.add(btnNuevoCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, -1, -1));
 
         jLabel73.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -3048,16 +2632,6 @@ public class IMenu extends javax.swing.JFrame {
         jPanel15.add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, -1));
 
         txtBuscarCredito.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtBuscarCredito.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtBuscarCreditoCaretUpdate(evt);
-            }
-        });
-        txtBuscarCredito.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtBuscarCreditoMouseClicked(evt);
-            }
-        });
         jPanel15.add(txtBuscarCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 220, -1));
         jPanel15.add(jcFechaCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 70, 115, 30));
 
@@ -3093,11 +2667,6 @@ public class IMenu extends javax.swing.JFrame {
         jPanel15.add(jScrollPane22, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 530, 170));
 
         txtBuscarCreditosCreados.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtBuscarCreditosCreados.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtBuscarCreditosCreadosCaretUpdate(evt);
-            }
-        });
         jPanel15.add(txtBuscarCreditosCreados, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 30, 220, -1));
 
         jLabel74.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -3110,7 +2679,7 @@ public class IMenu extends javax.swing.JFrame {
             pnlCreditosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCreditosLayout.createSequentialGroup()
                 .addGap(52, 52, 52)
-                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, 954, Short.MAX_VALUE)
+                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(48, 48, 48))
         );
         pnlCreditosLayout.setVerticalGroup(
@@ -3128,25 +2697,10 @@ public class IMenu extends javax.swing.JFrame {
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "Administracion de Usuarios", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16), new java.awt.Color(64, 64, 64))); // NOI18N
 
         btnNuevoUsuario.setText("Nuevo");
-        btnNuevoUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoUsuarioActionPerformed(evt);
-            }
-        });
 
         btnGuardarUsuario.setText("Guardar");
-        btnGuardarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarUsuarioActionPerformed(evt);
-            }
-        });
 
         btnActualizarUsuario.setText("Actualizar");
-        btnActualizarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarUsuarioActionPerformed(evt);
-            }
-        });
 
         txtNombreUsuario.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtNombreUsuario.setToolTipText("");
@@ -3154,11 +2708,6 @@ public class IMenu extends javax.swing.JFrame {
         txtPermisoUsuario.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         txtBuscarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtBuscarUsuario.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtBuscarUsuarioCaretUpdate(evt);
-            }
-        });
 
         jLabel45.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel45.setText("permiso");
@@ -3234,7 +2783,7 @@ public class IMenu extends javax.swing.JFrame {
                 .addComponent(txtBuscarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
-                .addComponent(jScrollPane18, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE))
+                .addComponent(jScrollPane18, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3288,8 +2837,9 @@ public class IMenu extends javax.swing.JFrame {
         pnlNotificaciones.setBackground(new java.awt.Color(255, 255, 255));
 
         jlListaNotificaciones.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jlListaNotificaciones.setSelectionBackground(new java.awt.Color(51, 176, 255));
-        jlListaNotificaciones.setSelectionForeground(new java.awt.Color(255, 239, 255));
+        jlListaNotificaciones.setFocusable(false);
+        jlListaNotificaciones.setSelectionBackground(new java.awt.Color(0, 222, 171));
+        jlListaNotificaciones.setSelectionForeground(new java.awt.Color(247, 249, 252));
         jScrollPane16.setViewportView(jlListaNotificaciones);
 
         jLabel42.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -3304,7 +2854,7 @@ public class IMenu extends javax.swing.JFrame {
                 .addGap(126, 126, 126)
                 .addGroup(pnlNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane16)
-                    .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE))
+                    .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, 809, Short.MAX_VALUE))
                 .addGap(121, 121, 121))
         );
         pnlNotificacionesLayout.setVerticalGroup(
@@ -3357,34 +2907,14 @@ public class IMenu extends javax.swing.JFrame {
 
         btnGuardarGasto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnGuardarGasto.setText("Guardar");
-        btnGuardarGasto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarGastoActionPerformed(evt);
-            }
-        });
 
         btnNuevoGasto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnNuevoGasto.setText("Nuevo");
-        btnNuevoGasto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoGastoActionPerformed(evt);
-            }
-        });
 
         btnActualizarGasto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnActualizarGasto.setText("Actualizar");
-        btnActualizarGasto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarGastoActionPerformed(evt);
-            }
-        });
 
         txtMontoGasto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtMontoGasto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtMontoGastoFocusLost(evt);
-            }
-        });
 
         jLabel75.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel75.setText("Fecha:");
@@ -3394,63 +2924,58 @@ public class IMenu extends javax.swing.JFrame {
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel17Layout.createSequentialGroup()
-                        .addComponent(jScrollPane21)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(300, 300, 300)
+                        .addComponent(jLabel67)
+                        .addGap(14, 14, 14)
+                        .addComponent(txtMontoGasto, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addGap(250, 250, 250)
+                        .addComponent(jLabel68)
+                        .addGap(9, 9, 9)
+                        .addComponent(jScrollPane20, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addGap(300, 300, 300)
+                        .addComponent(jLabel75)
+                        .addGap(17, 17, 17)
+                        .addComponent(jcFechaGasto, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addGap(280, 280, 280)
                         .addComponent(btnNuevoGasto, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(21, 21, 21)
                         .addComponent(btnGuardarGasto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnActualizarGasto, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(164, 164, 164))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
-                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addGap(203, 203, 203)
-                                .addComponent(jLabel75)
-                                .addGap(18, 18, 18)
-                                .addComponent(jcFechaGasto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel17Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
-                                        .addComponent(jLabel67))
-                                    .addGroup(jPanel17Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(jLabel68)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane20)
-                                    .addComponent(txtMontoGasto))))
-                        .addGap(206, 206, 206))))
+                        .addGap(28, 28, 28)
+                        .addComponent(btnActualizarGasto, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane21, javax.swing.GroupLayout.DEFAULT_SIZE, 915, Short.MAX_VALUE)))
+                .addGap(25, 25, 25))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel67)
                     .addComponent(txtMontoGasto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel68)
+                    .addComponent(jScrollPane20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel75))
+                    .addComponent(jcFechaGasto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel68))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel75, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jcFechaGasto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnActualizarGasto)
                     .addComponent(btnNuevoGasto)
-                    .addComponent(btnGuardarGasto))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane21, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                .addGap(24, 24, 24))
+                    .addComponent(btnGuardarGasto)
+                    .addComponent(btnActualizarGasto))
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane21, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlComprasGastosLayout = new javax.swing.GroupLayout(pnlComprasGastos);
@@ -3458,31 +2983,21 @@ public class IMenu extends javax.swing.JFrame {
         pnlComprasGastosLayout.setHorizontalGroup(
             pnlComprasGastosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlComprasGastosLayout.createSequentialGroup()
-                .addGap(163, 163, 163)
+                .addGap(47, 47, 47)
                 .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(122, 122, 122))
+                .addGap(59, 59, 59))
         );
         pnlComprasGastosLayout.setVerticalGroup(
             pnlComprasGastosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlComprasGastosLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(45, 45, 45))
+                .addGap(69, 69, 69))
         );
 
         pnlPrincipal.add(pnlComprasGastos, "card9");
 
         pnlEncabezado.setBackground(new java.awt.Color(239, 244, 245));
-        pnlEncabezado.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                pnlEncabezadoMouseDragged(evt);
-            }
-        });
-        pnlEncabezado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                pnlEncabezadoMousePressed(evt);
-            }
-        });
 
         jButton1.setBackground(new java.awt.Color(204, 0, 0));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cruzar (1).png"))); // NOI18N
@@ -3496,7 +3011,6 @@ public class IMenu extends javax.swing.JFrame {
         });
 
         btnMaximizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pestana-multiple.png"))); // NOI18N
-        btnMaximizar.setBorder(null);
         btnMaximizar.setBorderPainted(false);
         btnMaximizar.setContentAreaFilled(false);
         btnMaximizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -3519,9 +3033,11 @@ public class IMenu extends javax.swing.JFrame {
         });
 
         btnRestablecer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pestana-multiple.png"))); // NOI18N
-        btnRestablecer.setBorder(null);
+        btnRestablecer.setBorderPainted(false);
         btnRestablecer.setContentAreaFilled(false);
         btnRestablecer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRestablecer.setFocusPainted(false);
+        btnRestablecer.setFocusable(false);
         btnRestablecer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRestablecerActionPerformed(evt);
@@ -3563,308 +3079,138 @@ public class IMenu extends javax.swing.JFrame {
 
         btnVentas.setBackground(new java.awt.Color(64, 64, 64));
         btnVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnVentas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnVentasMouseClicked(evt);
-            }
-        });
+        btnVentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/carrito-de-compras (1).png"))); // NOI18N
+        btnVentas.add(lblIconVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 0, -1, 53));
 
         lblMenuVentas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblMenuVentas.setForeground(new java.awt.Color(255, 255, 255));
         lblMenuVentas.setText("Ventas");
+        btnVentas.add(lblMenuVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 11, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/charts (1).png"))); // NOI18N
-
-        javax.swing.GroupLayout btnVentasLayout = new javax.swing.GroupLayout(btnVentas);
-        btnVentas.setLayout(btnVentasLayout);
-        btnVentasLayout.setHorizontalGroup(
-            btnVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnVentasLayout.createSequentialGroup()
-                .addGroup(btnVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(btnVentasLayout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jLabel4))
-                    .addGroup(btnVentasLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(lblIconVentas)
-                        .addGap(32, 32, 32)
-                        .addComponent(lblMenuVentas)))
-                .addContainerGap(64, Short.MAX_VALUE))
-        );
-        btnVentasLayout.setVerticalGroup(
-            btnVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnVentasLayout.createSequentialGroup()
-                .addGroup(btnVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblIconVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(btnVentasLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblMenuVentas)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        btnVentas.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 71, -1, -1));
 
         pnlMenuLateral.add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 97, 200, 50));
 
         btnReportes.setBackground(new java.awt.Color(64, 64, 64));
         btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnReportes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnReportesMouseClicked(evt);
-            }
-        });
+        btnReportes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/charts (1).png"))); // NOI18N
+        btnReportes.add(lblIconReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 0, -1, 50));
 
         lblMenuReportes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblMenuReportes.setForeground(new java.awt.Color(255, 255, 255));
         lblMenuReportes.setText("Reportes");
-
-        javax.swing.GroupLayout btnReportesLayout = new javax.swing.GroupLayout(btnReportes);
-        btnReportes.setLayout(btnReportesLayout);
-        btnReportesLayout.setHorizontalGroup(
-            btnReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnReportesLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(lblIconReportes)
-                .addGap(32, 32, 32)
-                .addComponent(lblMenuReportes)
-                .addContainerGap(46, Short.MAX_VALUE))
-        );
-        btnReportesLayout.setVerticalGroup(
-            btnReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblIconReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnReportesLayout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addComponent(lblMenuReportes)
-                .addContainerGap())
-        );
+        btnReportes.add(lblMenuReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 14, -1, -1));
 
         pnlMenuLateral.add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 200, 50));
 
         btnClientes.setBackground(new java.awt.Color(64, 64, 64));
         btnClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnClientes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnClientesMouseClicked(evt);
-            }
-        });
+        btnClientes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/usuario (0).png"))); // NOI18N
+        btnClientes.add(lblIconClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 0, -1, 50));
 
         lblMenuClientes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblMenuClientes.setForeground(new java.awt.Color(255, 255, 255));
         lblMenuClientes.setText("Clientes");
-
-        javax.swing.GroupLayout btnClientesLayout = new javax.swing.GroupLayout(btnClientes);
-        btnClientes.setLayout(btnClientesLayout);
-        btnClientesLayout.setHorizontalGroup(
-            btnClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnClientesLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lblIconClientes)
-                .addGap(31, 31, 31)
-                .addComponent(lblMenuClientes)
-                .addContainerGap(56, Short.MAX_VALUE))
-        );
-        btnClientesLayout.setVerticalGroup(
-            btnClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnClientesLayout.createSequentialGroup()
-                .addGap(0, 14, Short.MAX_VALUE)
-                .addComponent(lblMenuClientes)
-                .addContainerGap())
-            .addComponent(lblIconClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        btnClientes.add(lblMenuClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 14, -1, -1));
 
         pnlMenuLateral.add(btnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 50));
 
         btnInventario.setBackground(new java.awt.Color(64, 64, 64));
         btnInventario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnInventario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnInventarioMouseClicked(evt);
-            }
-        });
+        btnInventario.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconIventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/crecimiento.png"))); // NOI18N
+        btnInventario.add(lblIconIventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 0, -1, 50));
 
         lblMenuInventario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblMenuInventario.setForeground(new java.awt.Color(255, 255, 255));
         lblMenuInventario.setText("Inventario");
-
-        javax.swing.GroupLayout btnInventarioLayout = new javax.swing.GroupLayout(btnInventario);
-        btnInventario.setLayout(btnInventarioLayout);
-        btnInventarioLayout.setHorizontalGroup(
-            btnInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnInventarioLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lblIconIventario)
-                .addGap(31, 31, 31)
-                .addComponent(lblMenuInventario)
-                .addContainerGap(38, Short.MAX_VALUE))
-        );
-        btnInventarioLayout.setVerticalGroup(
-            btnInventarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnInventarioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblMenuInventario)
-                .addContainerGap(14, Short.MAX_VALUE))
-            .addComponent(lblIconIventario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        btnInventario.add(lblMenuInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 11, -1, -1));
 
         pnlMenuLateral.add(btnInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, 50));
 
         btnCreditos.setBackground(new java.awt.Color(64, 64, 64));
         btnCreditos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCreditos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCreditosMouseClicked(evt);
-            }
-        });
+        btnCreditos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconCreditos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/creditos (1).png"))); // NOI18N
+        btnCreditos.add(lblIconCreditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 0, -1, 50));
 
         lblMenuCreditos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblMenuCreditos.setForeground(new java.awt.Color(255, 255, 255));
         lblMenuCreditos.setText("Creditos");
-
-        javax.swing.GroupLayout btnCreditosLayout = new javax.swing.GroupLayout(btnCreditos);
-        btnCreditos.setLayout(btnCreditosLayout);
-        btnCreditosLayout.setHorizontalGroup(
-            btnCreditosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCreditosLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(lblIconCreditos)
-                .addGap(32, 32, 32)
-                .addComponent(lblMenuCreditos)
-                .addContainerGap(51, Short.MAX_VALUE))
-        );
-        btnCreditosLayout.setVerticalGroup(
-            btnCreditosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnCreditosLayout.createSequentialGroup()
-                .addGap(0, 14, Short.MAX_VALUE)
-                .addComponent(lblMenuCreditos)
-                .addContainerGap())
-            .addComponent(lblIconCreditos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        btnCreditos.add(lblMenuCreditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 14, -1, -1));
 
         pnlMenuLateral.add(btnCreditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 200, 50));
 
         btnCerrarSesion.setBackground(new java.awt.Color(64, 64, 64));
         btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCerrarSesionMouseClicked(evt);
-            }
-        });
+        btnCerrarSesion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/salida (1).png"))); // NOI18N
+        btnCerrarSesion.add(lblIconCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 0, -1, 50));
 
         lblMenuCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblMenuCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
         lblMenuCerrarSesion.setText("Cerrar Sesión");
-
-        javax.swing.GroupLayout btnCerrarSesionLayout = new javax.swing.GroupLayout(btnCerrarSesion);
-        btnCerrarSesion.setLayout(btnCerrarSesionLayout);
-        btnCerrarSesionLayout.setHorizontalGroup(
-            btnCerrarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCerrarSesionLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(lblIconCerrarSesion)
-                .addGap(18, 18, 18)
-                .addComponent(lblMenuCerrarSesion)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-        btnCerrarSesionLayout.setVerticalGroup(
-            btnCerrarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnCerrarSesionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblMenuCerrarSesion)
-                .addContainerGap(14, Short.MAX_VALUE))
-            .addComponent(lblIconCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        btnCerrarSesion.add(lblMenuCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 11, -1, -1));
 
         pnlMenuLateral.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 200, 50));
 
         btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
         btnUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnUsuariosMouseClicked(evt);
-            }
-        });
+        btnUsuarios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/user.png"))); // NOI18N
+        btnUsuarios.add(lblIconUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 0, -1, 52));
 
         lblMenuUsuarios.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
         lblMenuUsuarios.setText("Usuarios");
-
-        javax.swing.GroupLayout btnUsuariosLayout = new javax.swing.GroupLayout(btnUsuarios);
-        btnUsuarios.setLayout(btnUsuariosLayout);
-        btnUsuariosLayout.setHorizontalGroup(
-            btnUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnUsuariosLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(lblIconUsuario)
-                .addGap(35, 35, 35)
-                .addComponent(lblMenuUsuarios))
-        );
-        btnUsuariosLayout.setVerticalGroup(
-            btnUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblIconUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(btnUsuariosLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(lblMenuUsuarios))
-        );
+        btnUsuarios.add(lblMenuUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 14, -1, -1));
 
         pnlMenuLateral.add(btnUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 200, 50));
 
         btnNotificaciones.setBackground(new java.awt.Color(64, 64, 64));
         btnNotificaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnNotificaciones.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnNotificacionesMouseClicked(evt);
-            }
-        });
+        btnNotificaciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblMenuNotificacion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblMenuNotificacion.setForeground(new java.awt.Color(255, 255, 255));
         lblMenuNotificacion.setText("Notificaciones");
+        btnNotificaciones.add(lblMenuNotificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 17, -1, 20));
 
-        javax.swing.GroupLayout btnNotificacionesLayout = new javax.swing.GroupLayout(btnNotificaciones);
-        btnNotificaciones.setLayout(btnNotificacionesLayout);
-        btnNotificacionesLayout.setHorizontalGroup(
-            btnNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnNotificacionesLayout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
-                .addComponent(lblMenuNotificacion)
-                .addGap(31, 31, 31))
-        );
-        btnNotificacionesLayout.setVerticalGroup(
-            btnNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnNotificacionesLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(lblMenuNotificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        lblIconNotificaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/envelope.png"))); // NOI18N
+        btnNotificaciones.add(lblIconNotificaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 11, -1, -1));
+
+        lblNumeroNotificaciones.setBackground(new java.awt.Color(255, 51, 51));
+        lblNumeroNotificaciones.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblNumeroNotificaciones.setForeground(new java.awt.Color(255, 255, 255));
+        lblNumeroNotificaciones.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNumeroNotificaciones.setText("1");
+        lblNumeroNotificaciones.setOpaque(true);
+        btnNotificaciones.add(lblNumeroNotificaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 7, 12, -1));
 
         pnlMenuLateral.add(btnNotificaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 200, 50));
 
         btnComprasGastos.setBackground(new java.awt.Color(64, 64, 64));
-        btnComprasGastos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnComprasGastosMouseClicked(evt);
-            }
-        });
+        btnComprasGastos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnComprasGastos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblGastosMenu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblGastosMenu.setForeground(new java.awt.Color(255, 255, 255));
-        lblGastosMenu.setText("Compras y otros Gastos");
-        btnComprasGastos.add(lblGastosMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 14, -1, -1));
+        lblGastosMenu.setText("Compra Gastos");
+        btnComprasGastos.add(lblGastosMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(61, 13, -1, -1));
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/wallet-with-card-sticking-out.png"))); // NOI18N
+        btnComprasGastos.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 11, -1, -1));
 
         pnlMenuLateral.add(btnComprasGastos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 200, 50));
 
@@ -3878,7 +3224,7 @@ public class IMenu extends javax.swing.JFrame {
                 .addGroup(pnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlEncabezado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlContenedorLayout.createSequentialGroup()
-                        .addComponent(pnlPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE)
+                        .addComponent(pnlPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 1056, Short.MAX_VALUE)
                         .addGap(1, 1, 1))))
         );
         pnlContenedorLayout.setVerticalGroup(
@@ -3887,7 +3233,7 @@ public class IMenu extends javax.swing.JFrame {
             .addGroup(pnlContenedorLayout.createSequentialGroup()
                 .addComponent(pnlEncabezado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(pnlPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addComponent(pnlPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -3895,7 +3241,7 @@ public class IMenu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
+                .addComponent(pnlContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, 1262, Short.MAX_VALUE)
                 .addGap(1, 1, 1))
         );
         layout.setVerticalGroup(
@@ -3907,75 +3253,7 @@ public class IMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
    
     
-    public void EstiloTablaFacturacion()
-    {
-        /*tblFactura.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblFactura.getTableHeader().setOpaque(false);
-        tblFactura.getTableHeader().setBackground(new Color(100,100,100));
-        tblFactura.getTableHeader().setForeground(new Color(255,255,255));*/
-    }
-    
-    public void SumaTotalFiltroReporte()
-    {
-        /*float totalFiltroReporte = 0, creditoMensual = 0, totalCaja = 0, totalGastos = 0, totalExist = 0;
-        this.modelo = (DefaultTableModel) tblReporteDiario.getModel();
-        int filas = this.modelo.getRowCount();
-        for(int cont = 0;cont<filas;cont++)
-        {
-            totalFiltroReporte += Float.parseFloat(this.modelo.getValueAt(cont, 3).toString());
-        }
-        lblTotalFiltroReporte.setText(String.valueOf(totalFiltroReporte));
-        creditoMensual = Float.parseFloat(lblTotalCreditosFiltroReporte.getText());
-        totalGastos = Float.parseFloat(lblGastos.getText());
-        totalCaja = totalFiltroReporte - creditoMensual;
-        totalExist = totalFiltroReporte - creditoMensual-totalGastos;
-        lblTotalCajaFiltroReporte.setText(""+totalCaja);
-        lblTotalExistencia.setText(""+totalExist);*/
-    }
-    
-    public void Notificacion()
-    {   
-        /*ArrayList lista = new ArrayList();//instancia de un nuevo array list
-        DefaultListModel modeloLista = new DefaultListModel();//modelo para el Jlist
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//formateador de fecha
-        Date fechaFinal ,fechaInicio = this.fecha;//fecha de venvimiento de producto y fecha actual del sistema
-        this.modelo = (DefaultTableModel) tblProductos.getModel();
-        int filas = this.modelo.getRowCount();//cuenta las filas de la tabla productos
-        for(int i=0;i<filas;i++)//recorro la tabla productos
-        {
-            try {
-                fechaFinal = sdf.parse(this.modelo.getValueAt(i, 5).toString());//obtengo la fecha del producto de la tabla producto lo paso a formato Date
-                int dias = (int) ((fechaFinal.getTime() - fechaInicio.getTime()) / 86400000);//calculo de diferencias de dias "conversion de milesegundos a dias"
-                String nombre = (String) this.modelo.getValueAt(i, 2);//obtengo el nombre del producto de la tabla producto
-                if(dias == 60)//
-                {
-                    lblMenuNotificacion.setForeground(new java.awt.Color(255,7,5,255));//cambio de color si hay productos cerca de vencer
-                    lista.add("Quedan "+dias+" Dias para que el Producto "+nombre+" Caduque");//agrego un elemeto a lista
-                    modeloLista.removeAllElements();//limpio el JList para que no repita los datos a mostrar
-                    for(int l = 0;l<lista.size();l++)//recorro la lista para ingresarla al modelo de Jlist
-                    {
-                      modeloLista.addElement(lista.get(l)); //add elemento a modeloLista   
-                    }
-                    
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-            
-        }  
-        jlListaNotificaciones.setModel(modeloLista);//establesco el modeloLista  Jlist para mostrar las notificaciones*/
-    }
-    //metodo para obtener la fecha actual de sistema 
-    //este metod tambien sirve para cargar las tablas de todos los reportes cargalos al constructor y los jdatashooser
-    public void FechaActual()
-    {
-        /*jcFechaFactura.setDate(this.fecha);//formulario factura
-        jcFecha1.setDate(this.fecha);//reporte mensual o por rango
-        jcFecha2.setDate(this.fecha);//reporte mensual o por rango
-        SumaTotalFiltroReporte();//lbl de total reporte mensual o por rango*/
-        
-    }
-    
+
     public void Grupo1RadioButton()//creo grupo de radioButton para filtros de busqueda en la ventana addProductoFactura
     {
         this.grupo1.add(rbBuscarNombreCodBarra);
@@ -3992,85 +3270,6 @@ public class IMenu extends javax.swing.JFrame {
         }
     }
     
-    private void btnVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVentasMouseClicked
-        /*btnVentas.setBackground(new java.awt.Color(239, 244, 245));
-        lblMenuVentas.setForeground(new java.awt.Color(0, 222, 171));
-        lblTituloDeVentanas.setText("Facturación");
-        
-        btnReportes.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuReportes.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnClientes.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuClientes.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnInventario.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuInventario.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnCreditos.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuCreditos.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnCerrarSesion.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        
-        btnNotificaciones.setBackground(new java.awt.Color(64,64,64));
-        lblMenuNotificacion.setForeground(new java.awt.Color(255,255,255));
-        
-        btnComprasGastos.setBackground(new java.awt.Color(64,64,64));
-        lblGastosMenu.setForeground(new java.awt.Color(255,255,255));
-        
-        pnlClientes.setVisible(false);
-        pnlVentas.setVisible(true);
-        pnlReportes.setVisible(false);
-        pnlInventario.setVisible(false);
-        pnlCreditos.setVisible(false);
-        pnlUsuarios.setVisible(false);
-        pnlNotificaciones.setVisible(false);
-        pnlComprasGastos.setVisible(false);*/
-
-    }//GEN-LAST:event_btnVentasMouseClicked
-
-    private void btnReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseClicked
-        /*btnReportes.setBackground(new java.awt.Color(239, 244, 245));
-        lblMenuReportes.setForeground(new java.awt.Color(0, 222, 171));
-        lblTituloDeVentanas.setText("Reportes");
-        
-        btnVentas.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuVentas.setForeground(new java.awt.Color(255, 249, 252));
-
-        btnClientes.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuClientes.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnInventario.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuInventario.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnCreditos.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuCreditos.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnCerrarSesion.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        
-        btnNotificaciones.setBackground(new java.awt.Color(64,64,64));
-        lblMenuNotificacion.setForeground(new java.awt.Color(255,255,255));
-        
-        btnComprasGastos.setBackground(new java.awt.Color(64,64,64));
-        lblGastosMenu.setForeground(new java.awt.Color(255,255,255));
-        
-        pnlClientes.setVisible(false);
-        pnlVentas.setVisible(false);
-        pnlReportes.setVisible(true);
-        pnlInventario.setVisible(false);
-        pnlCreditos.setVisible(false);
-        pnlUsuarios.setVisible(false);
-        pnlNotificaciones.setVisible(false);
-        pnlComprasGastos.setVisible(false);*/
-    }//GEN-LAST:event_btnReportesMouseClicked
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         System.exit(0);//cerrar sistema
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -4092,157 +3291,6 @@ public class IMenu extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnRestablecerActionPerformed
 
-    private void btnClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClientesMouseClicked
-        /*btnClientes.setBackground(new java.awt.Color(239, 244, 245));
-        lblMenuClientes.setForeground(new java.awt.Color(0, 222, 171));
-        lblTituloDeVentanas.setText("Clientes");
-        
-        btnReportes.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuReportes.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnVentas.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuVentas.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnInventario.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuInventario.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnCreditos.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuCreditos.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnCerrarSesion.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        
-        btnNotificaciones.setBackground(new java.awt.Color(64,64,64));
-        lblMenuNotificacion.setForeground(new java.awt.Color(255,255,255));
-        
-        btnComprasGastos.setBackground(new java.awt.Color(64,64,64));
-        lblGastosMenu.setForeground(new java.awt.Color(255,255,255));
-
-        pnlClientes.setVisible(true);
-        pnlVentas.setVisible(false);
-        pnlReportes.setVisible(false);
-        pnlInventario.setVisible(false);
-        pnlCreditos.setVisible(false);
-        pnlUsuarios.setVisible(false);
-        pnlNotificaciones.setVisible(false);
-        pnlComprasGastos.setVisible(false);*/
-    }//GEN-LAST:event_btnClientesMouseClicked
-
-    private void btnInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInventarioMouseClicked
-        /*btnInventario.setBackground(new java.awt.Color(239, 244, 245));
-        lblMenuInventario.setForeground(new java.awt.Color(0, 222, 171));
-        lblTituloDeVentanas.setText("Inventario");
-        
-        btnReportes.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuReportes.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnVentas.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuVentas.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnClientes.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuClientes.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnCreditos.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuCreditos.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnCerrarSesion.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        
-        btnNotificaciones.setBackground(new java.awt.Color(64,64,64));
-        lblMenuNotificacion.setForeground(new java.awt.Color(255,255,255));
-        
-        btnComprasGastos.setBackground(new java.awt.Color(64,64,64));
-        lblGastosMenu.setForeground(new java.awt.Color(255,255,255));
-
-        pnlClientes.setVisible(false);
-        pnlVentas.setVisible(false);
-        pnlReportes.setVisible(false);
-        pnlInventario.setVisible(true);
-        pnlCreditos.setVisible(false);
-        pnlUsuarios.setVisible(false);
-        pnlNotificaciones.setVisible(false);
-        pnlComprasGastos.setVisible(false);*/
-    }//GEN-LAST:event_btnInventarioMouseClicked
-
-    private void btnCreditosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreditosMouseClicked
-        /*btnCreditos.setBackground(new java.awt.Color(239, 244, 245));
-        lblMenuCreditos.setForeground(new java.awt.Color(0, 222, 171));
-        lblTituloDeVentanas.setText("Creditos");
-        
-        btnReportes.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuReportes.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnVentas.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuVentas.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnInventario.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuInventario.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnClientes.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuClientes.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnCerrarSesion.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        
-        btnNotificaciones.setBackground(new java.awt.Color(64,64,64));
-        lblMenuNotificacion.setForeground(new java.awt.Color(255,255,255));
-        
-        btnComprasGastos.setBackground(new java.awt.Color(64,64,64));
-        lblGastosMenu.setForeground(new java.awt.Color(255,255,255));
-        
-        pnlClientes.setVisible(false);
-        pnlVentas.setVisible(false);
-        pnlReportes.setVisible(false);
-        pnlInventario.setVisible(false);
-        pnlCreditos.setVisible(true);
-        pnlUsuarios.setVisible(false);
-        pnlNotificaciones.setVisible(false);
-        pnlComprasGastos.setVisible(false);*/
-    }//GEN-LAST:event_btnCreditosMouseClicked
-
-    private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
-        /*btnCerrarSesion.setBackground(new java.awt.Color(239, 244, 245));
-        lblMenuCerrarSesion.setForeground(new java.awt.Color(0, 222, 171));
-
-        btnReportes.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuReportes.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnVentas.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuVentas.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnInventario.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuInventario.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnCreditos.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuCreditos.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnClientes.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuClientes.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        
-        btnNotificaciones.setBackground(new java.awt.Color(64,64,64));
-        lblMenuNotificacion.setForeground(new java.awt.Color(255,255,255));
-        
-        btnComprasGastos.setBackground(new java.awt.Color(64,64,64));
-        lblGastosMenu.setForeground(new java.awt.Color(255,255,255));
-        
-        ILogin login = new ILogin();
-        this.dispose();
-        login.setVisible(true);*/
-
-    }//GEN-LAST:event_btnCerrarSesionMouseClicked
-
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         x = evt.getX();
         y = evt.getY();
@@ -4253,171 +3301,6 @@ public class IMenu extends javax.swing.JFrame {
         setLocation(point.x - x, point.y - y);
     }//GEN-LAST:event_formMouseDragged
 
-    private void btnUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuariosMouseClicked
-        /*btnUsuarios.setBackground(new java.awt.Color(239, 244, 245));
-        lblMenuUsuarios.setForeground(new java.awt.Color(0, 222, 171));
-        lblTituloDeVentanas.setText("Gestion de Usuarios");
-        
-        btnReportes.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuReportes.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnVentas.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuVentas.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnInventario.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuInventario.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnCreditos.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuCreditos.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnCerrarSesion.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnClientes.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuClientes.setForeground(new java.awt.Color(255, 255, 255));
-        
-        btnNotificaciones.setBackground(new java.awt.Color(64,64,64));
-        lblMenuNotificacion.setForeground(new java.awt.Color(255,255,255));
-        
-        btnComprasGastos.setBackground(new java.awt.Color(64,64,64));
-        lblGastosMenu.setForeground(new java.awt.Color(255,255,255));
-        
-        pnlClientes.setVisible(false);
-        pnlVentas.setVisible(false);
-        pnlReportes.setVisible(false);
-        pnlInventario.setVisible(false);
-        pnlCreditos.setVisible(false);
-        pnlUsuarios.setVisible(true);
-        pnlNotificaciones.setVisible(false);
-        pnlComprasGastos.setVisible(false);*/
-    }//GEN-LAST:event_btnUsuariosMouseClicked
-
-    private void btnGuardarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClienteActionPerformed
-        /*String nombres = "", apellidos = "", telefono = "", direccion = "";
-        nombres = txtNombresCliente.getText();
-        apellidos = txtApellidosCliente.getText();
-        telefono = txtTelefonoCliente.getText();
-        direccion = txtDireccionCliente.getText();
-        if (!nombres.equals("") && !apellidos.equals("")) {
-            clientes.Guardar(nombres, apellidos, telefono, direccion);
-            MostrarClientes("");
-            MostrarClienteFactura("");
-            Limpiar();
-        } else {
-            JOptionPane.showMessageDialog(null, "Llene los campos Nombres y apellidos", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }*/
-
-    }//GEN-LAST:event_btnGuardarClienteActionPerformed
-
-    private void txtBuscarClienteCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtBuscarClienteCaretUpdate
-        /*String Buscar = txtBuscarCliente.getText();
-        MostrarClientes(Buscar);*/
-    }//GEN-LAST:event_txtBuscarClienteCaretUpdate
-
-    private void txtBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarClienteActionPerformed
-
-    }//GEN-LAST:event_txtBuscarClienteActionPerformed
-
-    private void btnNuevorClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevorClientesActionPerformed
-        /*Limpiar();
-        Habilitar();*/
-    }//GEN-LAST:event_btnNuevorClientesActionPerformed
-
-    private void txtNombresClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombresClienteActionPerformed
-        //txtNombresCliente.transferFocus();
-    }//GEN-LAST:event_txtNombresClienteActionPerformed
-
-    private void txtApellidosClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidosClienteActionPerformed
-        //txtApellidosCliente.transferFocus();
-    }//GEN-LAST:event_txtApellidosClienteActionPerformed
-
-    private void txtTelefonoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoClienteActionPerformed
-        //txtTelefonoCliente.transferFocus();
-    }//GEN-LAST:event_txtTelefonoClienteActionPerformed
-
-    private void EditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarClienteActionPerformed
-       /* int filaSeleccionada = 0;
-        String id, nombres, apellidos, telefono, direccion;
-        try {
-            filaSeleccionada = tblClientes.getSelectedRow();
-            if (filaSeleccionada == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccione una Fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            } else {
-                Habilitar();
-                Limpiar();
-                modelo = (DefaultTableModel) tblClientes.getModel();
-                id = (String) modelo.getValueAt(filaSeleccionada, 0);
-                nombres = (String) modelo.getValueAt(filaSeleccionada, 1);
-                apellidos = (String) modelo.getValueAt(filaSeleccionada, 2);
-                telefono = (String) modelo.getValueAt(filaSeleccionada, 3);
-                direccion = (String) modelo.getValueAt(filaSeleccionada, 4);
-                this.id = id;
-                txtNombresCliente.setText(nombres);
-                txtApellidosCliente.setText(apellidos);
-                txtTelefonoCliente.setText(telefono);
-                txtDireccionCliente.setText(direccion);
-                btnGuardarCliente.setEnabled(false);
-                btnActualizarCliente.setEnabled(true);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-
-    }//GEN-LAST:event_EditarClienteActionPerformed
-
-    private void btnActualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarClienteActionPerformed
-       /* String nombres = "", apellidos = "", telefono = "", direccion = "";
-        nombres = txtNombresCliente.getText();
-        apellidos = txtApellidosCliente.getText();
-        telefono = txtTelefonoCliente.getText();
-        direccion = txtDireccionCliente.getText();
-        if (!nombres.equals("") && !apellidos.equals("")) {
-            clientes.Actualizar(id, nombres, apellidos, telefono, direccion);
-            MostrarClientes("");
-            Limpiar();
-            btnGuardarCliente.setEnabled(true);
-            btnActualizarCliente.setEnabled(false);
-        } else {
-            JOptionPane.showMessageDialog(null, "Llene los campos Nombres y apellidos", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }*/
-    }//GEN-LAST:event_btnActualizarClienteActionPerformed
-
-    private void BorrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarClienteActionPerformed
-        /*int filaSelect;
-        String id;
-        try {
-            filaSelect = tblClientes.getSelectedRow();
-            if (filaSelect == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccione una fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            } else {
-                int confirmar = JOptionPane.showConfirmDialog(null, "Seguro que Quires Borrar Este Cliente", "Informacion", JOptionPane.OK_CANCEL_OPTION);
-                if (confirmar == JOptionPane.YES_OPTION) {
-                    modelo = (DefaultTableModel) tblClientes.getModel();
-                    id = (String) modelo.getValueAt(filaSelect, 0);
-                    clientes.Eliminar(id);
-                    MostrarClientes("");
-                }
-            }
-
-        } catch (Exception e) {
-
-        }*/
-    }//GEN-LAST:event_BorrarClienteActionPerformed
-
-    private void btnAgregarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarLaboratorioActionPerformed
-        /*ventanaLaboratorio.setSize(672, 330);
-        ventanaLaboratorio.setLocationRelativeTo(null);
-        ventanaLaboratorio.setModal(true);
-        ventanaLaboratorio.setVisible(true);*/
-    }//GEN-LAST:event_btnAgregarLaboratorioActionPerformed
-
-    private void btnMostrarStockMinimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarStockMinimoActionPerformed
-        /*StockMinimo.setSize(1118, 495);
-        StockMinimo.setLocationRelativeTo(null);
-        //StockMinimo.setModal(true);
-        StockMinimo.setVisible(true);*/
-    }//GEN-LAST:event_btnMostrarStockMinimoActionPerformed
-
     private void jPanel3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MousePressed
 
     }//GEN-LAST:event_jPanel3MousePressed
@@ -4425,2189 +3308,9 @@ public class IMenu extends javax.swing.JFrame {
     private void jPanel3MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseDragged
 
     }//GEN-LAST:event_jPanel3MouseDragged
-
-    private void btnGuardarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCategoriaActionPerformed
-        /*String nombre = txtNombreCategoria.getText(), descripcion = txtDescripcionCategoria.getText();
-        if (nombre.equals("")) {
-            JOptionPane.showMessageDialog(null, "Llene el campo Nombre", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        } else {
-            categorias.Guardar(nombre, descripcion);
-            MostrarCategorias("");
-            LimpiarCategoria();
-        }
-*/
-    }//GEN-LAST:event_btnGuardarCategoriaActionPerformed
-
-    private void btnActualizarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarCategoriaActionPerformed
-        /*String nombre = txtNombreCategoria.getText();
-        if (nombre.equals("")) {
-            JOptionPane.showMessageDialog(null, "Llene el campo Nombre", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else
-        {
-            categorias.Actualizar(this.id, txtNombreCategoria.getText(), txtDescripcionCategoria.getText());
-            MostrarCategorias("");
-            LimpiarCategoria();
-            btnGuardarCategoria.setEnabled(true);
-            btnActualizarCategoria.setEnabled(false);
-        }
-        */
-    }//GEN-LAST:event_btnActualizarCategoriaActionPerformed
-
-    private void btnNuevoCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoCategoriaActionPerformed
-        /*HabilitarCategoria();
-        LimpiarCategoria();*/
-    }//GEN-LAST:event_btnNuevoCategoriaActionPerformed
-
-    private void EditarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarCategoriaActionPerformed
-       /* int filaseleccionada;
-        String nombre, descripcion;
-        try {
-            filaseleccionada = tblCategorias.getSelectedRow();
-            if (filaseleccionada == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccione una Fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            } else {
-                HabilitarCategoria();
-                LimpiarCategoria();
-                modelo = (DefaultTableModel) tblCategorias.getModel();
-                nombre = (String) modelo.getValueAt(filaseleccionada, 1);
-                descripcion = (String) modelo.getValueAt(filaseleccionada, 2);
-                txtNombreCategoria.setText(nombre);
-                txtDescripcionCategoria.setText(descripcion);
-                this.id = (String) modelo.getValueAt(filaseleccionada, 0);
-                btnGuardarCategoria.setEnabled(false);
-                btnActualizarCategoria.setEnabled(true);
-            }
-        } catch (Exception e) {
-
-        }*/
-    }//GEN-LAST:event_EditarCategoriaActionPerformed
-
-    private void BorrarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarCategoriaActionPerformed
-        /*int filaseleccionada;
-        String id;
-        try {
-            filaseleccionada = tblCategorias.getSelectedRow();
-            if (filaseleccionada == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccione una Fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            } else {
-                int confirmar = JOptionPane.showConfirmDialog(null, "Seguro Que Quieres Borrar Esta Categoria", "Avertencia", JOptionPane.OK_CANCEL_OPTION);
-                if (confirmar == JOptionPane.YES_OPTION) {
-                    modelo = (DefaultTableModel) tblCategorias.getModel();
-                    id = (String) modelo.getValueAt(filaseleccionada, 0);
-                    categorias.Eliminar(id);
-                    MostrarCategorias("");
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-    }//GEN-LAST:event_BorrarCategoriaActionPerformed
-
-    private void btnGuardarLaborotorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarLaborotorioActionPerformed
-       /* String nombre = txtNombreLaboratorio.getText(), descripcion = txtDescripcionLaboratorio.getText();
-        if (!nombre.equals("")) {
-            laboratorio.Guardar(nombre, descripcion);
-            MostrarLaboratorio("");
-            LimpiarLaboratorio();
-        } else {
-            JOptionPane.showMessageDialog(null, "Llene el campo Nombre", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
-        }*/
-    }//GEN-LAST:event_btnGuardarLaborotorioActionPerformed
-
-    private void EditarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarLaboratorioActionPerformed
-       /* int filaseleccionada;
-        String id, nombre, descripcion;
-        try {
-            filaseleccionada = tblLaboratorio.getSelectedRow();
-            if (filaseleccionada == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccione una Fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            } else {
-                modelo = (DefaultTableModel) tblLaboratorio.getModel();
-                id = (String) modelo.getValueAt(filaseleccionada, 0);
-                nombre = (String) modelo.getValueAt(filaseleccionada, 1);
-                descripcion = (String) modelo.getValueAt(filaseleccionada, 2);
-                HabilitarLaboratorio();
-                LimpiarLaboratorio();
-                txtNombreLaboratorio.setText(nombre);
-                txtDescripcionLaboratorio.setText(descripcion);
-                this.id = id;
-                btnActualizarLaboratorio.setEnabled(true);
-                btnGuardarLaborotorio.setEnabled(false);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-    }//GEN-LAST:event_EditarLaboratorioActionPerformed
-
-    private void btnActualizarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarLaboratorioActionPerformed
-        /*String nombre = txtNombreLaboratorio.getText(), descripcion = txtDescripcionLaboratorio.getText();
-        if (!nombre.equals("")) {
-            laboratorio.Actualizar(id, nombre, descripcion);
-            MostrarLaboratorio("");
-            LimpiarLaboratorio();
-            btnActualizarLaboratorio.setEnabled(false);
-            btnGuardarLaborotorio.setEnabled(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Llene el campo Nombre", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
-        }*/
-    }//GEN-LAST:event_btnActualizarLaboratorioActionPerformed
-
-    private void btnNuevoLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoLaboratorioActionPerformed
-     // HabilitarLaboratorio();
-    }//GEN-LAST:event_btnNuevoLaboratorioActionPerformed
-
-    private void BorrarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarLaboratorioActionPerformed
-        /*int filaseleccionada;
-        String id;
-        try {
-            filaseleccionada = tblLaboratorio.getSelectedRow();
-            if (filaseleccionada == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccione una Fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            } else {
-                int confirmar = JOptionPane.showConfirmDialog(null, "Seguro que Quieres Borrar Este Laboratorio", "Advertencia", JOptionPane.OK_CANCEL_OPTION);
-                if (confirmar == JOptionPane.YES_OPTION) {
-                    modelo = (DefaultTableModel) tblLaboratorio.getModel();
-                    id = (String) modelo.getValueAt(filaseleccionada, 0);
-                    laboratorio.Eliminar(id);
-                    MostrarLaboratorio("");
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-    }//GEN-LAST:event_BorrarLaboratorioActionPerformed
-
-    private void btnGuardarDescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarDescuentoActionPerformed
-        /*if(txtPorcentajeDescuento.getText().equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Llene el %", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else
-        {
-        if (isNumeric(txtPorcentajeDescuento.getText()))
-             {
-                    int Pdescuento = Integer.parseInt(txtPorcentajeDescuento.getText());
-                    descuento.Guardar(Pdescuento);
-                    MostrarDescuentos("");
-                    LimpiarDescuentos();
-                    btnActualizarDescuento.setEnabled(false);
-                    btnGuardarDescuento.setEnabled(true);
-               
-        }
-         else
-        {
-            JOptionPane.showMessageDialog(null, "Solo Numeros", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }
-        }     */
-
-    }//GEN-LAST:event_btnGuardarDescuentoActionPerformed
-
-    private void btnActualizarDescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarDescuentoActionPerformed
-        /*String Pdescuento = txtPorcentajeDescuento.getText();
-        if(isNumeric(Pdescuento))
-        {
-            descuento.Actualizar(this.id, Pdescuento);
-            LimpiarDescuentos();
-            btnGuardarDescuento.setEnabled(true);
-            btnActualizarDescuento.setEnabled(false);
-            MostrarDescuentos("");
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "Solo Numeros", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }*/
-    }//GEN-LAST:event_btnActualizarDescuentoActionPerformed
-
-    private void btnNuevoDescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoDescuentoActionPerformed
-        /*HabilitarDescuentos();
-        LimpiarDescuentos();*/
-    }//GEN-LAST:event_btnNuevoDescuentoActionPerformed
-
-    private void EditarDescuentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarDescuentosActionPerformed
-         /*int filaseleccionada;
-         String descuento, id;      
-        try {
-            filaseleccionada = tblDescuentos.getSelectedRow();
-            if (filaseleccionada == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccione una Fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            } else {
-                modelo = (DefaultTableModel) tblDescuentos.getModel();
-                id = (String) modelo.getValueAt(filaseleccionada, 0);
-                descuento = (String) modelo.getValueAt(filaseleccionada, 1); 
-                LimpiarDescuentos();
-                txtPorcentajeDescuento.setText(descuento);
-                this.id = id;
-                btnActualizarDescuento.setEnabled(true);
-                btnGuardarDescuento.setEnabled(false);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-    }//GEN-LAST:event_EditarDescuentosActionPerformed
-
-    private void BorrarDescuentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarDescuentosActionPerformed
-        /*int filaseleccionada;
-         String Pdescuento, id;      
-        try {
-            filaseleccionada = tblDescuentos.getSelectedRow();
-            if (filaseleccionada == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccione una Fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            } else {
-                  int confirmar = JOptionPane.showConfirmDialog(null, "Seguro Que Quieres Borrar Este Descuento", "Advertencia", JOptionPane.OK_CANCEL_OPTION);
-                if(confirmar == JOptionPane.YES_OPTION)
-                {
-                    modelo = (DefaultTableModel) tblDescuentos.getModel();
-                    id = (String) modelo.getValueAt(filaseleccionada, 0);
-                    descuento.Eliminar(id);
-                    MostrarDescuentos("");
-                }
-                
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-    }//GEN-LAST:event_BorrarDescuentosActionPerformed
-
-    private void btnGuardarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarProductoActionPerformed
-        /* String codigoBarra = txtCodBarraProducto.getText(),
-        nombre = txtNombreProducto.getText(),
-        precioCProducto = txtCompraProducto.getText(),
-        precioVProducto = txtVentaProducto.getText(),
-        ganancia = txtGananciaProducto.getText(),
-        cantidad = txtCantidadProducto.getText(),
-        categoria = txtCategoriaProducto.getText(),
-        laboratorio = txtLaboratorioProducto.getText(),
-        ubicacion = txtUbicacionProducto.getText(),
-        descripcion = txtDescripcionProducto.getText();
-        Date fechaVencimiento = jcFechaVProducto.getDate();
-        long fechaV = fechaVencimiento.getTime();
-        java.sql.Date fecha = new java.sql.Date(fechaV);
-        //Validacion de que sean ingresados los datos correctos y que no esten vacios
-        if(nombre.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Llene el campo Nombre", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else if(precioCProducto.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Llene el campo Precio Compra", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else if(precioVProducto.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Llene el campo Precio Venta", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else if(fechaVencimiento.equals(null))
-        {
-            JOptionPane.showMessageDialog(null, "Llene el campo Fecha Vencimiento", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else if(cantidad.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Llene el campo Cantidad", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else if(categoria.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Llene el campo Categoria", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else if(laboratorio.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Llene el campo Laboratorio", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else
-        {//validacion para ingreso de nuemeros 
-            if(!isNumeric(precioCProducto))
-            {
-                //txtCompraProducto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-                JOptionPane.showMessageDialog(null, "Solo numeros campo Precio Compra", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }else if(!isNumeric(precioVProducto))
-            {
-                JOptionPane.showMessageDialog(null, "Solo numeros campo Precio Venta", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }else if(!isNumeric(cantidad))
-            {
-                JOptionPane.showMessageDialog(null, "Solo numeros campo Cantidad", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }else if(!isNumeric(laboratorio))
-            {
-                JOptionPane.showMessageDialog(null, "Solo Numeros Campo Laboratorio", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }else if(!isNumeric(categoria))
-            {
-                JOptionPane.showMessageDialog(null, "Solo Numeros Campo Categoria", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }else
-            {   //funcion Guardar de la clase Productos para guardar productos
-                productos.Guardar(codigoBarra, nombre, precioCProducto, precioVProducto, fecha, cantidad, categoria, laboratorio, ubicacion, descripcion);
-                MostrarProductos("");
-                LimpiarProducto();
-                btnGuardarProducto.setEnabled(true);
-                btnActualizarProducto.setEnabled(false);
-                MostrarProductosVender("");
-            }
-            
-        }*/
-    }//GEN-LAST:event_btnGuardarProductoActionPerformed
     
-    public void LimpiarProducto()//metodo para limpiar los campos de formulario Productos
-    {
-        /*txtCodBarraProducto.setText("");
-        txtNombreProducto.setText("");
-        txtCompraProducto.setText("");
-        txtVentaProducto.setText("");
-        txtCantidadProducto.setText("");
-        txtCategoriaProducto.setText("");
-        txtLaboratorioProducto.setText("");
-        txtUbicacionProducto.setText("");
-        txtDescripcionProducto.setText("");
-        txtGananciaProducto.setText("");
-        txtMargenGanancia.setText("");*/
-    }
-    public void DeshabilitarProductos()
-    {
-        /*txtCodBarraProducto.setEnabled(false);
-        txtNombreProducto.setEnabled(false);
-        txtCompraProducto.setEnabled(false);
-        txtVentaProducto.setEnabled(false);
-        jcFechaVProducto.setEnabled(false);
-        txtCantidadProducto.setEnabled(false);
-        txtCategoriaProducto.setEnabled(false);
-        txtLaboratorioProducto.setEnabled(false);
-        txtUbicacionProducto.setEnabled(false);
-        txtDescripcionProducto.setEnabled(false);
-        txtGananciaProducto.setEnabled(false);
-        txtMargenGanancia.setEnabled(false);
-        btnCalcularGanancia.setEnabled(false);
-        btnGuardarProducto.setEnabled(false);
-        btnActualizarProducto.setEnabled(false);*/
-    }
-    public void HabilitarProductos()
-    {
-        /*txtCodBarraProducto.setEnabled(true);
-        txtNombreProducto.setEnabled(true);
-        txtCompraProducto.setEnabled(true);
-        txtVentaProducto.setEnabled(true);
-        jcFechaVProducto.setEnabled(true);
-        txtCantidadProducto.setEnabled(true);
-        txtCategoriaProducto.setEnabled(true);
-        txtLaboratorioProducto.setEnabled(true);
-        txtUbicacionProducto.setEnabled(true);
-        txtDescripcionProducto.setEnabled(true);
-        txtGananciaProducto.setEnabled(true);
-        txtMargenGanancia.setEnabled(true);
-        btnCalcularGanancia.setEnabled(true);
-        btnGuardarProducto.setEnabled(true);
-        btnActualizarProducto.setEnabled(false);*/
-    }
-    public void MostrarPagos(String buscar)
-    {
-       /* jcFechaPago.setDate(this.fecha);
-        tblPagos.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblPagos.getTableHeader().setOpaque(false);
-        tblPagos.getTableHeader().setBackground(new Color(100,100,100));
-        tblPagos.getTableHeader().setForeground(new Color(255,255,255));
-        tblPagos.setModel(this.pagos.Mostrar(buscar));*/
-    }
-    public void MostrarCreditos(String buscar)
-    {
-       /* tblCreditos.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblCreditos.getTableHeader().setOpaque(false);
-        tblCreditos.getTableHeader().setBackground(new Color(100,100,100));
-        tblCreditos.getTableHeader().setForeground(new Color(255,255,255));
-        tblCreditos.setModel(this.creditos.Mostrar(buscar));*/
-    }
-    public void MostrarCreditosCreados(String buscar)
-    {
-        /*tblCreditosCreados.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblCreditosCreados.getTableHeader().setOpaque(false);
-        tblCreditosCreados.getTableHeader().setBackground(new Color(100,100,100));
-        tblCreditosCreados.getTableHeader().setForeground(new Color(255,255,255));
-        jcFechaCredito.setDate(this.fecha);
-        tblCreditosCreados.setModel(creditos.MostrarCreditosCreados(buscar));*/
-    }
-    public void MostrarCreditosAddFactura(String buscar)
-    {
-        /*tblAddCreditoFactura.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblAddCreditoFactura.getTableHeader().setOpaque(false);
-        tblAddCreditoFactura.getTableHeader().setBackground(new Color(100,100,100));
-        tblAddCreditoFactura.getTableHeader().setForeground(new Color(255,255,255));
-        jcFechaCredito.setDate(this.fecha);
-        tblAddCreditoFactura.setModel(creditos.MostrarCreditosCreados(buscar));*/
-    }
-    public void MostrarGastos(String Buscar)
-    {
-        /*tblGastos.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblGastos.getTableHeader().setOpaque(false);
-        tblGastos.getTableHeader().setBackground(new Color(100,100,100));
-        tblGastos.getTableHeader().setForeground(new Color(255,255,255));
-        jcFechaGasto.setDate(this.fecha);
-        tblGastos.setModel(gastos.Mostrar(Buscar));*/
-    }
-    public void MostrarProductos(String buscar)
-    {
-        /*tblProductos.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblProductos.getTableHeader().setOpaque(false);
-        tblProductos.getTableHeader().setBackground(new Color(100,100,100));
-        tblProductos.getTableHeader().setForeground(new Color(255,255,255));
-        tblProductos.setModel(productos.Consulta(buscar));*/
-    }
-    private void txtCategoriaProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCategoriaProductoMouseClicked
-        /*AddCategoria.setSize(600, 200);
-        AddCategoria.setVisible(true);
-        AddCategoria.setLocationRelativeTo(null);
-        llenarAddCategoria("");*/
-    }//GEN-LAST:event_txtCategoriaProductoMouseClicked
-
-    private void txtBuscarCategoriaAddCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtBuscarCategoriaAddCaretUpdate
-        /*String valor = txtBuscarCategoriaAdd.getText();
-        llenarAddCategoria(valor);*/
-    }//GEN-LAST:event_txtBuscarCategoriaAddCaretUpdate
-
-    private void tblAddCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAddCategoriaMouseClicked
-        /*String id;
-        int filaseleccionada = tblAddCategoria.getSelectedRow();
-        try
-        {
-            if(filaseleccionada == -1)
-            {
-                JOptionPane.showMessageDialog(null, "Seleccione una Fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }else
-            {
-                modelo = (DefaultTableModel) tblAddCategoria.getModel();
-                id = (String) modelo.getValueAt(filaseleccionada, 0);
-                txtCategoriaProducto.setText(id);
-                AddCategoria.setVisible(false);
-            }      
-        }catch(Exception e)
-        {
-            
-        }*/
-    }//GEN-LAST:event_tblAddCategoriaMouseClicked
-
-    private void txtLaboratorioAddCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtLaboratorioAddCaretUpdate
-        
-        /*String Nombre = txtLaboratorioAdd.getText();
-        llenarAddLaboratorio(Nombre);*/
-    }//GEN-LAST:event_txtLaboratorioAddCaretUpdate
-
-    private void tblAddLaboratorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAddLaboratorioMouseClicked
-        /* String id;
-        int filaseleccionada = tblAddLaboratorio.getSelectedRow();
-        try
-        {
-            if(filaseleccionada == -1)
-            {
-                JOptionPane.showMessageDialog(null, "Seleccione una Fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }else
-            {
-                modelo = (DefaultTableModel) tblAddLaboratorio.getModel();
-                id = (String) modelo.getValueAt(filaseleccionada, 0);
-                txtLaboratorioProducto.setText(id);
-                AddLaboratorio.setVisible(false);
-            }      
-        }catch(Exception e)
-        {
-            
-        }*/
-    }//GEN-LAST:event_tblAddLaboratorioMouseClicked
-
-    private void txtLaboratorioProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtLaboratorioProductoMouseClicked
-        /*AddLaboratorio.setSize(562, 200);
-        AddLaboratorio.setVisible(true);
-        AddLaboratorio.setLocationRelativeTo(null);
-        llenarAddLaboratorio("");*/
-    }//GEN-LAST:event_txtLaboratorioProductoMouseClicked
-
-    private void btnCalcularGananciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularGananciaActionPerformed
-            /*float compra, porcentaje ,resultado;
-            if(isNumeric(txtCompraProducto.getText()) && isNumeric(txtGananciaProducto.getText()))
-            {              
-                compra = Float.parseFloat(txtCompraProducto.getText());
-                porcentaje = compra*Float.parseFloat(txtGananciaProducto.getText())/100;
-                resultado = porcentaje+compra;
-                String precioV = String.valueOf(resultado);
-                txtMargenGanancia.setText(String.valueOf(porcentaje));
-                txtVentaProducto.setText(precioV);
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, "Solo Numero en Campo Precio Compra y % Ganacia");
-            }*/
-    }//GEN-LAST:event_btnCalcularGananciaActionPerformed
-
-    private void btnNuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoProductoActionPerformed
-        /*HabilitarProductos();
-        LimpiarProducto();*/
-    }//GEN-LAST:event_btnNuevoProductoActionPerformed
-
-    private void txtBuscarProductoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtBuscarProductoCaretUpdate
-        /*String Filtrar = txtBuscarProducto.getText();
-        MostrarProductos(Filtrar);*/
-    }//GEN-LAST:event_txtBuscarProductoCaretUpdate
-
-    private void BorrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarProductoActionPerformed
-        /*int filaseleccionada = tblProductos.getSelectedRow();
-        String id;
-        try
-        {
-            filaseleccionada = tblProductos.getSelectedRow();
-            if(filaseleccionada == -1)
-            {
-                JOptionPane.showMessageDialog(null, "Seleccione una Fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }
-            else
-            {
-                int confirmar = JOptionPane.showConfirmDialog(null, "Seguro Que Quieres Borrar Este Producto","Advertencia", JOptionPane.OK_CANCEL_OPTION);
-                if(confirmar == JOptionPane.YES_OPTION)
-                {
-                    modelo = (DefaultTableModel) tblProductos.getModel();
-                    id = (String) modelo.getValueAt(filaseleccionada, 0);
-                    productos.Eliminar(id);
-                    MostrarProductos("");
-                }
-                
-            }
-        }catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-    }//GEN-LAST:event_BorrarProductoActionPerformed
-
-    private void EditarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarProductoActionPerformed
-        /*int filaseleccionada;
-        String id, codBarra, nombre, precioC, precioV, cantidad, categoria, laboratorio, ubicacion, descripcion;
-        Date fechaVencimiento;
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-        try
-        {
-            filaseleccionada = tblProductos.getSelectedRow();
-            if(filaseleccionada == -1)
-            {
-                JOptionPane.showConfirmDialog(null, "Seleccione una fila","Advertencia", JOptionPane.WARNING_MESSAGE);
-            }else
-            {
-                modelo = (DefaultTableModel) tblProductos.getModel();
-                id = (String) modelo.getValueAt(filaseleccionada, 0);
-                codBarra = (String) modelo.getValueAt(filaseleccionada, 1);
-                nombre = (String) modelo.getValueAt(filaseleccionada, 2);
-                precioC = (String) modelo.getValueAt(filaseleccionada, 3);
-                precioV = (String) modelo.getValueAt(filaseleccionada, 4);
-                fechaVencimiento = formatoFecha.parse(modelo.getValueAt(filaseleccionada, 5).toString());
-                cantidad = (String) modelo.getValueAt(filaseleccionada, 6);
-                categoria = (String) modelo.getValueAt(filaseleccionada, 7);
-                laboratorio = (String) modelo.getValueAt(filaseleccionada, 8);
-                ubicacion = (String) modelo.getValueAt(filaseleccionada, 9);
-                descripcion = (String) modelo.getValueAt(filaseleccionada, 10);
-                HabilitarProductos();
-                LimpiarProducto();
-                txtCodBarraProducto.setText(codBarra);
-                txtNombreProducto.setText(nombre);
-                txtCompraProducto.setText(precioC);
-                txtVentaProducto.setText(precioV);
-                jcFechaVProducto.setDate(fechaVencimiento);
-                txtCantidadProducto.setText(cantidad);
-                txtCategoriaProducto.setText(productos.ObtenerIdCategoria(categoria));
-                txtLaboratorioProducto.setText(productos.ObtenerIdLaboratorio(laboratorio));
-                txtUbicacionProducto.setText(ubicacion);
-                txtDescripcionProducto.setText(descripcion);
-                txtGananciaProducto.setText("0");
-                txtMargenGanancia.setText("");
-                this.id = id;
-                btnGuardarProducto.setEnabled(false);
-                btnActualizarProducto.setEnabled(true);
-            }
-        }catch(Exception e)
-        {
-            JOptionPane.showConfirmDialog(null, e);
-        }*/
-    }//GEN-LAST:event_EditarProductoActionPerformed
-
-    private void btnActualizarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarProductoActionPerformed
-                /*String codigoBarra = txtCodBarraProducto.getText(),
-                nombre = txtNombreProducto.getText(),
-                precioCProducto = txtCompraProducto.getText(),
-                precioVProducto = txtVentaProducto.getText(),
-                ganancia = txtGananciaProducto.getText(),
-                cantidad = txtCantidadProducto.getText(),
-                categoria = txtCategoriaProducto.getText(),
-                laboratorio = txtLaboratorioProducto.getText(),
-                ubicacion = txtUbicacionProducto.getText(),
-                descripcion = txtDescripcionProducto.getText(); 
-        Date fechaVencimiento = jcFechaVProducto.getDate();
-        long fechaV = fechaVencimiento.getTime();
-        java.sql.Date fecha = new java.sql.Date(fechaV);
-        if(nombre.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Llene el campo Nombre", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else if(precioCProducto.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Llene el campo Precio Compra", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else if(precioVProducto.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Llene el campo Precio Venta", "Advertencia", JOptionPane.WARNING_MESSAGE);        
-        }else if(fechaVencimiento.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Llene el campo Fecha Vencimiento", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else if(cantidad.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Llene el campo Cantidad", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else if(categoria.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Llene el campo Categoria", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else if(laboratorio.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Llene el campo Laboratorio", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }else
-        {//validacion para ingreso de nuemeros 
-            if(!isNumeric(precioCProducto))
-            {
-                JOptionPane.showMessageDialog(null, "Solo numeros campo Precio Compra", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }else if(!isNumeric(precioVProducto))
-            {
-                JOptionPane.showMessageDialog(null, "Solo numeros campo Precio Venta", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }else if(!isNumeric(ganancia))
-            {
-                JOptionPane.showMessageDialog(null, "Solo numeros campo Ganancia", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }else if(!isNumeric(cantidad))
-            {
-                JOptionPane.showMessageDialog(null, "Solo numeros campo Cantidad", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }else if(!isNumeric(laboratorio))
-            {
-                JOptionPane.showMessageDialog(null, "Solo Numeros Campo Laboratorio", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }else if(!isNumeric(categoria))
-            {
-                JOptionPane.showMessageDialog(null, "Solo Numeros Campo Categoria", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }else
-            {   //funcion Guardar de la clase Productos para guardar productos
-                productos.Actualizar(this.id, codigoBarra, nombre, precioCProducto, precioVProducto, fecha, cantidad, categoria, laboratorio, ubicacion, descripcion);
-                MostrarProductos("");
-                MostrarProductosVender("");
-                LimpiarProducto();
-                btnGuardarProducto.setEnabled(true);
-                btnActualizarProducto.setEnabled(false);
-            }
-            
-        }
-                
-          */      
-    }//GEN-LAST:event_btnActualizarProductoActionPerformed
-
-    private void AddProductoStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddProductoStockActionPerformed
-        /*int filaseleccionada = tblProductos.getSelectedRow();
-        String id, nombre;
-        try
-        {
-            if(filaseleccionada == -1)
-            {
-                JOptionPane.showMessageDialog(null, "Seleccione una Fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            }
-            else
-            {
-                this.modelo = (DefaultTableModel) tblProductos.getModel();
-                id =(String) this.modelo.getValueAt(filaseleccionada, 0);
-                nombre = (String) this.modelo.getValueAt(filaseleccionada, 2);
-                String Cantidad = JOptionPane.showInputDialog("Ingrese la Cantidad de "+nombre);
-                productos.AgregarProductoStock(id, Cantidad);
-                MostrarProductos("");
-                MostrarProductosVender("");
-            }
-        }
-        catch(Exception e)
-        {
-            
-        }*/
-        
-    }//GEN-LAST:event_AddProductoStockActionPerformed
-
-    private void txtNombreProductoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNombreProductoCaretUpdate
-
-    }//GEN-LAST:event_txtNombreProductoCaretUpdate
-
-    private void btnAgregarProductoFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoFacturaActionPerformed
-        /*AddProductoFactura.setSize(1071, 456);
-        AddProductoFactura.setVisible(true);
-        AddProductoFactura.setLocationRelativeTo(null);
-        if(rbBuscarNombreCodBarra.isSelected() == true)
-        {
-            txtBuscarPorNombre.setEnabled(true);
-            txtBuscarPorCategoria.setEnabled(false);
-            txtBuscarPorLaboratorio.setEnabled(false);
-        }*/
-    }//GEN-LAST:event_btnAgregarProductoFacturaActionPerformed
-
-    private void rbBuscarNombreCodBarraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbBuscarNombreCodBarraActionPerformed
-        /*if(rbBuscarNombreCodBarra.isSelected() == true)
-        {
-            txtBuscarPorNombre.setEnabled(true);
-            txtBuscarPorCategoria.setEnabled(false);
-            txtBuscarPorLaboratorio.setEnabled(false);
-            txtBuscarPorCategoria.setText("");
-            txtBuscarPorLaboratorio.setText("");
-        }*/
-    }//GEN-LAST:event_rbBuscarNombreCodBarraActionPerformed
-
-    private void txtBuscarPorNombreCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtBuscarPorNombreCaretUpdate
-        /*String Buscar = txtBuscarPorNombre.getText();
-        MostrarProductosVender(Buscar);*/
-    }//GEN-LAST:event_txtBuscarPorNombreCaretUpdate
-
-    private void rbBuscarLaboratorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbBuscarLaboratorioActionPerformed
-        /*if(rbBuscarLaboratorio.isSelected() == true)
-        {
-            txtBuscarPorNombre.setEnabled(false);
-            txtBuscarPorCategoria.setEnabled(false);
-            txtBuscarPorLaboratorio.setEnabled(true);
-            txtBuscarPorNombre.setText("");
-            txtBuscarPorCategoria.setText("");
-        }*/
-    }//GEN-LAST:event_rbBuscarLaboratorioActionPerformed
-
-    private void rbBuscarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbBuscarCategoriaActionPerformed
-        /*if(rbBuscarCategoria.isSelected() == true)
-        {
-            txtBuscarPorNombre.setEnabled(false);
-            txtBuscarPorCategoria.setEnabled(true);
-            txtBuscarPorLaboratorio.setEnabled(false);
-            txtBuscarPorCategoria.setText("");
-            txtBuscarPorNombre.setText("");
-        }*/
-    }//GEN-LAST:event_rbBuscarCategoriaActionPerformed
-
-    private void txtBuscarPorLaboratorioCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtBuscarPorLaboratorioCaretUpdate
-        /*String laboratorio = txtBuscarPorLaboratorio.getText();
-        MostrarPorLaboratorio(laboratorio);*/
-    }//GEN-LAST:event_txtBuscarPorLaboratorioCaretUpdate
-
-    private void txtBuscarPorCategoriaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtBuscarPorCategoriaCaretUpdate
-        /*String categoria = txtBuscarPorCategoria.getText();
-             MostrarPorCategoria(categoria);*/
-    }//GEN-LAST:event_txtBuscarPorCategoriaCaretUpdate
-
-    private void tblAddProductoFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAddProductoFacturaMouseClicked
-        /*if(evt.getClickCount() == 2)
-        {
-            int filaseleccionada = tblAddProductoFactura.getSelectedRow();
-        try
-        {
-            String id, codigo, nombre, precio, cantidad, total, importe, stockA;
-            float imp, calcula , impuesto, descProduct = 0, stock, cantidadPVender;//"descProduct = descuento de producto"
-            
-            if(filaseleccionada == -1)
-            {
-                
-            }else
-            {
-                
-                if(this.descuento == 0)
-                {   //no se aplica descuento
-                    //capturar los datos de la tabla producto para mandarlos a tabla factura
-                    this.modelo = (DefaultTableModel) tblAddProductoFactura.getModel();
-                    id = modelo.getValueAt(filaseleccionada, 0).toString();
-                    codigo = modelo.getValueAt(filaseleccionada, 1).toString();
-                    nombre = modelo.getValueAt(filaseleccionada, 2).toString();
-                    precio = modelo.getValueAt(filaseleccionada, 3).toString();
-                    stock = Float.parseFloat(modelo.getValueAt(filaseleccionada, 5).toString());
-                    //stockA = modelo.getValueAt(filaseleccionada, 5).toString();
-                    cantidad = JOptionPane.showInputDialog(null, "Cantidad:");
-                    //convertir a flota la variable cantidad
-                    cantidadPVender = Float.parseFloat(cantidad);
-                    //validacion para la venta sugun lo que hay en stock osea no se pueda vender mas de lo que hay en stock
-                    if(cantidadPVender < stock)
-                    {
-                        imp = (Float.parseFloat(precio) * cantidadPVender);//importe total de compra de producto
-                        importe = String.valueOf(imp);
-
-                        /*stock = Float.parseFloat(stockA)- Float.parseFloat(cantidad);
-                        stockA = String.valueOf(stock);
-                        modelo.setValueAt(stockA, filaseleccionada, 5);
-
-                        //realizando los calculos de importe
-                        this.modelo = (DefaultTableModel) tblFactura.getModel();
-                        //pasar producto de tabla productos a tabla de factura
-                        String[] FilaElementos = {id, codigo, cantidad, nombre, precio, importe};
-                        this.modelo.addRow(FilaElementos);
-                        calcula = (Float.parseFloat(importe));//convertir importe a float
-                        this.total = this.total + calcula;//calcular el total de factura
-                        impuesto = (float) (this.total * Float.parseFloat(lblImpuestoISV.getText())) / 100;//calcular el impuesto
-                        this.isv = impuesto;//impuesto
-                        this.subTotal = this.total - this.isv;//clacular subtotal de factura
-
-                        txtImpuesto.setText(""+this.isv);//establecer el valor impuesto en el campo impuesto de factura
-                        txtSubTotal.setText(""+this.subTotal);//establecer el valor impuesto en el campo sub total de factura
-                        txtTotal.setText(""+this.total);//establecer el valor impuesto en el campo Total de factura
-                        this.factura.Vender(id, cantidad);//llamar procedimiento sql para vender
-                        MostrarProductosVender("");
-                        MostrarProductosVender("");
-                        DeshabilitarBtnGuardarFactura();
-                    }else{
-                        JOptionPane.showMessageDialog(null, "No hay Suficiente Producto en Stock para Realizar Esta Venta","Advertencia", JOptionPane.WARNING_MESSAGE);
-                    }
-                    
-                }else if(this.descuento > 0)
-                {   //aplicar descuento
-                    //capturar los datos de la tabla producto para mandarlos a tabla factura
-                    this.modelo = (DefaultTableModel) tblAddProductoFactura.getModel();
-                    id = modelo.getValueAt(filaseleccionada, 0).toString();
-                    codigo = modelo.getValueAt(filaseleccionada, 1).toString();
-                    nombre = modelo.getValueAt(filaseleccionada, 2).toString();
-                    precio = modelo.getValueAt(filaseleccionada, 3).toString();
-                    stock = Float.parseFloat(modelo.getValueAt(filaseleccionada, 5).toString());
-                    //obtengo el precio ya descuento 
-                    descProduct = Float.parseFloat(precio) - this.descuento;
-                    //la cantidad que se va a vender
-                    cantidad = JOptionPane.showInputDialog(null, "Cantidad:");
-                    //convertir a float la variable cantidad
-                    cantidadPVender = Float.parseFloat(cantidad);
-                    //condicion para validar el estock con lo que se va a vender 
-                    if(cantidadPVender < stock){
-                        imp = (descProduct * cantidadPVender);//importe total de compra de producto con descuento
-                        importe = String.valueOf(imp);
-
-                        /*stock = Float.parseFloat(stockA)- Float.parseFloat(cantidad);
-                        stockA = String.valueOf(stock);
-                        modelo.setValueAt(stockA, filaseleccionada, 5);
-
-                        //realizando los calculos de importe
-                        this.modelo = (DefaultTableModel) tblFactura.getModel();
-                        //pasar producto de tabla productos a tabla de factura
-                        String[] FilaElementos = {id, codigo, cantidad, nombre, String.valueOf(descProduct), importe};
-                        this.modelo.addRow(FilaElementos);
-                        calcula = (Float.parseFloat(importe));//convertir importe a float
-                        this.total = this.total + calcula;//calcular el total de factura
-                        impuesto = (float) (this.total * Float.parseFloat(lblImpuestoISV.getText())) / 100;//calcular el impuesto
-                        this.isv = impuesto;//impuesto
-                        this.subTotal = this.total - this.isv;//clacular subtotal de factura
-
-                        txtImpuesto.setText(""+this.isv);//establecer el valor impuesto en el campo impuesto de factura
-                        txtSubTotal.setText(""+this.subTotal);//establecer el valor impuesto en el campo sub total de factura
-                        txtTotal.setText(""+this.total);//establecer el valor impuesto en el campo Total de factura
-                        this.descuento = 0;
-                        this.factura.Vender(id, cantidad);
-                        MostrarProductosVender("");
-                        MostrarProductosVender("");
-                        DeshabilitarBtnGuardarFactura();
-                    }else{
-                        JOptionPane.showMessageDialog(null, "No hay Suficiente Producto en Stock para Realizar Esta Venta","Advertencia", JOptionPane.WARNING_MESSAGE);
-                        this.descuento = 0;//si no hay suficiente producto en stock inicializamos la variable descuento a 0
-                    }
-                    
-                }
-                
-            }
-        }catch(Exception e)
-        {
-            //JOptionPane.showMessageDialog(null, e);
-        }
-        }
-        */
-    }//GEN-LAST:event_tblAddProductoFacturaMouseClicked
-
-    private void btnEliminarFilaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarFilaFacturaActionPerformed
-        /*int filaseleccionada = tblFactura.getSelectedRow();
-        float importe, totalActual;
-        String cantidad,id;
-        try {
-            if(filaseleccionada == -1)
-            {
-                
-            }else{
-                this.modelo = (DefaultTableModel) tblFactura.getModel();
-                id = (String) modelo.getValueAt(filaseleccionada, 0);
-                cantidad = (String) modelo.getValueAt(filaseleccionada, 2);
-                importe = Float.parseFloat(modelo.getValueAt(filaseleccionada, 5).toString());
-                totalActual = Float.parseFloat(txtTotal.getText());
-                this.total = totalActual - importe;
-                this.isv = (float) (this.total * Float.parseFloat(lblImpuestoISV.getText())) / 100;
-                this.subTotal = this.total - isv;
-                txtTotal.setText(""+this.total);
-                txtSubTotal.setText(""+this.subTotal);
-                txtImpuesto.setText(""+this.isv);
-                productos.AgregarProductoStock(id, cantidad);
-                MostrarProductosVender("");
-                this.modelo.removeRow(filaseleccionada);
-                DeshabilitarBtnGuardarFactura();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-    }//GEN-LAST:event_btnEliminarFilaFacturaActionPerformed
-
-    private void btnEditarImpuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarImpuestoActionPerformed
-        /*String isv = JOptionPane.showInputDialog("ISV:");
-        lblImpuestoISV.setText(isv); 
-        */
-    }//GEN-LAST:event_btnEditarImpuestoActionPerformed
-
-    private void cmbFormaPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFormaPagoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbFormaPagoActionPerformed
-
-    private void btnGuardarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarFacturaActionPerformed
-        /*try {
-            this.modelo = (DefaultTableModel) tblFactura.getModel();//obtengo el modelo de tabla factura y sus datos
-            int filas = this.modelo.getRowCount();//Cuento las filas de la tabla Factura
-            Date fecha;
-            String factura ,id, cantidad, precio, totalDetalle, idCredito, iva, totalFactura, formaPago, idFormaPago, comprador;//variables para capturar los datos a guardar
-            comprador = txtCompradorFactura.getText();
-            fecha = jcFechaFactura.getDate();//capturo la fecha del dateshooser
-            long fechaF = fecha.getTime();//
-            java.sql.Date fechaFactura = new java.sql.Date(fechaF);//convertir la fecha obtenida a formato sql
-            idCredito = txtCreditoFactura.getText();//obtengo el numero de credito al que pertenecera la factura
-            iva = txtImpuesto.getText();//obtengo el iva
-            totalFactura = txtTotal.getText();//obtengo total de factura
-            formaPago =(String) cmbFormaPago.getSelectedItem();//capturo el nombre de forma de pago 
-            idFormaPago = this.factura.ObtenerFormaPago(formaPago);//capturo el id de la forma de pago que retorna la funcion obtenerformapago de la clase facturacion
-            this.factura.GuardarFactura(fechaFactura, comprador,idCredito, idFormaPago, iva, totalFactura);//envio los datos a guardar de la factura
-            for(int cont = 0; cont<filas; cont++)//for para recorrer la tabla factura
-            {
-                id = (String) this.modelo.getValueAt(cont, 0);//capturo el id de producto para guardar en detallefactura
-                cantidad = (String) this.modelo.getValueAt(cont, 2);//capturo la cantidad de producto de la columna dos y la paso a String para guardar en detallefactura
-                precio = (String) this.modelo.getValueAt(cont, 4);//capturo el precio de producto para guardar en detallefactura
-                totalDetalle = (String) this.modelo.getValueAt(cont, 5);//capturo el total de detalle compra de producto para guardar en detallefactura
-                factura = txtNumeroFactura.getText();//capturo id de factura ala que pertenece el detalle de factura
-                this.factura.DetalleFactura(factura, id, precio, cantidad, totalDetalle);//envio los datos a guardar de los detalles
-                this.factura.Vender(id, cantidad);//funcion para diminuir el stock segun la cantidad que se venda
-            }
-            txtNumeroFactura.setText(this.factura.ObtenerIdFactura());//Actualizo el campo numero de factura con la funcion obtenerIdFactura
-            LimpiarTablaFactura();//limpio la factura
-            DeshabilitarBtnGuardarFactura();
-            MostrarProductos("");
-            MostrarProductosVender("");
-            ActualizarEstadoCredito2();
-            ActualizarEstadoCredito();
-            MostrarCreditos("");
-            MostrarFiltroReporte(this.fecha,this.fecha);
-            SumaTotalFiltroReporte();
-            MostrarCreditos("");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-        
-    }//GEN-LAST:event_btnGuardarFacturaActionPerformed
-
-    public void LimpiarTablaFactura()//metodo para limpiar la factura
-    {
-        /*String id, cantidad;
-        try {
-        this.modelo = (DefaultTableModel) tblFactura.getModel();
-        int filas = this.modelo.getRowCount();
-        for(int i=0; i<filas;i++)
-        {
-            id = this.modelo.getValueAt(i, 0).toString();
-            cantidad = this.modelo.getValueAt(i, 2).toString();
-            productos.AgregarProductoStock(id, cantidad); 
-        }
-        for(int i=0; i<filas;i++)
-        {
-            this.modelo.removeRow(0);
-        }
-        MostrarProductosVender("");
-        txtNClienteFactura.setText("");
-        txtAClienteFactura.setText("");
-        lblIdClienteFactura.setText("");
-        txtCreditoFactura.setText("");
-        this.total = 0;
-        this.subTotal = 0;
-        this.isv = 0;
-        txtSubTotal.setText(""+this.total);
-        txtImpuesto.setText(""+this.subTotal);
-        txtTotal.setText(""+this.isv);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-        
-    }
-    
-    private void btnNuevaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaFacturaActionPerformed
-       /* LimpiarTablaFactura();
-        DeshabilitarBtnGuardarFactura();*/
-    }//GEN-LAST:event_btnNuevaFacturaActionPerformed
-    public void DeshabilitarBtnGuardarFactura()
-    {
-        /*if(tblFactura.getRowCount() > 0 && !btnRetornar.isVisible())
-        {
-            btnGuardarFactura.setEnabled(true);
-        }else{
-            btnGuardarFactura.setEnabled(false);
-        }*/
-    }
-    private void btnAddClienteCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddClienteCreditoActionPerformed
-       /* BuscarClienteFactura.setSize(592, 277);
-        BuscarClienteFactura.setVisible(true);
-        BuscarClienteFactura.setLocationRelativeTo(null);*/
-    }//GEN-LAST:event_btnAddClienteCreditoActionPerformed
-
-    private void txtBuscarCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtBuscarCaretUpdate
-        MostrarClienteFactura(txtBuscar.getText());
-    }//GEN-LAST:event_txtBuscarCaretUpdate
-
-    private void tblAddClienteFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAddClienteFacturaMouseClicked
-       /* int filaseleccionada = tblAddClienteFactura.getSelectedRow();
-        try {
-            String id, nombres, apellidos;
-            if(filaseleccionada == -1)
-            {
-                
-            }
-            else
-            {
-                this.modelo = (DefaultTableModel) tblAddClienteFactura.getModel();
-                nombres = this.modelo.getValueAt(filaseleccionada, 1).toString();
-                apellidos = this.modelo.getValueAt(filaseleccionada, 2).toString();
-                id = this.modelo.getValueAt(filaseleccionada, 0).toString();
-                txtClienteCredito.setText(id);
-            }
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-    }//GEN-LAST:event_tblAddClienteFacturaMouseClicked
-
-    private void tblAddProductoFacturaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblAddProductoFacturaKeyReleased
-        
-    }//GEN-LAST:event_tblAddProductoFacturaKeyReleased
-
-    private void btnLimpiarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarClienteActionPerformed
-        /*txtNClienteFactura.setText("");
-        txtAClienteFactura.setText("");
-        lblIdClienteFactura.setText("");
-        txtCreditoFactura.setText("");*/
-    }//GEN-LAST:event_btnLimpiarClienteActionPerformed
-
-    private void DescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescuentoActionPerformed
-        /*int filaseleccionada = tblAddProductoFactura.getSelectedRow();
-        if(filaseleccionada == -1)
-        {
-            
-        }else
-        {
-            this.descuento = Float.parseFloat(JOptionPane.showInputDialog(null, "Descuento:","",JOptionPane.QUESTION_MESSAGE));
-        }*/
-    }//GEN-LAST:event_DescuentoActionPerformed
-
-    private void btnReporteMensaulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMensaulActionPerformed
-        /*Date fecha1 = jcFecha1.getDate(), fecha2 = jcFecha2.getDate();
-        MostrarFiltroReporte(fecha1,fecha2);
-        SumaTotalFiltroReporte();*/
-    }//GEN-LAST:event_btnReporteMensaulActionPerformed
-
-    private void tblReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReporteMouseClicked
-       /*if(evt.getClickCount() == 2)
-       {
-           int id = 0, filaseleccionada = tblReporte.getSelectedRow();
-           try {
-            if(filaseleccionada == -1)
-           {
-               
-           }else
-           {
-               this.modelo = (DefaultTableModel) tblReporte.getModel();
-               id = Integer.parseInt(this.modelo.getValueAt(filaseleccionada, 0).toString());
-               MostrarDetalleFactura(id);
-               vistaDetalleFacturas.setSize(746, 306);
-               vistaDetalleFacturas.setVisible(true);
-               vistaDetalleFacturas.setLocationRelativeTo(null);
-           }
-           } catch (Exception e) {
-               JOptionPane.showMessageDialog(null, e);
-           }
-       }*/
-    }//GEN-LAST:event_tblReporteMouseClicked
-
-    private void btnVerificarVencimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarVencimientosActionPerformed
-      // Notificacion();
-    }//GEN-LAST:event_btnVerificarVencimientosActionPerformed
-
-    private void btnNotificacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNotificacionesMouseClicked
-        /*btnNotificaciones.setBackground(new java.awt.Color(239, 244, 245));
-        lblMenuNotificacion.setForeground(new java.awt.Color(0, 222, 171));
-        lblTituloDeVentanas.setText("Notificaciones");
-        
-        btnReportes.setBackground(new java.awt.Color(64,64,64));
-        lblMenuReportes.setForeground(new java.awt.Color(255, 249, 252));
-
-        btnVentas.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuVentas.setForeground(new java.awt.Color(255, 249, 252));
-
-        btnClientes.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuClientes.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnInventario.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuInventario.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnCreditos.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuCreditos.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnCerrarSesion.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        
-        btnComprasGastos.setBackground(new java.awt.Color(64,64,64));
-        lblGastosMenu.setForeground(new java.awt.Color(255,255,255));
-        
-        pnlClientes.setVisible(false);
-        pnlVentas.setVisible(false);
-        pnlReportes.setVisible(false);
-        pnlInventario.setVisible(false);
-        pnlCreditos.setVisible(false);
-        pnlUsuarios.setVisible(false);
-        pnlComprasGastos.setVisible(false);
-        pnlNotificaciones.setVisible(true);*/
-    }//GEN-LAST:event_btnNotificacionesMouseClicked
-
-    private void pnlEncabezadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEncabezadoMousePressed
-        
-    }//GEN-LAST:event_pnlEncabezadoMousePressed
-
-    private void pnlEncabezadoMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlEncabezadoMouseDragged
-        
-    }//GEN-LAST:event_pnlEncabezadoMouseDragged
-
-    private void btnGuardarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarUsuarioActionPerformed
-        /*String nombre = txtNombreUsuario.getText(), pass = txtPasswordUsuario.getText(), permiso = txtPermisoUsuario.getText();
-        if(nombre.equals("") || pass.equals("") || permiso.equals(""))
-        {
-            
-        }
-        else
-        {
-            this.usuarios.Guardar(nombre, pass, permiso);
-            MostrarUsuarios("");
-            LimpiarUsuarios();
-            btnGuardarUsuario.setEnabled(true);
-            btnActualizarUsuario.setEnabled(false);
-        }*/
-        
-    }//GEN-LAST:event_btnGuardarUsuarioActionPerformed
-
-    private void mnEditarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnEditarUsuariosActionPerformed
-        /*int filaseleccionada = tblUsuarios.getSelectedRow();
-        String nombre, pass, permiso, id;
-        try {
-            this.modelo = (DefaultTableModel) tblUsuarios.getModel();
-            if(filaseleccionada == -1)
-            {
-                
-            }
-            else
-            {
-                id = (String) this.modelo.getValueAt(filaseleccionada, 0); 
-                nombre = (String) this.modelo.getValueAt(filaseleccionada, 1);
-                pass = (String) this.modelo.getValueAt(filaseleccionada, 2);
-                permiso = (String) this.modelo.getValueAt(filaseleccionada, 3);
-                this.id = id;
-                
-                LimpiarUsuarios();
-                HabilitarUsuarios();
-                
-                txtNombreUsuario.setText(nombre);
-                txtPasswordUsuario.setText(pass);
-                txtPermisoUsuario.setText(permiso);
-                
-                btnGuardarUsuario.setEnabled(false);
-                btnActualizarUsuario.setEnabled(true);
-                
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-     */
-    }//GEN-LAST:event_mnEditarUsuariosActionPerformed
-
-    private void btnActualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarUsuarioActionPerformed
-        /*String nombre = txtNombreUsuario.getText(), pass = txtPasswordUsuario.getText(), permiso = txtPermisoUsuario.getText();
-        if(nombre.equals("") || pass.equals("") || permiso.equals(""))
-        {
-            
-        }
-        else
-        {
-            this.usuarios.Actualizar(this.id, nombre, pass, permiso);
-            MostrarUsuarios("");
-            LimpiarUsuarios();
-            btnGuardarUsuario.setEnabled(true);
-            btnActualizarUsuario.setEnabled(false);
-        }*/
-    }//GEN-LAST:event_btnActualizarUsuarioActionPerformed
-
-    private void mnBorrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBorrarUsuarioActionPerformed
-        /*int filaseleccionada = tblUsuarios.getSelectedRow(), id;
-        
-        try {
-            this.modelo = (DefaultTableModel) tblUsuarios.getModel();
-            if(filaseleccionada == -1)
-            {
-                
-            }
-            else
-            {
-                int confirmar = JOptionPane.showConfirmDialog(null, "Seguro Que Quieres Borra Este Usuario", "Advertencia", JOptionPane.OK_CANCEL_OPTION);
-                if(confirmar == JOptionPane.YES_OPTION)
-                {
-                    id = Integer.parseInt(this.modelo.getValueAt(filaseleccionada, 0).toString());
-                    this.usuarios.Eliminar(id);
-                    MostrarUsuarios("");
-                }
-                
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-    }//GEN-LAST:event_mnBorrarUsuarioActionPerformed
-
-    private void btnNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoUsuarioActionPerformed
-        /*HabilitarUsuarios();
-        LimpiarUsuarios();*/
-    }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
-
-    private void txtBuscarUsuarioCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtBuscarUsuarioCaretUpdate
-        //MostrarUsuarios(txtBuscarUsuario.getText());
-    }//GEN-LAST:event_txtBuscarUsuarioCaretUpdate
-
-    private void btnBuscarMinStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarMinStockActionPerformed
-        /*int cant = 0 ;
-        if(txtCategoriaStockM.getText().equals("") || txtCantidadStockM.getText().equals(""))
-        {
-            
-        }else
-        {
-            cant = Integer.parseInt(txtCantidadStockM.getText());
-            StockMinimoP(txtCategoriaStockM.getText(), cant);
-        }*/
-        
-    }//GEN-LAST:event_btnBuscarMinStockActionPerformed
-
-    private void btnRetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetornarActionPerformed
-        /*VentanaDevoluciones.setSize(903, 290);
-        VentanaDevoluciones.setVisible(true);
-        VentanaDevoluciones.setLocationRelativeTo(null);
-        this.modelo = (DefaultTableModel) tblFactura.getModel();
-        pnlVentas.setVisible(false);
-        pnlReportes.setVisible(true);
-        btnRetornar.setVisible(false);
-        btnActualizarFactura.setVisible(false);
-
-        try {
-        this.modelo = (DefaultTableModel) tblFactura.getModel();
-        int filas = this.modelo.getRowCount();//numero de filas de la tabla factura
-        for(int i=0; i<filas;i++)
-        {
-            this.modelo.removeRow(0);//remover filas de la tabla factura
-        }
-        MostrarProductosVender("");//acturalizar tabla que muestra productos a vender
-        //limpiar 
-        txtNClienteFactura.setText("");
-        txtAClienteFactura.setText("");
-        lblIdClienteFactura.setText("");
-        txtCreditoFactura.setText("");
-        txtCompradorFactura.setText("");
-        this.total = 0;
-        this.subTotal = 0;
-        this.isv = 0;
-        //inicializar a 0.0
-        txtSubTotal.setText(""+this.total);
-        txtImpuesto.setText(""+this.subTotal);
-        txtTotal.setText(""+this.isv);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-        txtNumeroFactura.setText(factura.ObtenerIdFactura());//actualizar numero de factura*/
-    }//GEN-LAST:event_btnRetornarActionPerformed
-    //metodo de boton para  Editar factura
-    private void btnEditarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarFacturaActionPerformed
-        /*//obtengo la fila seleccionda de la tabla reporte diario    obtengo el numero las filas de la tabla detalleFactura
-        int filaseleccionada = tblReporte.getSelectedRow(), filas = tblMostrarDetalleFactura.getRowCount();
-        //la variable modelo va a tomar el modelo de la tabla factura
-        this.modelo = (DefaultTableModel) tblFactura.getModel();
-        //variables para obtener los valores que se ocupan para la actualizacion
-        String idFactura = "", idP = "", codBarra = "", nombreP = "", precioP = "",cantidadP = "",importe = "", pago = "", detalle = "", comprador = "", fecha = "", credito = "";
-        //convertir el formato sql a Date con simpleDateFormat
-        SimpleDateFormat spf = new SimpleDateFormat("yyyy-MM-dd");
-        //nD quiere decir numero de detalles es la variable que guarda el numero de detalles que van en la factura a editar
-        this.nD = new String[filas];
-        //variables float para hacer la operaciones 
-        float totalFactura, iva, subTotal;
-        try {
-            //idFactura obtiene el id de factura de la tabla reporte diario
-            idFactura = tblReporte.getValueAt(filaseleccionada, 0).toString();
-            //obtengo la fecha de la factura
-            fecha = tblReporte.getValueAt(filaseleccionada, 1).toString();
-            //obtengo el nombre comprador
-            comprador = tblReporte.getValueAt(filaseleccionada, 4).toString();
-            //obtengo el impuesto
-            iva = Float.parseFloat(tblReporte.getValueAt(filaseleccionada, 2).toString());
-            //obtengo el total de factura
-            totalFactura = Float.parseFloat(tblReporte.getValueAt(filaseleccionada, 3).toString());
-            //obtengo el cliente
-            credito = (String) tblReporte.getValueAt(filaseleccionada, 7);
-            //obtengo la forma de pago
-            pago = tblReporte.getValueAt(filaseleccionada, 5).toString();
-            //realiza el calculo para obtener el subtotal
-            subTotal = totalFactura - iva;
-            //validacion de lo que estoy obteniendo en la variable cliente
-            if(credito == null)
-            {
-                credito = "";
-            }
-            //lleno los campos del formulario factura
-            txtCreditoFactura.setText(credito);
-            jcFechaFactura.setDate(spf.parse(fecha));
-            txtSubTotal.setText(""+subTotal);
-            txtTotal.setText(""+totalFactura);
-            txtImpuesto.setText(""+iva);
-            txtNumeroFactura.setText(idFactura);
-            txtCompradorFactura.setText(comprador);
-            //for para recorrer la tabla detalleFactura
-            for(int i = 0; i<filas; i++){
-                detalle = tblMostrarDetalleFactura.getValueAt(i, 0).toString();//obtengo numero de detalle
-                idP = tblMostrarDetalleFactura.getValueAt(i, 1).toString();//obtengo id de producto
-                codBarra = tblMostrarDetalleFactura.getValueAt(i, 2).toString();//obtengo cod barra del producto
-                nombreP = tblMostrarDetalleFactura.getValueAt(i, 3).toString();//obtengo nombre del producto
-                cantidadP = tblMostrarDetalleFactura.getValueAt(i, 4).toString();//obtengo cantidad de producto vendido en la factura
-                precioP = tblMostrarDetalleFactura.getValueAt(i, 5).toString();//obtengo precio del producto
-                importe = tblMostrarDetalleFactura.getValueAt(i, 6).toString();//obtengo total de venta del producto
-                
-                nD[i] = detalle;//lleno el array con los detalles
-                String[] addFila = {idP, codBarra, cantidadP, nombreP, precioP, importe};//creo el arreglo con los datos obtenidos de la tabla detalle
-                this.modelo.addRow(addFila);//agrego la fila de array creado anteriormente a la tabla factura para la edicion
-            }
-            //System.out.println(nD[0]+" "+nD[1]);  
-            pnlVentas.setVisible(true);//mostrar panel de ventas 
-            btnRetornar.setVisible(true);//mostrar boton retornar
-            btnActualizarFactura.setVisible(true);//mostrar boton actualizar
-            pnlReportes.setVisible(false);//ocultar panel Reportes
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-    }//GEN-LAST:event_btnEditarFacturaActionPerformed
-
-    private void btnActualizarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarFacturaActionPerformed
-        /*try {
-            this.modelo = (DefaultTableModel) tblFactura.getModel();//obtengo el modelo de tabla factura y sus datos
-            int filas = this.modelo.getRowCount();//Cuento las filas de la tabla Factura
-            if(filas == nD.length)//nD quiere decir numero de detalles condicion para guardar solo los cambios de las filas de la factura actual no se pueda agregar mas productos ni quitar solo cambiar ya que solo es edicio de la facura
-            {
-                Date fecha;
-                String factura ,id, cantidad, precio, totalDetalle, idCredito, iva, totalFactura, formaPago, idFormaPago, nombreComprador;//variables para capturar los datos a guardar
-                fecha = jcFechaFactura.getDate();//capturo la fecha del dateshooser
-                long fechaF = fecha.getTime();//
-                java.sql.Date fechaFactura = new java.sql.Date(fechaF);//convertir la fecha obtenida a formato sql
-                nombreComprador = txtCompradorFactura.getText();
-                idCredito = txtCreditoFactura.getText();//obtengo el credito
-                iva = txtImpuesto.getText();//obtengo el iva
-                totalFactura = txtTotal.getText();//obtengo total de factura
-                formaPago =(String) cmbFormaPago.getSelectedItem();//capturo el nombre de forma de pago 
-                idFormaPago = this.factura.ObtenerFormaPago(formaPago);//capturo el id de la forma de pago que retorna la funcion obtenerformapago de la clase facturacion
-                factura = txtNumeroFactura.getText();//capturo id de factura ala que pertenece el detalle de factura
-                this.factura.ActualizarFactura(factura, fechaFactura, nombreComprador, idCredito, idFormaPago, iva, totalFactura);//envio los datos a actualizar de la factura
-                for(int cont = 0; cont<filas; cont++)//for para recorrer la tabla factura
-                {
-                    id = (String) this.modelo.getValueAt(cont, 0);//capturo el id de producto para guardar en detallefactura
-                    cantidad = (String) this.modelo.getValueAt(cont, 2);//capturo la cantidad de producto de la columna dos y la paso a String para guardar en detallefactura
-                    precio = (String) this.modelo.getValueAt(cont, 4);//capturo el precio de producto para guardar en detallefactura
-                    totalDetalle = (String) this.modelo.getValueAt(cont, 5);//capturo el total de detalle compra de producto para guardar en detallefactura
-                    this.factura.ActualizarDetalle(nD[cont] ,id, precio, cantidad, totalDetalle);//envio los datos para actualizar los detalles de la factura
-                    this.factura.Vender(id, cantidad);//funcion para diminuir el stock segun la cantidad que se venda
-                }
-                txtNumeroFactura.setText(this.factura.ObtenerIdFactura());//Actualizo el campo numero de factura con la funcion obtenerIdFactura
-                LimpiarTablaFactura();//limpio la factura
-                DeshabilitarBtnGuardarFactura();//deshabilito el boton guadar factura
-                MostrarProductos("");//actualizar la tabla de productos inventario
-                MostrarProductosVender("");//actualizar la tabla de productos a vender
-                MostrarFiltroReporte(this.fecha,this.fecha);
-                SumaTotalFiltroReporte();
-                MostrarCreditos("");
-            }else
-            {
-               JOptionPane.showMessageDialog(null, "la factura depende de "+nD.length+" filas");
-            }
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-    }//GEN-LAST:event_btnActualizarFacturaActionPerformed
-
-    private void btnComprasGastosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComprasGastosMouseClicked
-        /*btnComprasGastos.setBackground(new java.awt.Color(239, 244, 245));
-        lblGastosMenu.setForeground(new java.awt.Color(0, 222, 171));
-        lblTituloDeVentanas.setText("Compras y Otros Gastos");
-        
-        btnCreditos.setBackground(new java.awt.Color(64,64,64));
-        lblMenuCreditos.setForeground(new java.awt.Color(255,255,255));
-
-        btnReportes.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuReportes.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnVentas.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuVentas.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnInventario.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuInventario.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnClientes.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuClientes.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnCerrarSesion.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
-
-        btnUsuarios.setBackground(new java.awt.Color(64, 64, 64));
-        lblMenuUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        
-        btnNotificaciones.setBackground(new java.awt.Color(64,64,64));
-        lblMenuNotificacion.setForeground(new java.awt.Color(255,255,255));
-        
-        pnlComprasGastos.setVisible(true);
-        pnlClientes.setVisible(false);
-        pnlVentas.setVisible(false);
-        pnlReportes.setVisible(false);
-        pnlInventario.setVisible(false);
-        pnlCreditos.setVisible(false);
-        pnlUsuarios.setVisible(false);
-        pnlNotificaciones.setVisible(false);*/
-    }//GEN-LAST:event_btnComprasGastosMouseClicked
-
-    private void btnCrearCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCreditoActionPerformed
-        /*Date  fechaCredito = jcFechaCredito.getDate();
-        int c;
-        String Cliente = txtClienteCredito.getText();
-        String estado = cmbEstadoCredito.getSelectedItem().toString();
-        long f = fechaCredito.getTime();
-        java.sql.Date fCredito = new java.sql.Date(f);
-        if(!Cliente.equals(""))
-        {
-            if(isNumeric(Cliente))
-            {
-                c = Integer.parseInt(txtClienteCredito.getText());
-                creditos.GuardarCredito(c, fCredito, estado);
-                MostrarCreditosCreados("");
-                MostrarCreditosAddFactura("");
-                HabilitarCreditos();
-                LimpiarCreditos();
-                btnActualizarCredito.setEnabled(false);
-                btnCrearCredito.setEnabled(true);    
-            }
-        }else
-        {
-                 
-        }*/
-        
-    }//GEN-LAST:event_btnCrearCreditoActionPerformed
-
-    private void tblAddCreditoFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAddCreditoFacturaMouseClicked
-        /*if(evt.getClickCount() == 2)
-        {
-            int filaseleccionada = tblAddCreditoFactura.getSelectedRow();
-            String nombre, apellido, credito;
-            try {
-                if(filaseleccionada == -1)
-                {
-                    
-                }else
-                {
-                    this.modelo = (DefaultTableModel) tblAddCreditoFactura.getModel();
-                    credito = (String) this.modelo.getValueAt(filaseleccionada, 0);
-                    nombre = (String) this.modelo.getValueAt(filaseleccionada, 2);
-                    apellido = (String) this.modelo.getValueAt(filaseleccionada, 3);
-                    
-                    txtCreditoFactura.setText(credito);
-                    txtNClienteFactura.setText(nombre);
-                    txtAClienteFactura.setText(apellido);
-                    AddCreditoFactura.setVisible(false);
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-        }*/
-    }//GEN-LAST:event_tblAddCreditoFacturaMouseClicked
-
-    private void btnCreditoFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreditoFacturaActionPerformed
-       /*AddCreditoFactura.setSize(681, 363);
-       AddCreditoFactura.setVisible(true);
-       AddCreditoFactura.setLocationRelativeTo(null);*/
-    }//GEN-LAST:event_btnCreditoFacturaActionPerformed
-
-    private void btnGuardarGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarGastoActionPerformed
-        /*float montoGasto;
-        String monto = txtMontoGasto.getText(), descripcion = txtDescripcionGasto.getText();
-        Date fecha = jcFechaGasto.getDate();
-        long f = fecha.getTime();
-        java.sql.Date fechaGasto = new java.sql.Date(f);
-        if(!monto.equals("") && !descripcion.equals(""))
-        {
-            if(isNumeric(monto))
-            {
-                montoGasto = Float.parseFloat(monto);
-                gastos.Guardar(montoGasto, fechaGasto, descripcion);
-                MostrarGastos("");
-                LimpiarGastos();
-                MostrarFiltroReporte(this.fecha, this.fecha);
-                SumaTotalFiltroReporte();
-                btnActualizarGasto.setEnabled(false);
-                btnGuardarGasto.setEnabled(true);
-            }
-        }else
-        {
-            
-        }*/
-    }//GEN-LAST:event_btnGuardarGastoActionPerformed
-
-    private void txtBuscarCreditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarCreditoMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscarCreditoMouseClicked
-
-    private void txtBuscarCreditoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtBuscarCreditoCaretUpdate
-       //MostrarCreditos(txtBuscarCredito.getText());
-    }//GEN-LAST:event_txtBuscarCreditoCaretUpdate
-
-    private void txtBuscarCreditosCreadosCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtBuscarCreditosCreadosCaretUpdate
-        //MostrarCreditosCreados(txtBuscarCreditosCreados.getText());
-    }//GEN-LAST:event_txtBuscarCreditosCreadosCaretUpdate
-
-    private void btnGuardarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPagoActionPerformed
-        /*int c;
-        float montoPago;
-        String credito = txtCreditoPago.getText(), monto = txtMontoPago.getText();
-        Date f = jcFechaPago.getDate();
-        long fecha = f.getTime();
-        java.sql.Date fechaPago = new java.sql.Date(fecha);
-        if(!credito.equals("") && !monto.equals(""))
-        {
-            if(isNumeric(credito) && isNumeric(monto))
-            {
-                c = Integer.parseInt(credito);
-                montoPago = Float.parseFloat(monto);
-                pagos.Guardar(c, montoPago, fechaPago);
-                MostrarPagos("");
-                LimpiarPago();
-                MostrarCreditos("");
-                ActualizarEstadoCredito2();
-                ActualizarEstadoCredito();
-                MostrarCreditos("");
-                MostrarFiltroReporte(this.fecha, this.fecha);
-                SumaTotalFiltroReporte();
-                MostrarPagos("");
-                MostrarCreditosCreados("");
-                btnGuardarPago.setEnabled(true);
-                btnActualizarPago.setEnabled(false);
-            }
-        }else{
-            
-        }*/
-    }//GEN-LAST:event_btnGuardarPagoActionPerformed
-
-    private void GenerarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarPagoActionPerformed
-       /*int filaseleccionada = tblCreditos.getSelectedRow();
-        String credito, totalCredito;
-        
-        try {
-            if(filaseleccionada == -1)
-            {
-                
-            }
-            else
-            {
-                this.modelo = (DefaultTableModel) tblCreditos.getModel();
-                credito = (String) this.modelo.getValueAt(filaseleccionada, 0);
-                totalCredito = (String) this.modelo.getValueAt(filaseleccionada, 1);
-                txtCreditoPago.setText(credito);
-                txtMontoPago.setText("0.0");
-                lblCredito.setText(totalCredito);
-                pagosAcreditos.setSize(648, 400);
-                pagosAcreditos.setVisible(true);
-                pagosAcreditos.setLocationRelativeTo(null);
-                
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }*/
-    }//GEN-LAST:event_GenerarPagoActionPerformed
-
-    private void txtMontoPagoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtMontoPagoCaretUpdate
-        //pago(txtMontoPago.getText());
-        
-    }//GEN-LAST:event_txtMontoPagoCaretUpdate
-
-    private void btnActualizarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarPagoActionPerformed
-        /*int c;
-        float montoPago;
-        String credito = txtCreditoPago.getText(), monto = txtMontoPago.getText();
-        Date f = jcFechaPago.getDate();
-        long fecha = f.getTime();
-        java.sql.Date fechaPago = new java.sql.Date(fecha);
-        if(!credito.equals("") && !monto.equals(""))
-        {
-            if(isNumeric(credito) && isNumeric(monto))
-            {
-                 c = Integer.parseInt(credito);
-                montoPago = Float.parseFloat(monto);
-                pagos.Actualizar(this.id,c, montoPago, fechaPago);
-                MostrarPagos("");
-                MostrarCreditos("");
-                ActualizarEstadoCredito2();
-                ActualizarEstadoCredito();
-                LimpiarPago();
-                MostrarFiltroReporte(this.fecha, this.fecha);
-                SumaTotalFiltroReporte();
-                MostrarCreditosCreados("");
-                btnGuardarPago.setEnabled(true);
-                btnActualizarPago.setEnabled(false);
-            }  
-        }else{
-            
-        }*/
-    }//GEN-LAST:event_btnActualizarPagoActionPerformed
-
-    private void EditarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarPagoActionPerformed
-        /*int filaseleccionada = tblPagos.getSelectedRow();
-        String id, monto, credito, f;
-        Date fecha;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            if(filaseleccionada == -1)
-            {
-
-            }else
-            {
-                this.modelo = (DefaultTableModel) tblPagos.getModel();
-                id = (String)this.modelo.getValueAt(filaseleccionada, 0);
-                monto =(String) this.modelo.getValueAt(filaseleccionada, 1);
-                credito = (String) this.modelo.getValueAt(filaseleccionada, 2);
-                fecha =sdf.parse(this.modelo.getValueAt(filaseleccionada, 3).toString());
-                this.id = id;
-                
-                HabilitarPago();
-                txtMontoPago.setText(monto);
-                txtCreditoPago.setText(credito);
-                jcFechaPago.setDate(fecha);
-                btnGuardarPago.setEnabled(false);
-                btnActualizarPago.setEnabled(true);
-            }
-        } catch (Exception e) {
-        }*/
-        
-    }//GEN-LAST:event_EditarPagoActionPerformed
-
-    private void btnNuevoCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoCreditoActionPerformed
-        /*HabilitarCreditos();
-        LimpiarCreditos();*/
-    }//GEN-LAST:event_btnNuevoCreditoActionPerformed
-
-    private void btnNuevoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoPagoActionPerformed
-        /*HabilitarPago();
-        LimpiarPago();*/
-    }//GEN-LAST:event_btnNuevoPagoActionPerformed
-
-    private void btnActualizarCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarCreditoActionPerformed
-       /* Date  fechaCredito = jcFechaCredito.getDate();
-        int c, id = Integer.parseInt(this.id);
-        String Cliente = txtClienteCredito.getText();
-        String estado = cmbEstadoCredito.getSelectedItem().toString();
-        long f = fechaCredito.getTime();
-        java.sql.Date fCredito = new java.sql.Date(f);
-        if(!Cliente.equals(""))
-        {
-            if(isNumeric(Cliente))
-            {
-                c = Integer.parseInt(txtClienteCredito.getText());
-                this.creditos.Actualizar(id,c, fCredito, estado);
-                MostrarCreditosCreados("");
-                MostrarCreditosAddFactura("");
-                LimpiarCreditos();
-                btnActualizarCredito.setEnabled(false);
-                btnCrearCredito.setEnabled(true);  
-            }  
-        }else
-        {
-                 
-        }*/
-    }//GEN-LAST:event_btnActualizarCreditoActionPerformed
-
-    private void EditarCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarCreditoActionPerformed
-        /*int filaseleccionada = tblCreditosCreados.getSelectedRow();
-        String id, estado,cliente;
-        Date fecha;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            if(filaseleccionada == -1)
-            {
-                
-            }else
-            {
-                this.modelo = (DefaultTableModel) tblCreditosCreados.getModel();
-                id = (String) this.modelo.getValueAt(filaseleccionada, 0);
-                cliente = (String) this.modelo.getValueAt(filaseleccionada, 1);
-                estado = (String) this.modelo.getValueAt(filaseleccionada, 5);
-                fecha = sdf.parse(this.modelo.getValueAt(filaseleccionada, 4).toString());
-                HabilitarCreditos();
-                txtClienteCredito.setText(cliente);
-                jcFechaCredito.setDate(fecha);
-                this.id = id;
-                btnActualizarCredito.setEnabled(true);
-                btnCrearCredito.setEnabled(false);
-                
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e+"en la funcion editar Credito");
-        }*/
-    }//GEN-LAST:event_EditarCreditoActionPerformed
-
-    private void EliminarCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarCreditoActionPerformed
-        /*int filaseleccionada = tblCreditosCreados.getSelectedRow(), id = 0, confirmacion = 0;
-        try {
-            if(filaseleccionada == -1)
-            {
-                
-            }else{
-                confirmacion = JOptionPane.showConfirmDialog(null, "Seguro que quieres Borrar este credito", "Advertencia",JOptionPane.WARNING_MESSAGE);
-                if(confirmacion == JOptionPane.YES_OPTION)
-                {
-                    this.modelo = (DefaultTableModel) tblCreditosCreados.getModel();
-                    id = Integer.parseInt(this.modelo.getValueAt(filaseleccionada, 0).toString());
-                    creditos.Eliminar(id);
-                    MostrarCreditos("");
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e+" en funcion Eliminar Credito");
-        }*/
-    }//GEN-LAST:event_EliminarCreditoActionPerformed
-
-    private void EditarGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarGastosActionPerformed
-        /*int filaseleccionada = tblGastos.getSelectedRow();
-        String id, monto, descripcion;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date fecha;
-        try {
-            if(filaseleccionada == -1)
-            {
-                
-            }else{
-                this.modelo = (DefaultTableModel) tblGastos.getModel();
-                id = (String) this.modelo.getValueAt(filaseleccionada, 0);
-                monto = (String) this.modelo.getValueAt(filaseleccionada, 1);
-                descripcion = (String) this.modelo.getValueAt(filaseleccionada, 3);
-                fecha = sdf.parse(this.modelo.getValueAt(filaseleccionada, 2).toString());
-                HabilitarGastos();
-                LimpiarGastos();
-                txtMontoGasto.setText(monto);
-                txtDescripcionGasto.setText(descripcion);
-                jcFechaGasto.setDate(fecha);
-                this.id = id;
-                btnActualizarGasto.setEnabled(true);
-                btnGuardarGasto.setEnabled(false);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e+"en la funcion de EditarGastos");
-        }*/
-    }//GEN-LAST:event_EditarGastosActionPerformed
-
-    private void btnActualizarGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarGastoActionPerformed
-        /*float montoGasto;
-        int id = Integer.parseInt(this.id);
-        String monto = txtMontoGasto.getText(), descripcion = txtDescripcionGasto.getText();
-        Date fecha = jcFechaGasto.getDate();
-        long f = fecha.getTime();
-        java.sql.Date fechaGasto = new java.sql.Date(f);
-        if(!monto.equals("") && !descripcion.equals(""))
-        {
-            if(isNumeric(monto))
-            {
-                montoGasto = Float.parseFloat(monto);
-                gastos.Actualizar(id,montoGasto, fechaGasto, descripcion);
-                MostrarGastos("");
-                MostrarFiltroReporte(this.fecha, this.fecha);
-                SumaTotalFiltroReporte();
-                LimpiarGastos();
-                btnActualizarGasto.setEnabled(false);
-                btnGuardarGasto.setEnabled(true);
-            }
-        }else
-        {
-            
-        }*/
-    }//GEN-LAST:event_btnActualizarGastoActionPerformed
-
-    private void EliminarGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarGastoActionPerformed
-        /*int filaseleccionada = tblGastos.getSelectedRow(), id = 0, confirmacion = 0;
-        
-        try {
-            if(filaseleccionada == -1)
-            {
-                
-            }else{
-                confirmacion = JOptionPane.showConfirmDialog(null, "Seguro que quieres borrar este gasto", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                if(confirmacion == JOptionPane.YES_OPTION)
-                {
-                    this.modelo = (DefaultTableModel) tblGastos.getModel();
-                    id = Integer.parseInt(this.modelo.getValueAt(filaseleccionada, 0).toString());
-                    this.gastos.Eliminar(id);
-                    MostrarGastos("");
-                    MostrarFiltroReporte(this.fecha, this.fecha);
-                    SumaTotalFiltroReporte();
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e+"en la funcion ElimarGasto en la clase IMenu");
-        }
-        */
-    }//GEN-LAST:event_EliminarGastoActionPerformed
-
-    private void btnNuevoGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoGastoActionPerformed
-        /*HabilitarGastos();
-        LimpiarGastos();*/
-    }//GEN-LAST:event_btnNuevoGastoActionPerformed
-
-    private void txtMontoGastoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMontoGastoFocusLost
-        /*if(!isNumeric(txtMontoGasto.getText()))
-        {
-            txtMontoGasto.setBorder(new LineBorder(new Color(206,7,33,255)));
-        }else
-        {
-            txtMontoGasto.setBorder(new LineBorder(new Color(102,102,102)));
-        }*/
-    }//GEN-LAST:event_txtMontoGastoFocusLost
-
-    private void txtBuscarCreditoFacturaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtBuscarCreditoFacturaCaretUpdate
-      //MostrarCreditosAddFactura(txtBuscarCreditoFactura.getText());
-    }//GEN-LAST:event_txtBuscarCreditoFacturaCaretUpdate
-
-    private void txtBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarProductoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscarProductoActionPerformed
-    public void pago(String valor)
-    {
-        /*lblPago.setText(valor);
-        if(!valor.equals(""))
-        {
-            float credito = Float.parseFloat(lblCredito.getText()), pago = Float.parseFloat(lblPago.getText()), total = 0;
-            total = credito-pago;
-            lblSaldo.setText(""+total);
-        }else{
-            
-        }*/
-    }
-    public void ActualizarEstadoCredito()
-    {
-       /*this.modelo = (DefaultTableModel) tblCreditos.getModel();
-        float credito;
-        int idCredito = 0;
-        int filas = this.modelo.getRowCount();
-        for(int i = 0;i<filas;i++)
-        {
-            idCredito = Integer.parseInt(this.modelo.getValueAt(i, 0).toString());
-            credito = Float.parseFloat(this.modelo.getValueAt(i, 1).toString());
-            if(credito==0.0 || credito < 0)
-            {
-                creditos.ActualizarEstadoCredito(idCredito, "Abierto");
-            }
-        }*/
-    }
-    public void ActualizarEstadoCredito2()
-    {
-        /*float pagos =0, credito = 0, saldo = 0;
-        String cliente;
-        int idCredito;
-        this.modelo = (DefaultTableModel) tblCreditosCreados.getModel();
-        int filas = this.modelo.getRowCount();
-        for(int i=0; i<filas;i++)
-        {
-            idCredito = Integer.parseInt(this.modelo.getValueAt(i, 0).toString());
-            cliente = (String) this.modelo.getValueAt(i, 1);
-            pagos = this.pagos.PagosCliente(cliente);
-            credito = this.creditos.TotalCreditoCliente(Integer.parseInt(cliente));
-            saldo = credito - pagos;
-            if(saldo>0.0)
-            {
-                creditos.ActualizarEstadoCredito(idCredito, "Pendiente");
-            }
-        }*/
-    }
-    //metodo para editar el impuesto de la factura
-    public void editarISV(String isv)
-    {
-        /*if(isv.equals(""))
-        {
-            lblImpuestoISV.setText("15");
-        }else
-        {
-           lblImpuestoISV.setText(isv); 
-        }*/
-    }
-    public void llenarAddCategoria(String nombre)//metodo para llenar la tabla de add categoria a productos
-    {
-        /*tblAddCategoria.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblAddCategoria.getTableHeader().setOpaque(false);
-        tblAddCategoria.getTableHeader().setBackground(new Color(100,100,100));
-        tblAddCategoria.getTableHeader().setForeground(new Color(255,255,255));
-        tblAddCategoria.setModel(productos.MostrarCategorias(nombre));//*/
-    }
-    public void llenarAddLaboratorio(String nombre)//metodo para llenar la tabla de add Laboratorio a productos
-    {
-        /*tblAddLaboratorio.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblAddLaboratorio.getTableHeader().setOpaque(false);
-        tblAddLaboratorio.getTableHeader().setBackground(new Color(100,100,100));
-        tblAddLaboratorio.getTableHeader().setForeground(new Color(255,255,255));
-        tblAddLaboratorio.setModel(productos.MostrarLaboratorios(nombre));*/
-    }
-   /* public void MostrarDescuentos(String buscar)
-    {
-        tblDescuentos.setModel(descuento.Consulta(buscar));
-    }*/
-    /*public void LimpiarDescuentos()
-    {
-        txtPorcentajeDescuento.setText("");
-    }
-    public void DeshabilitarDescuentos()
-    {
-        txtPorcentajeDescuento.setEnabled(false);
-        btnGuardarDescuento.setEnabled(false);
-        btnActualizarDescuento.setEnabled(false);
-    }
-    public void HabilitarDescuentos()
-    {
-        txtPorcentajeDescuento.setEnabled(true);
-        btnGuardarDescuento.setEnabled(true);
-        btnActualizarDescuento.setEnabled(false);
-    }*/
-    //metodo para llenar la tabla de productos bajos de stock
-    public void MostrarUsuarios(String buscar)
-    {
-       /* tblUsuarios.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblUsuarios.getTableHeader().setOpaque(false);
-        tblUsuarios.getTableHeader().setBackground(new Color(100,100,100));
-        tblUsuarios.getTableHeader().setForeground(new Color(255,255,255));
-        tblUsuarios.setModel(this.usuarios.Mostrar(buscar));*/
-    }
-    public void MostrarDetalleFactura(int id)//metodo para llenar la tabla que muestra el detalle de las facturas de reportes
-    {
-        /*tblMostrarDetalleFactura.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblMostrarDetalleFactura.getTableHeader().setOpaque(false);
-        tblMostrarDetalleFactura.getTableHeader().setBackground(new Color(100,100,100));
-        tblMostrarDetalleFactura.getTableHeader().setForeground(new Color(255,255,255));
-        tblMostrarDetalleFactura.setModel(reportes.DetalleFactura(id));*/
-    }
-    public void MostrarFiltroReporte(Date fecha1, Date fecha2)//metodo para llenar la tabla de reortes por rango o mensual del menu reportes
-    {
-        /*long f1 = fecha1.getTime(), f2 = fecha2.getTime();//
-        java.sql.Date fechaInicio = new java.sql.Date(f1);//convertir la fecha a formato sql
-        java.sql.Date fechaFinal = new java.sql.Date(f2);//convertir la fecha a formato sql
-        String totalCreditoMensual = reportes.TotalCreditosMensual(fechaInicio, fechaFinal);//obtengo el valor de total de creditos cn la funcion TotalCreditoMensula de la clase reortes
-        String totalGastos = reportes.TotalGastos(fechaInicio, fechaFinal);
-        tblReporteDiario.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblReporteDiario.getTableHeader().setOpaque(false);
-        tblReporteDiario.getTableHeader().setBackground(new Color(100,100,100));
-        tblReporteDiario.getTableHeader().setForeground(new Color(255,255,255));
-        try {
-            tblReporteDiario.setModel(reportes.ReporteMensual(fechaInicio, fechaFinal));
-            lblTotalCreditosFiltroReporte.setText(totalCreditoMensual);//lleno el lblTotalCreditoFiltroRepote con el  total creditos 
-            lblGastos.setText(totalGastos);//lleno lblGastos con el total de gastos
-        } catch (Exception e) {
-            
-        }
-        */
-    }
-//llenar tabla de productos bajos de estock
-    public void StockMinimoP(String categoria, int cantidad)
-    {
-        //los parametros que recibe son para los filtros de bussqueda den la base de datos
-        /*tblStockMin.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblStockMin.getTableHeader().setOpaque(false);
-        tblStockMin.getTableHeader().setBackground(new Color(100,100,100));
-        tblStockMin.getTableHeader().setForeground(new Color(255,255,255));
-        tblStockMin.setModel(productos.MinimoStock(categoria, cantidad));*/
-    }
-    //metodo para mostrar los tipos de pago en el combo Box
-    public void MostarFormaPagoFactura()
-    {
-        //cmbFormaPago.setModel(factura.FormasPago());//lleno el comboBox con los tipos de pago o tipo de venta
-    }
-    //metodo para llenar la tabla mostrar los cliente para a agregar a la factura
-    public void MostrarClienteFactura(String buscar)
-    {
-        //lineas para darle stilo al emcabezado de las tabblas
-     /*   tblAddClienteFactura.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblAddClienteFactura.getTableHeader().setOpaque(false);
-        tblAddClienteFactura.getTableHeader().setBackground(new Color(100,100,100));
-        tblAddClienteFactura.getTableHeader().setForeground(new Color(255,255,255));
-        tblAddClienteFactura.setModel(clientes.Consulta(buscar));*/
-    }
-    //metodo para mostrar los productos a vender por filtro de Laboratorios
-    public void MostrarPorLaboratorio(String laboratorio)
-    {
-        //tblAddProductoFactura.setModel(factura.BuscarPorLaboratorio(laboratorio));  
-    }
-    //metodo para mostrar los productos a vender por filtro de Categoria
-    public void MostrarPorCategoria(String categoria)
-    {
-        //tblAddProductoFactura.setModel(factura.BuscarPorCategoria(categoria));  
-    }
-    //metodo para mostrar los productos a vender por filtro de Nombre y condigo de barra
-    public void MostrarProductosVender(String Buscar)
-    {
-        /*tblAddProductoFactura.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblAddProductoFactura.getTableHeader().setOpaque(false);
-        tblAddProductoFactura.getTableHeader().setBackground(new Color(100,100,100));
-        tblAddProductoFactura.getTableHeader().setForeground(new Color(255,255,255));
-        tblAddProductoFactura.setModel(factura.BusquedaGeneralProductoVender(Buscar));*/
-    }
-    //metodo para llenar la tabla de laboratorios con filtro por Nombre de laboratorio
-    public void MostrarLaboratorio(String Buscar) {
-       /* tblLaboratorio.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblLaboratorio.getTableHeader().setOpaque(false);
-        tblLaboratorio.getTableHeader().setBackground(new Color(100,100,100));
-        tblLaboratorio.getTableHeader().setForeground(new Color(255,255,255));
-        tblLaboratorio.setModel(laboratorio.Consulta(Buscar));*/
-    }
-    //metodo para limpiar campos de El formulario Laboratorio
-    public void LimpiarLaboratorio() {
-        /*txtNombreLaboratorio.setText("");
-        txtDescripcionLaboratorio.setText("");*/
-    }
-    //metodo para dehabilitar elementos de formulario Laboratorio
-    public void DeshabilitarLaboratorio() {
-        /*txtNombreLaboratorio.setEnabled(false);
-        txtDescripcionLaboratorio.setEnabled(false);
-        btnNuevoLaboratorio.setEnabled(true);
-        btnGuardarLaborotorio.setEnabled(false);
-        btnActualizarLaboratorio.setEnabled(false);*/
-    }
-    //metodo para Habilitar los elementos inabilitados por el metodo DeshabilitarLaboratorio
-    public void HabilitarLaboratorio() {
-        /*txtNombreLaboratorio.setEnabled(true);
-        txtDescripcionLaboratorio.setEnabled(true);
-        btnNuevoLaboratorio.setEnabled(true);
-        btnGuardarLaborotorio.setEnabled(true);
-        btnActualizarLaboratorio.setEnabled(false);*/
-    }
-    //metodo para llenar la tabla categorias del formulario Categorias
-    public void MostrarCategorias(String Buscar) {
-        /*tblCategorias.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblCategorias.getTableHeader().setOpaque(false);
-        tblCategorias.getTableHeader().setBackground(new Color(100,100,100));
-        tblCategorias.getTableHeader().setForeground(new Color(255,255,255));
-        tblCategorias.setModel(categorias.Consulta(Buscar));*/
-    }
-    ////funcion para deshabilitar componentes de el formulario de Gstos
-    public void DeshabilitarGastos()
-    {
-        /*txtMontoGasto.setEnabled(false);
-        txtDescripcionGasto.setEnabled(false);
-        btnActualizarGasto.setEnabled(false);
-        btnGuardarGasto.setEnabled(false);*/
-    }
-    public void HabilitarGastos()
-    {
-        /*txtMontoGasto.setEnabled(true);
-        txtDescripcionGasto.setEnabled(true);
-        btnActualizarGasto.setEnabled(false);
-        btnGuardarGasto.setEnabled(true);*/
-    }
-    public void LimpiarGastos()
-    {
-        /*txtMontoGasto.setText("");
-        txtDescripcionGasto.setText("");*/
-    }
-    //funcion para deshabilitar componentes de el formulario de pago
-    public void DeshabilitarPagos()
-    {
-        /*btnActualizarPago.setEnabled(false);
-        btnGuardarPago.setEnabled(false);*/
-    }
-    //metodo para Habilitar los elementos inabilitados por el metodo DeshabilitarPago
-    public void HabilitarPago()
-    {
-        /*btnActualizarPago.setEnabled(false);
-        btnGuardarPago.setEnabled(true);*/
-    }
-    //metodo para limpiar el formulario Pagos
-    public void LimpiarPago()
-    {
-        //txtMontoPago.setText("");
-    }
-    //metodo para limpiar el formulario creditos
-    public void LimpiarCreditos()
-    {
-        //txtClienteCredito.setText("");
-    }
-    //deshabilitar los elementos del form creditos
-    public void DeshabilitarCreditos()
-    {
-        /*btnActualizarCredito.setEnabled(false);
-         btnCrearCredito.setEnabled(false);*/
-    }
-    //habilita los elementos inhabiltadps por el metos dshabilitarCredito
-    public void HabilitarCreditos()
-    {/*
-        btnActualizarCredito.setEnabled(false);
-        btnCrearCredito.setEnabled(true);*/
-    }
-    //metodo para limpiar el formulario categoria
-    public void LimpiarCategoria() {
-        /*txtNombreCategoria.setText("");
-        txtDescripcionCategoria.setText("");*/
-    }
-    //metodo para Habilitar los elementos inabilitados por el metodo DeshabilitarCategoria
-    public void HabilitarCategoria() {
-        /*txtNombreCategoria.setEnabled(true);
-        txtDescripcionCategoria.setEnabled(true);
-        btnNuevoCategoria.setEnabled(true);
-        btnGuardarCategoria.setEnabled(true);
-        btnActualizarCategoria.setEnabled(false);*/
-    }
-    //metodo para dehabilitar elementos de formulario Cliente
-    public void Deshabilitar()
-    {
-        /*btnGuardarCliente.setEnabled(false);
-        btnActualizarCliente.setEnabled(false);
-        txtNombresCliente.setEnabled(false);
-        txtApellidosCliente.setEnabled(false);
-        txtTelefonoCliente.setEnabled(false);
-        txtDireccionCliente.setEnabled(false);*/
-    }
-    //metodo para dehabilitar elementos de formulario Usuario
-    public void DeshabilitarUsuarios()
-    {
-        /*txtNombreUsuario.setEnabled(false);
-        txtPasswordUsuario.setEnabled(false);
-        txtPermisoUsuario.setEnabled(false);
-        btnGuardarUsuario.setEnabled(false);
-        btnActualizarUsuario.setEnabled(false);*/
-    }
-    //metodo para Habilitar los elementos inabilitados por el metodo DeshabilitarUsuarios
-    public void HabilitarUsuarios()
-    {
-        /*txtNombreUsuario.setEnabled(true);
-        txtPasswordUsuario.setEnabled(true);
-        txtPermisoUsuario.setEnabled(true);
-        btnGuardarUsuario.setEnabled(true);
-        btnActualizarUsuario.setEnabled(false);*/
-    }
-    //metodo para dehabilitar elementos de formulario Categoria
-    public void DeshabilitarCategoria() {
-        /*txtNombreCategoria.setEnabled(false);
-        txtDescripcionCategoria.setEnabled(false);
-        btnNuevoCategoria.setEnabled(true);
-        btnGuardarCategoria.setEnabled(false);
-        btnActualizarCategoria.setEnabled(false);*/
-    }
-    //metodo para llenar la tabla clinetes y buscar por filtro de nombre y apellido
-    public void MostrarClientes(String Buscar) {
-    /*    tblClientes.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        tblClientes.getTableHeader().setOpaque(false);
-        tblClientes.getTableHeader().setBackground(new Color(100,100,100));
-        tblClientes.getTableHeader().setForeground(new Color(255,255,255));
-        tblClientes.setModel(clientes.Consulta(Buscar));*/
-    }
-    //metodo para limpiar el formulario clientes
-    public void Limpiar() {
-    /*    txtNombresCliente.setText("");
-        txtApellidosCliente.setText("");
-        txtTelefonoCliente.setText("");
-        txtDireccionCliente.setText("");*/
-    }
-    //metodo para limpiar el formulario Usuarios
-    public void LimpiarUsuarios()
-    {
-       /* txtNombreUsuario.setText("");
-        txtPasswordUsuario.setText("");
-        txtPermisoUsuario.setText("");*/
-    }
-    //metodo para habilitar los elementos que deshabilto el metodo deshabilitar de formulario cliente
-    public void Habilitar() {
-       /* btnGuardarCliente.setEnabled(true);
-        btnActualizarCliente.setEnabled(false);
-        txtNombresCliente.setEnabled(true);
-        txtApellidosCliente.setEnabled(true);
-        txtTelefonoCliente.setEnabled(true);
-        txtDireccionCliente.setEnabled(true);*/
-    }
+   
+      
 
     /**
      * @param args the command line arguments
@@ -6651,20 +3354,21 @@ public class IMenu extends javax.swing.JFrame {
     public javax.swing.JDialog AddLaboratorio;
     public javax.swing.JDialog AddProductoFactura;
     public javax.swing.JMenuItem AddProductoStock;
+    private javax.swing.JPopupMenu AddProductoStock1;
+    public javax.swing.JMenuItem AgregarProductoStock;
     public javax.swing.JMenuItem BorrarCategoria;
     public javax.swing.JMenuItem BorrarCliente;
-    private javax.swing.JMenuItem BorrarDescuentos;
     public javax.swing.JMenuItem BorrarLaboratorio;
+    public javax.swing.JMenuItem BorrarPago;
     public javax.swing.JMenuItem BorrarProducto;
-    public javax.swing.JDialog BuscarClienteFactura;
+    public javax.swing.JDialog BuscarClienteCredito;
     private javax.swing.JPopupMenu Categorias;
     private javax.swing.JPopupMenu Clientes;
+    public javax.swing.JDialog ConfimarEliminarCredito;
     public javax.swing.JMenuItem Descuento;
-    private javax.swing.JPopupMenu Descuentos;
     public javax.swing.JMenuItem EditarCategoria;
     public javax.swing.JMenuItem EditarCliente;
     public javax.swing.JMenuItem EditarCredito;
-    private javax.swing.JMenuItem EditarDescuentos;
     public javax.swing.JMenuItem EditarGastos;
     public javax.swing.JMenuItem EditarLaboratorio;
     public javax.swing.JMenuItem EditarPago;
@@ -6678,10 +3382,10 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JPopupMenu Productos;
     public javax.swing.JDialog StockMinimo;
     private javax.swing.JPopupMenu Usuarios;
+    public javax.swing.JDialog VentanaAddProductoStock;
     public javax.swing.JButton btnActualizarCategoria;
     public javax.swing.JButton btnActualizarCliente;
     public javax.swing.JButton btnActualizarCredito;
-    private javax.swing.JButton btnActualizarDescuento;
     public javax.swing.JButton btnActualizarFactura;
     public javax.swing.JButton btnActualizarGasto;
     public javax.swing.JButton btnActualizarLaboratorio;
@@ -6691,9 +3395,11 @@ public class IMenu extends javax.swing.JFrame {
     public javax.swing.JButton btnAddClienteCredito;
     public javax.swing.JButton btnAgregarCategorias;
     public javax.swing.JButton btnAgregarLaboratorio;
+    public javax.swing.JButton btnAgregarProducto;
     public javax.swing.JButton btnAgregarProductoFactura;
     public javax.swing.JButton btnBuscarMinStock;
     public javax.swing.JButton btnCalcularGanancia;
+    public javax.swing.JButton btnCancel;
     public javax.swing.JPanel btnCerrarSesion;
     public javax.swing.JPanel btnClientes;
     public javax.swing.JPanel btnComprasGastos;
@@ -6705,7 +3411,6 @@ public class IMenu extends javax.swing.JFrame {
     public javax.swing.JButton btnEliminarFilaFactura;
     public javax.swing.JButton btnGuardarCategoria;
     public javax.swing.JButton btnGuardarCliente;
-    private javax.swing.JButton btnGuardarDescuento;
     public javax.swing.JButton btnGuardarFactura;
     public javax.swing.JButton btnGuardarGasto;
     public javax.swing.JButton btnGuardarLaborotorio;
@@ -6715,12 +3420,12 @@ public class IMenu extends javax.swing.JFrame {
     public javax.swing.JPanel btnInventario;
     public javax.swing.JButton btnLimpiarCliente;
     private javax.swing.JButton btnMaximizar;
+    public javax.swing.JButton btnMostrarInversion;
     public javax.swing.JButton btnMostrarStockMinimo;
     public javax.swing.JPanel btnNotificaciones;
     public javax.swing.JButton btnNuevaFactura;
     public javax.swing.JButton btnNuevoCategoria;
     public javax.swing.JButton btnNuevoCredito;
-    private javax.swing.JButton btnNuevoDescuento;
     public javax.swing.JButton btnNuevoGasto;
     public javax.swing.JButton btnNuevoLaboratorio;
     public javax.swing.JButton btnNuevoPago;
@@ -6734,6 +3439,7 @@ public class IMenu extends javax.swing.JFrame {
     public javax.swing.JPanel btnUsuarios;
     public javax.swing.JPanel btnVentas;
     public javax.swing.JButton btnVerificarVencimientos;
+    public javax.swing.JButton btnYes;
     public javax.swing.JComboBox<String> cmbEstadoCredito;
     public javax.swing.JComboBox<String> cmbFormaPago;
     private javax.swing.JButton jButton1;
@@ -6745,6 +3451,7 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -6764,9 +3471,11 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
@@ -6778,11 +3487,14 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
@@ -6825,7 +3537,6 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -6852,7 +3563,6 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -6860,7 +3570,6 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JTextField jTextField1;
     public com.toedter.calendar.JDateChooser jcFecha1;
     public com.toedter.calendar.JDateChooser jcFecha2;
     public com.toedter.calendar.JDateChooser jcFechaCredito;
@@ -6876,11 +3585,13 @@ public class IMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblIconClientes;
     private javax.swing.JLabel lblIconCreditos;
     private javax.swing.JLabel lblIconIventario;
+    private javax.swing.JLabel lblIconNotificaciones;
     private javax.swing.JLabel lblIconReportes;
     private javax.swing.JLabel lblIconUsuario;
     private javax.swing.JLabel lblIconVentas;
     public javax.swing.JLabel lblIdClienteFactura;
     public javax.swing.JLabel lblImpuestoISV;
+    public javax.swing.JLabel lblInversion;
     public javax.swing.JLabel lblMenuCerrarSesion;
     public javax.swing.JLabel lblMenuClientes;
     public javax.swing.JLabel lblMenuCreditos;
@@ -6889,6 +3600,8 @@ public class IMenu extends javax.swing.JFrame {
     public javax.swing.JLabel lblMenuReportes;
     public javax.swing.JLabel lblMenuUsuarios;
     public javax.swing.JLabel lblMenuVentas;
+    public javax.swing.JLabel lblNombreProductStock;
+    public javax.swing.JLabel lblNumeroNotificaciones;
     public javax.swing.JLabel lblPago;
     public javax.swing.JLabel lblSaldo;
     public javax.swing.JLabel lblTituloDeVentanas;
@@ -6919,7 +3632,7 @@ public class IMenu extends javax.swing.JFrame {
     public javax.swing.JRadioButton rbBuscarLaboratorio;
     public javax.swing.JRadioButton rbBuscarNombreCodBarra;
     public javax.swing.JTable tblAddCategoria;
-    public javax.swing.JTable tblAddClienteFactura;
+    public javax.swing.JTable tblAddClienteCredito;
     public javax.swing.JTable tblAddCreditoFactura;
     public javax.swing.JTable tblAddLaboratorio;
     public javax.swing.JTable tblAddProductoFactura;
@@ -6927,7 +3640,6 @@ public class IMenu extends javax.swing.JFrame {
     public javax.swing.JTable tblClientes;
     public javax.swing.JTable tblCreditos;
     public javax.swing.JTable tblCreditosCreados;
-    private javax.swing.JTable tblDescuentos;
     public javax.swing.JTable tblFactura;
     public javax.swing.JTable tblFacturasCreditos;
     public javax.swing.JTable tblGastos;
@@ -6946,11 +3658,13 @@ public class IMenu extends javax.swing.JFrame {
     public javax.swing.JTextField txtBuscarCredito;
     public javax.swing.JTextField txtBuscarCreditoFactura;
     public javax.swing.JTextField txtBuscarCreditosCreados;
+    public javax.swing.JTextField txtBuscarPago;
     public javax.swing.JTextField txtBuscarPorCategoria;
     public javax.swing.JTextField txtBuscarPorLaboratorio;
     public javax.swing.JTextField txtBuscarPorNombre;
     public javax.swing.JTextField txtBuscarProducto;
     public javax.swing.JTextField txtBuscarUsuario;
+    public javax.swing.JTextField txtCantidadAgregar;
     public javax.swing.JTextField txtCantidadProducto;
     public javax.swing.JTextField txtCantidadStockM;
     public javax.swing.JTextField txtCategoriaProducto;
@@ -6982,14 +3696,12 @@ public class IMenu extends javax.swing.JFrame {
     public javax.swing.JTextField txtNumeroFactura;
     public javax.swing.JTextField txtPasswordUsuario;
     public javax.swing.JTextField txtPermisoUsuario;
-    private javax.swing.JTextField txtPorcentajeDescuento;
     public javax.swing.JTextField txtSubTotal;
     public javax.swing.JTextField txtTelefonoCliente;
     public javax.swing.JTextField txtTotal;
     public javax.swing.JTextField txtUbicacionProducto;
     public javax.swing.JTextField txtVentaProducto;
     public javax.swing.JDialog ventanaCategoria;
-    private javax.swing.JDialog ventanaDescuento;
     public javax.swing.JDialog ventanaLaboratorio;
     public javax.swing.JDialog vistaDetalleFacturas;
     // End of variables declaration//GEN-END:variables

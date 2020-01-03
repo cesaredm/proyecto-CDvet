@@ -40,7 +40,7 @@ public class CtrlLaboratorio implements ActionListener, CaretListener {
                 MostrarLaboratorio("");
                 LimpiarLaboratorio();
             } else {
-                JOptionPane.showMessageDialog(null, "Llene el campo Nombre", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(null, "Llene el campo Nombre", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
             }
         }
         if(e.getSource() == menu.btnActualizarLaboratorio)
@@ -53,7 +53,7 @@ public class CtrlLaboratorio implements ActionListener, CaretListener {
                 menu.btnActualizarLaboratorio.setEnabled(false);
                 menu.btnGuardarLaborotorio.setEnabled(true);
         } else {
-            JOptionPane.showMessageDialog(null, "Llene el campo Nombre", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "Llene el campo Nombre", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
         }
         }
         if(e.getSource() == menu.btnNuevoLaboratorio)

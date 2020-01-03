@@ -5,9 +5,11 @@
         <group>
             <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/controlador/CtrlReportes.java</file>
             <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/controlador/CtrlCreditos.java</file>
-            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/controlador/CtrlPagos.java</file>
+            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/controlador/CtrlProducto.java</file>
+            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/controlador/CtrlClientes.java</file>
+            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/controlador/CtrlFacturacion.java</file>
             <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/modelo/Creditos.java</file>
-            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/modelo/PagosCreditos.java</file>
+            <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/modelo/Productos.java</file>
             <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/vista/IMenu.java</file>
             <file>file:/C:/Users/gallomasgallo/Documents/NetBeansProjects/SistemaFarmacia/src/modelo/Reportes.java</file>
         </group>

@@ -353,6 +353,7 @@ public class CtrlMenuOpciones implements MouseListener, ActionListener {
             menu.btnNotificaciones.setBackground(new java.awt.Color(239, 244, 245));
             menu.lblMenuNotificacion.setForeground(new java.awt.Color(0, 222, 171));
             menu.lblTituloDeVentanas.setText("Notificaciones");
+            menu.lblNumeroNotificaciones.setVisible(false);
 
             menu.btnReportes.setBackground(new java.awt.Color(64, 64, 64));
             menu.lblMenuReportes.setForeground(new java.awt.Color(255, 249, 252));
@@ -414,10 +415,16 @@ public class CtrlMenuOpciones implements MouseListener, ActionListener {
 
             menu.btnComprasGastos.setBackground(new java.awt.Color(64, 64, 64));
             menu.lblGastosMenu.setForeground(new java.awt.Color(255, 255, 255));
-
+            //crear nuevo Objeto de Interfaz de login
             ILogin login = new ILogin();
+            //cerrar el sistema
             menu.dispose();
-            login.setVisible(true);
+            //crear nuevo objeto de el modelo login
+            Login l = new Login();
+            //crear nuevo objeto de controlador login
+            CtrlLogin ReinicioSesion = new CtrlLogin(login, l);
+            //inicira con la funcio iniciar de la clase CtrlLogin
+            ReinicioSesion.iniciar();
         }
     }
 
@@ -442,6 +449,8 @@ public class CtrlMenuOpciones implements MouseListener, ActionListener {
     }
 
     public void Notificacion() {
+        int cont = 0;
+        menu.lblNumeroNotificaciones.setVisible(false);
         ArrayList lista = new ArrayList();//instancia de un nuevo array list
         DefaultListModel modeloLista = new DefaultListModel();//modelo para el Jlist
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//formateador de fecha
@@ -455,9 +464,11 @@ public class CtrlMenuOpciones implements MouseListener, ActionListener {
                 int dias = (int) ((fechaFinal.getTime() - fechaInicio.getTime()) / 86400000);//calculo de diferencias de dias "conversion de milesegundos a dias"
                 String nombre = (String) this.modelo.getValueAt(i, 2);//obtengo el nombre del producto de la tabla producto
                 if (dias == 60)//
-                {
-                    menu.lblMenuNotificacion.setForeground(new java.awt.Color(255, 7, 5, 255));//cambio de color si hay productos cerca de vencer
-                    lista.add("Quedan " + dias + " Dias para que el Producto " + nombre + " Caduque");//agrego un elemeto a lista
+                {   
+                    cont++;//contador de productos que venceran dentro de 60 dias 
+                    menu.lblNumeroNotificaciones.setVisible(true);//hcaer visible el badge de numero de mensajes
+                    //menu.lblMenuNotificacion.setForeground(new java.awt.Color(255, 7, 5, 255));//cambio de color si hay productos cerca de vencer
+                    lista.add("Quedan " + dias + " Dias para que el Producto " + nombre + " Expire");//agrego un elemeto a lista
                     modeloLista.removeAllElements();//limpio el JList para que no repita los datos a mostrar
                     for (int l = 0; l < lista.size(); l++)//recorro la lista para ingresarla al modelo de Jlist
                     {
@@ -465,6 +476,7 @@ public class CtrlMenuOpciones implements MouseListener, ActionListener {
                     }
 
                 }
+                menu.lblNumeroNotificaciones.setText(""+cont);//lleno el label que esta sirviendo de badge 
             } catch (Exception err) {
                 JOptionPane.showMessageDialog(null, err+"notificacines");
             }
@@ -478,6 +490,7 @@ public class CtrlMenuOpciones implements MouseListener, ActionListener {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         if (e.getSource() == menu.btnVerificarVencimientos) {
             Notificacion();
+            //this.ctrlRepo.inversion();
         }
     }
 }

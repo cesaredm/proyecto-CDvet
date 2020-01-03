@@ -17,80 +17,95 @@ import javax.swing.JOptionPane;
 import modelo.Reportes;
 import vista.IMenu;
 import javax.swing.table.DefaultTableModel;
+import modelo.PagosCreditos;
 
 /**
  *
  * @author CESAR DIAZ MARADIAGA
  */
-public class CtrlReportes implements ActionListener, MouseListener{
+public class CtrlReportes implements ActionListener, MouseListener {
+
     IMenu menu;
     Reportes reportes;
+    PagosCreditos pagosC;
     Date fecha;
     DefaultTableModel modelo;
-    public CtrlReportes(IMenu menu, Reportes reportes)
-    {
+    String idCliente = "";
+    private boolean estadoC = true;
+
+    public CtrlReportes(IMenu menu, Reportes reportes) {
         this.menu = menu;
         this.reportes = reportes;
+        this.pagosC = new PagosCreditos();
         this.fecha = new Date();
         this.menu.btnReporteMensaul.addActionListener(this);
         this.menu.tblReporte.addMouseListener(this);
+        this.menu.btnMostrarInversion.addActionListener(this);
         iniciar();
     }
-    public void iniciar()
-    {
+
+    public void iniciar() {
         MostrarFiltroReporte(fecha, fecha);
         this.menu.jcFecha1.setDate(fecha);
         this.menu.jcFecha2.setDate(fecha);
         SumaTotalFiltroReporte();
     }
-     @Override
+
+    public boolean getEstadoC() {
+        return estadoC;
+    }
+
+    public void setEstadoC(boolean estadoC) {
+        this.estadoC = estadoC;
+    }
+
+    @Override
     public void actionPerformed(ActionEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        if(e.getSource() == menu.btnReporteMensaul)
-        {
+        if (e.getSource() == menu.btnReporteMensaul) {
             Date fecha1 = menu.jcFecha1.getDate(), fecha2 = menu.jcFecha2.getDate();
-            MostrarFiltroReporte(fecha1,fecha2);
+            MostrarFiltroReporte(fecha1, fecha2);
             SumaTotalFiltroReporte();
         }
-        
+        if(e.getSource() == menu.btnMostrarInversion)
+        {
+            inversion();
+        }
+
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-       if(e.getSource() == menu.tblReporte)
-       {
-            if(e.getClickCount() == 2)
-       {
-           int id = 0, filaseleccionada = menu.tblReporte.getSelectedRow();
-           try {
-            if(filaseleccionada == -1)
-           {
-               
-           }else
-           {
-               this.modelo = (DefaultTableModel) menu.tblReporte.getModel();
-               id = Integer.parseInt(this.modelo.getValueAt(filaseleccionada, 0).toString());
-               MostrarDetalleFactura(id);
-               menu.vistaDetalleFacturas.setSize(746, 306);
-               menu.vistaDetalleFacturas.setVisible(true);
-               menu.vistaDetalleFacturas.setLocationRelativeTo(null);
-           }
-           } catch (Exception err) {
-               JOptionPane.showMessageDialog(null, err);
-           }
-       }
-       }
+        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (e.getSource() == menu.tblReporte) {
+            if (e.getClickCount() == 2) {
+                int id = 0, filaseleccionada = menu.tblReporte.getSelectedRow();
+                try {
+                    if (filaseleccionada == -1) {
+
+                    } else {
+                        this.modelo = (DefaultTableModel) menu.tblReporte.getModel();
+                        id = Integer.parseInt(this.modelo.getValueAt(filaseleccionada, 0).toString());
+                        MostrarDetalleFactura(id);
+                        menu.vistaDetalleFacturas.setSize(746, 306);
+                        menu.vistaDetalleFacturas.setVisible(true);
+                        menu.vistaDetalleFacturas.setLocationRelativeTo(null);
+                    }
+                } catch (Exception err) {
+                    JOptionPane.showMessageDialog(null, err);
+                }
+            }
+        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -102,25 +117,48 @@ public class CtrlReportes implements ActionListener, MouseListener{
     public void mouseExited(MouseEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public void SumaTotalFiltroReporte()
+    //metodo para calcular la inversion aun no esta listo
+    public void inversion()
     {
+       int filas = menu.tblProductos.getRowCount();
+       float inversion = 0, precio = 0, cantidad = 0;
+       for(int i = 0;i<filas;i++)
+       {
+           precio = Float.parseFloat(menu.tblProductos.getValueAt(i, 3).toString());
+           cantidad = Float.parseFloat(menu.tblProductos.getValueAt(i, 6).toString());
+           inversion += precio*cantidad;
+       }
+        menu.lblInversion.setText(""+inversion);
+    }
+    public void SumaTotalFiltroReporte() {
+        //variables a 
         float totalFiltroReporte = 0, creditoMensual = 0, totalCaja = 0, totalGastos = 0, totalExist = 0, totalPagos = 0;
         this.modelo = (DefaultTableModel) menu.tblReporte.getModel();
+        //fiilas de la tabla reportes
         int filas = this.modelo.getRowCount();
-        for(int cont = 0;cont<filas;cont++)
-        {
+        //for para recorrer la tabla de reportes 
+        for (int cont = 0; cont < filas; cont++) {
+            //ontengo todos los datos de la columna Total de factura y los sumo para obtener el total vendido
             totalFiltroReporte += Float.parseFloat(this.modelo.getValueAt(cont, 3).toString());
         }
-        menu.lblTotalFiltroReporte.setText(String.valueOf(totalFiltroReporte));
+        //lleno el lbl de total vendido
+        menu.lblTotalFiltroReporte.setText(String.valueOf(totalFiltroReporte));//suma toda la columna de total de factura de la tabla reportes 
+        //obtengo el valor del label total de creditos
         creditoMensual = Float.parseFloat(menu.lblTotalCreditosFiltroReporte.getText());
+        //obtengo el valor de label total gastos
         totalGastos = Float.parseFloat(menu.lblGastos.getText());
+        //obtengo el valor de label total pagos de creditos
         totalPagos = Float.parseFloat(menu.lblTotalPagos.getText());
-        totalCaja = totalPagos + (totalFiltroReporte - creditoMensual);
-        totalExist = totalFiltroReporte - creditoMensual - totalGastos;
-        menu.lblTotalCajaFiltroReporte.setText(""+totalCaja);
-        menu.lblTotalExistencia.setText(""+totalExist);
+        if(!this.estadoC){
+             totalCaja = totalPagos + (totalFiltroReporte - creditoMensual); 
+        }else{
+             totalCaja = (totalFiltroReporte - creditoMensual); 
+        }
+        totalExist = (totalFiltroReporte - creditoMensual - totalGastos);
+        menu.lblTotalCajaFiltroReporte.setText("" + totalCaja);
+        menu.lblTotalExistencia.setText("" + totalExist);
     }
+
     public void MostrarFiltroReporte(Date fecha1, Date fecha2)//metodo para llenar la tabla de reortes por rango o mensual del menu reportes
     {
         long f1 = fecha1.getTime(), f2 = fecha2.getTime();//
@@ -129,29 +167,29 @@ public class CtrlReportes implements ActionListener, MouseListener{
         String totalCreditoMensual = reportes.TotalCreditosMensual(fechaInicio, fechaFinal);//obtengo el valor de total de creditos cn la funcion TotalCreditoMensula de la clase reortes
         String totalGastos = reportes.TotalGastos(fechaInicio, fechaFinal);//total de gastos 
         String totalPagos = reportes.totalPagos(fechaInicio, fechaFinal);//total pagos 
-        float creditosPendiente = Float.parseFloat(totalCreditoMensual)-Float.parseFloat(totalPagos);//refleja el creditos menos los pagos
-        menu.tblReporte.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
+        float creditosPendiente = Float.parseFloat(totalCreditoMensual) - Float.parseFloat(totalPagos);//refleja el creditos menos los pagos
+        menu.tblReporte.getTableHeader().setFont(new Font("Sugoe UI", Font.PLAIN, 14));
         menu.tblReporte.getTableHeader().setOpaque(false);
-        menu.tblReporte.getTableHeader().setBackground(new Color(100,100,100));
-        menu.tblReporte.getTableHeader().setForeground(new Color(255,255,255));
+        menu.tblReporte.getTableHeader().setBackground(new Color(100, 100, 100));
+        menu.tblReporte.getTableHeader().setForeground(new Color(255, 255, 255));
         try {
             menu.tblReporte.setModel(reportes.ReporteMensual(fechaInicio, fechaFinal));
-            menu.lblTotalCreditosFiltroReporte.setText(totalCreditoMensual);//lleno el lblTotalCreditoFiltroRepote con el  total creditos 
+            menu.lblTotalCreditosFiltroReporte.setText(String.valueOf(creditosPendiente));//lleno el lblTotalCreditoFiltroRepote con el  total creditos 
             menu.lblGastos.setText(totalGastos);//lleno lblGastos con el total de gastos
             menu.lblTotalPagos.setText(totalPagos);
         } catch (Exception err) {
-            
+
         }
-        
+
     }
+
     public void MostrarDetalleFactura(int id)//metodo para llenar la tabla que muestra el detalle de las facturas de reportes
     {
-        menu.tblMostrarDetalleFactura.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
+        menu.tblMostrarDetalleFactura.getTableHeader().setFont(new Font("Sugoe UI", Font.PLAIN, 14));
         menu.tblMostrarDetalleFactura.getTableHeader().setOpaque(false);
-        menu.tblMostrarDetalleFactura.getTableHeader().setBackground(new Color(100,100,100));
-        menu.tblMostrarDetalleFactura.getTableHeader().setForeground(new Color(255,255,255));
+        menu.tblMostrarDetalleFactura.getTableHeader().setBackground(new Color(100, 100, 100));
+        menu.tblMostrarDetalleFactura.getTableHeader().setForeground(new Color(255, 255, 255));
         menu.tblMostrarDetalleFactura.setModel(reportes.DetalleFactura(id));
     }
 
-   
 }

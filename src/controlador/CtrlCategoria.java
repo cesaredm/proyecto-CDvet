@@ -41,17 +41,18 @@ public class CtrlCategoria implements ActionListener, CaretListener {
         if (e.getSource() == menu.btnGuardarCategoria) {
             String nombre = menu.txtNombreCategoria.getText(), descripcion = menu.txtDescripcionCategoria.getText();
             if (nombre.equals("")) {
-                JOptionPane.showMessageDialog(null, "Llene el campo Nombre G", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                //JOptionPane.showMessageDialog(null, "Llene el campo Nombre G", "Advertencia", JOptionPane.WARNING_MESSAGE);
             } else {
                 categorias.Guardar(nombre, descripcion);
                 MostrarCategorias("");
                 LimpiarCategoria();
             }
         }
+        
         if (e.getSource() == menu.btnActualizarCategoria) {
             String nombre = menu.txtNombreCategoria.getText();
             if (nombre.equals("")) {
-                JOptionPane.showMessageDialog(null, "Llene el campo Nombre A", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                //JOptionPane.showMessageDialog(null, "Llene el campo Nombre A", "Advertencia", JOptionPane.WARNING_MESSAGE);
             } else {
                 categorias.Actualizar(this.id, menu.txtNombreCategoria.getText(), menu.txtDescripcionCategoria.getText());
                 MostrarCategorias("");

@@ -81,7 +81,7 @@ public class PagosCreditos extends Conexiondb {
     //metodo para mostrar todos los pagos
     public DefaultTableModel Mostrar(String buscar) {
         cn = Conexion();
-        this.consulta = "SELECT pagoscreditos.id AS idPago, monto as montoPago, credito, pagoscreditos.fecha, clientes.nombres,apellidos FROM pagoscreditos INNER JOIN creditos ON(pagoscreditos.credito = creditos.id) INNER JOIN clientes ON(creditos.cliente = clientes.id) WHERE CONCAT(pagoscreditos.id, pagoscreditos.credito, clientes.nombres, clientes.apellidos) LIKE '%" + buscar + "%'";
+        this.consulta = "SELECT pagoscreditos.id AS idPago, monto as montoPago, credito, pagoscreditos.fecha, clientes.nombres,apellidos FROM pagoscreditos INNER JOIN creditos ON(pagoscreditos.credito = creditos.id) INNER JOIN clientes ON(creditos.cliente = clientes.id) WHERE CONCAT(pagoscreditos.id, pagoscreditos.credito, pagoscreditos.fecha, clientes.nombres, clientes.apellidos) LIKE '%" + buscar + "%'";
         this.resgistros = new String[6];
         String[] titulos = {"Id Pago", "Monto de Pago", "Al Credito", "Fecha De Pago", "Nombres Cliente", "Apellidos Cliente"};
         this.modelo = new DefaultTableModel(null, titulos) {
@@ -118,6 +118,7 @@ public class PagosCreditos extends Conexiondb {
             while (rs.next()) {
                 credito = rs.getFloat("pago");//total de pagos de cliente
             }
+            
         } catch (SQLException e) {
         }
         return credito;

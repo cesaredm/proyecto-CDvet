@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.awt.Color;
@@ -19,17 +14,16 @@ import javax.swing.event.CaretListener;
 import javax.swing.table.DefaultTableModel;
 import modelo.Creditos;
 import modelo.PagosCreditos;
+import modelo.Reportes;
 import vista.IMenu;
 
-/**
- *
- * @author CESAR DIAZ MARADIAGA
- */
 public class CtrlCreditos implements ActionListener, CaretListener, MouseListener {
 
     IMenu menu;
     Creditos creditos;
     PagosCreditos pagos;
+    Reportes report;
+    CtrlReportes ctrlReport;
     Date fecha;
     String id;
     DefaultTableModel modelo;
@@ -38,6 +32,8 @@ public class CtrlCreditos implements ActionListener, CaretListener, MouseListene
         this.menu = menu;
         this.creditos = creditos;
         this.pagos = new PagosCreditos();
+        this.report = new Reportes();
+        this.ctrlReport = new CtrlReportes(menu, report);
         this.modelo = new DefaultTableModel();
         this.fecha = new Date();
         this.menu.btnCrearCredito.addActionListener(this);
@@ -50,20 +46,11 @@ public class CtrlCreditos implements ActionListener, CaretListener, MouseListene
         this.menu.txtBuscarCreditosCreados.addCaretListener(this);
         this.menu.txtBuscarCredito.addCaretListener(this);
         this.menu.txtBuscarCreditoFactura.addCaretListener(this);
-        this.menu.tblAddClienteFactura.addMouseListener(this);
+        this.menu.tblAddClienteCredito.addMouseListener(this);
         this.menu.tblCreditos.addMouseListener(this);
+        this.menu.btnYes.addActionListener(this);
+        this.menu.btnCancel.addActionListener(this);
         iniciar();
-    }
-
-    public void iniciar() {
-        menu.jcFechaCredito.setDate(fecha);
-        MostrarCreditosAddFactura("");
-        MostrarCreditosCreados("");
-        MostrarCreditos("");
-        DeshabilitarCreditos();
-        MostrarFacturasPorCreditos("");
-        menu.jcFechaPago.setDate(fecha);
-
     }
 
     @Override
@@ -90,6 +77,56 @@ public class CtrlCreditos implements ActionListener, CaretListener, MouseListene
 
             }
         }
+        //
+        if (e.getSource() == menu.EliminarCredito) {
+            int filaseleccionada = 0, id = 0, confirmacion = 0;
+
+            try {
+                filaseleccionada = menu.tblCreditosCreados.getSelectedRow();
+                if (filaseleccionada == -1) {
+
+                } else {
+                    /*confirmacion = JOptionPane.showConfirmDialog(null, "Seguro que Quieres Borrar Este Credito", "Advertencia", JOptionPane.OK_CANCEL_OPTION);
+                    if(confirmacion == JOptionPane.YES_OPTION)
+                    {
+                    modelo = (DefaultTableModel) menu.tblCreditosCreados.getModel();
+                    id = Integer.parseInt(modelo.getValueAt(filaseleccionada, 0).toString());
+                    creditos.Eliminar(id);
+                    MostrarCreditosCreados("");
+                    }*/
+                    menu.ConfimarEliminarCredito.setSize(272, 98);
+                    menu.ConfimarEliminarCredito.setVisible(true);
+                    menu.ConfimarEliminarCredito.setLocationRelativeTo(null);
+                }
+            } catch (Exception err) {
+                JOptionPane.showMessageDialog(null, err + "en la funcion eliminar Credito");
+            }
+
+        }
+        if (e.getSource() == menu.btnYes) {
+            int filaseleccionada = 0, id = 0, confirmacion = 0;
+            try {
+                filaseleccionada = menu.tblCreditosCreados.getSelectedRow();
+                if (filaseleccionada == -1) {
+
+                } else {
+                    //confirmacion = JOptionPane.showConfirmDialog(null, "Seguro que Quieres Borrar Este Credito", "Advertencia", JOptionPane.OK_CANCEL_OPTION);
+                    //if(confirmacion == JOptionPane.YES_OPTION)
+                    //{
+                    modelo = (DefaultTableModel) menu.tblCreditosCreados.getModel();
+                    id = Integer.parseInt(modelo.getValueAt(filaseleccionada, 0).toString());
+                    creditos.Eliminar(id);
+                    MostrarCreditosCreados("");
+                    menu.ConfimarEliminarCredito.setVisible(false);
+                    //}
+                }
+            } catch (Exception err) {
+                JOptionPane.showMessageDialog(null, err + "en la funcion eliminar Credito");
+            }
+        }
+        if (e.getSource() == menu.btnCancel) {
+            menu.ConfimarEliminarCredito.setVisible(false);
+        }
         if (e.getSource() == menu.btnActualizarCredito) {
             Date fechaCredito = menu.jcFechaCredito.getDate();
             int c, id = Integer.parseInt(this.id);
@@ -111,15 +148,19 @@ public class CtrlCreditos implements ActionListener, CaretListener, MouseListene
 
             }
         }
+        //
         if (e.getSource() == menu.btnNuevoCredito) {
             HabilitarCreditos();
             LimpiarCreditos();
+            System.out.println("Nuevo cesar");
         }
+        //
         if (e.getSource() == menu.btnAddClienteCredito) {
-            menu.BuscarClienteFactura.setSize(592, 277);
-            menu.BuscarClienteFactura.setVisible(true);
-            menu.BuscarClienteFactura.setLocationRelativeTo(null);
+            menu.BuscarClienteCredito.setSize(592, 277);
+            menu.BuscarClienteCredito.setVisible(true);
+            menu.BuscarClienteCredito.setLocationRelativeTo(null);
         }
+        //
         if (e.getSource() == menu.EditarCredito) {
             int filaseleccionada = menu.tblCreditosCreados.getSelectedRow();
             String id, estado, cliente;
@@ -146,24 +187,7 @@ public class CtrlCreditos implements ActionListener, CaretListener, MouseListene
                 JOptionPane.showMessageDialog(null, err + "en la funcion editar Credito");
             }
         }
-        if (e.getSource() == menu.EliminarCredito) {
-            int filaseleccionada = menu.tblCreditosCreados.getSelectedRow(), id = 0, confirmacion = 0;
-            try {
-                if (filaseleccionada == -1) {
-
-                } else {
-                    confirmacion = JOptionPane.showConfirmDialog(null, "Seguro que quieres Borrar este credito", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                    if (confirmacion == JOptionPane.YES_OPTION) {
-                        this.modelo = (DefaultTableModel) menu.tblCreditosCreados.getModel();
-                        id = Integer.parseInt(this.modelo.getValueAt(filaseleccionada, 0).toString());
-                        creditos.Eliminar(id);
-                        MostrarCreditos("");
-                    }
-                }
-            } catch (Exception err) {
-                JOptionPane.showMessageDialog(null, err + " en funcion Eliminar Credito");
-            }
-        }
+        //
         if (e.getSource() == menu.GenerarPago) {
             int filaseleccionada = menu.tblCreditos.getSelectedRow();
             String credito, totalCredito;
@@ -195,11 +219,89 @@ public class CtrlCreditos implements ActionListener, CaretListener, MouseListene
             MostrarCreditosCreados(menu.txtBuscarCreditosCreados.getText());
         }
         if (e.getSource() == menu.txtBuscarCredito) {
-            MostrarCreditosCreados(menu.txtBuscarCreditosCreados.getText());
+            MostrarCreditos(menu.txtBuscarCredito.getText());
         }
         if (e.getSource() == menu.txtBuscarCreditoFactura) {
             MostrarCreditosAddFactura(menu.txtBuscarCreditoFactura.getText());
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (e.getSource() == menu.tblAddClienteCredito) {
+            int filaseleccionada = menu.tblAddClienteCredito.getSelectedRow();
+            try {
+                String id, nombres, apellidos;
+                if (filaseleccionada == -1) {
+
+                } else {
+                    this.modelo = (DefaultTableModel) menu.tblAddClienteCredito.getModel();
+                    nombres = this.modelo.getValueAt(filaseleccionada, 1).toString();
+                    apellidos = this.modelo.getValueAt(filaseleccionada, 2).toString();
+                    id = this.modelo.getValueAt(filaseleccionada, 0).toString();
+                    menu.txtClienteCredito.setText(id);
+                }
+
+            } catch (Exception err) {
+                JOptionPane.showMessageDialog(null, err);
+            }
+        }
+        if (e.getSource() == menu.tblCreditos) {
+            int filaseleccionada = menu.tblCreditos.getSelectedRow();
+            String id;
+            if (e.getClickCount() == 2) {
+                try {
+                    if (filaseleccionada == -1) {
+
+                    } else {
+                        this.modelo = (DefaultTableModel) menu.tblCreditos.getModel();
+                        id = (String) this.modelo.getValueAt(filaseleccionada, 0);
+                        MostrarFacturasPorCreditos(id);
+                        menu.FacturasPorCreditos.setSize(830, 308);
+                        menu.FacturasPorCreditos.setVisible(true);
+                        menu.FacturasPorCreditos.setLocationRelativeTo(null);
+
+                    }
+                } catch (Exception err) {
+                    JOptionPane.showMessageDialog(null, err + "mostrar fcaturasporcreditis");
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
+    public void iniciar() {
+        menu.jcFechaCredito.setDate(fecha);
+        MostrarCreditosAddFactura("");
+        MostrarCreditosCreados("");
+        MostrarCreditos("");
+        DeshabilitarCreditos();
+        MostrarFacturasPorCreditos("");
+        menu.jcFechaPago.setDate(fecha);
+
+    }
+
+//deshabilitar los elementos del form creditos
+    public void DeshabilitarCreditos() {
+        menu.btnActualizarCredito.setEnabled(false);
+        menu.btnCrearCredito.setEnabled(false);
+        menu.btnAddClienteCredito.setEnabled(false);
     }
 
     public boolean isNumeric(String cadena) {//metodo para la validacion de campos numericos
@@ -232,6 +334,7 @@ public class CtrlCreditos implements ActionListener, CaretListener, MouseListene
     public void HabilitarCreditos() {
         menu.btnActualizarCredito.setEnabled(false);
         menu.btnCrearCredito.setEnabled(true);
+        menu.btnAddClienteCredito.setEnabled(true);
     }
 
     public void LimpiarCreditos() {
@@ -249,14 +352,28 @@ public class CtrlCreditos implements ActionListener, CaretListener, MouseListene
     //funcion para cambiar el estado del credito a Abierto
     public void ActualizarEstadoCredito() {
         this.modelo = (DefaultTableModel) menu.tblCreditos.getModel();
+        //variable para almacenar total de credito de cliete
         float credito;
+        //variable para almacenar el id de crdito
         int idCredito = 0;
+        //variable para almacenar el id de cliente
+        String idCliente;
         int filas = this.modelo.getRowCount();
         for (int i = 0; i < filas; i++) {
+            //id de credito
             idCredito = Integer.parseInt(this.modelo.getValueAt(i, 0).toString());
+            //total de credito de cliente
             credito = Float.parseFloat(this.modelo.getValueAt(i, 1).toString());
+            //id de cliente
+            idCliente = (String) (this.modelo.getValueAt(i, 2).toString());
+            //condicion para saber si el saldo esta en 0.0 o menor de 0.0
             if (credito == 0.0 || credito < 0) {
+                ctrlReport.setEstadoC(true);
+                ctrlReport.idCliente = idCliente;
                 creditos.ActualizarEstadoCredito(idCredito, "Abierto");
+            } else {
+                ctrlReport.setEstadoC(false);
+                ctrlReport.idCliente = "0";
             }
         }
     }
@@ -289,75 +406,5 @@ public class CtrlCreditos implements ActionListener, CaretListener, MouseListene
             menu.tblFacturasCreditos.getTableHeader().setForeground(new Color(255, 255, 255));
             menu.tblFacturasCreditos.setModel(creditos.MostrarFacturasPorCreditdos(idC));
         }
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        if (e.getSource() == menu.tblAddClienteFactura) {
-            int filaseleccionada = menu.tblAddClienteFactura.getSelectedRow();
-            try {
-                String id, nombres, apellidos;
-                if (filaseleccionada == -1) {
-
-                } else {
-                    this.modelo = (DefaultTableModel) menu.tblAddClienteFactura.getModel();
-                    nombres = this.modelo.getValueAt(filaseleccionada, 1).toString();
-                    apellidos = this.modelo.getValueAt(filaseleccionada, 2).toString();
-                    id = this.modelo.getValueAt(filaseleccionada, 0).toString();
-                    menu.txtClienteCredito.setText(id);
-                }
-
-            } catch (Exception err) {
-                JOptionPane.showMessageDialog(null, err);
-            }
-        }
-        if (e.getSource() == menu.tblCreditos) {
-            int filaseleccionada = menu.tblCreditos.getSelectedRow();
-            String id;
-            if (e.getClickCount() == 2) {
-                try {
-                    if (filaseleccionada == -1) {
-
-                    } else {
-                        this.modelo = (DefaultTableModel) menu.tblCreditos.getModel();
-                        id = (String) this.modelo.getValueAt(filaseleccionada, 0);
-                        MostrarFacturasPorCreditos(id);
-                        menu.FacturasPorCreditos.setSize(830, 308);
-                        menu.FacturasPorCreditos.setVisible(true);
-                        menu.FacturasPorCreditos.setLocationRelativeTo(null);
-
-                    }
-                } catch (Exception err) {
-                    JOptionPane.showMessageDialog(null, err + "mostrar fcaturasporcreditis");
-                }
-            }
-        }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    //deshabilitar los elementos del form creditos
-    public void DeshabilitarCreditos() {
-        menu.btnActualizarCredito.setEnabled(false);
-        menu.btnCrearCredito.setEnabled(false);
     }
 }

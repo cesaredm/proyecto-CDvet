@@ -73,6 +73,7 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
         this.menu.btnLimpiarCliente.addActionListener(this);
         EstiloTablaFacturacion();
         editarISV("");
+        DeshabilitarBtnGuardarFactura();
         this.menu.jcFechaFactura.setDate(fecha);
         menu.txtNumeroFactura.setText(factura.ObtenerIdFactura());
     }
@@ -114,6 +115,7 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
                 creditos.ActualizarEstadoCredito2();
                 creditos.ActualizarEstadoCredito();
                 creditos.MostrarCreditos("");
+                creditos.MostrarCreditosCreados("");
                 reportes.MostrarFiltroReporte(this.fecha, this.fecha);
                 reportes.SumaTotalFiltroReporte();
                 creditos.MostrarCreditos("");
@@ -225,7 +227,9 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
                 menu.pnlVentas.setVisible(true);//mostrar panel de ventas 
                 menu.btnRetornar.setVisible(true);//mostrar boton retornar
                 menu.btnActualizarFactura.setVisible(true);//mostrar boton actualizar
+                menu.btnGuardarFactura.setEnabled(false);
                 menu.pnlReportes.setVisible(false);//ocultar panel Reportes
+                menu.vistaDetalleFacturas.setVisible(false);
             } catch (Exception err) {
                 JOptionPane.showMessageDialog(null, err);
             }
@@ -306,7 +310,8 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
                     this.modelo.removeRow(0);//remover filas de la tabla factura
                 }
                 productos.MostrarProductosVender("");//acturalizar tabla que muestra productos a vender
-                //limpiar 
+                //limpiar
+                menu.btnGuardarFactura.setEnabled(true);
                 menu.txtNClienteFactura.setText("");
                 menu.txtAClienteFactura.setText("");
                 menu.lblIdClienteFactura.setText("");

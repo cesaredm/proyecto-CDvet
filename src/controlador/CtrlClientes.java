@@ -22,16 +22,20 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author CESAR DIAZ MARADIAGA
  */
-public class CtrlClientes implements ActionListener ,CaretListener{
+public class CtrlClientes implements ActionListener, CaretListener {
 
     IMenu menu;
     Clientes clientes;
+    CtrlCreditos ctrlCreditos;
+    Creditos creditos;
     String id;
     DefaultTableModel modelo;
 
     public CtrlClientes(IMenu menu, Clientes clientes) {
         this.menu = menu;
         this.clientes = clientes;
+        this.creditos = new Creditos();
+        this.ctrlCreditos = new CtrlCreditos(menu, creditos);
         this.modelo = new DefaultTableModel();
         this.menu.btnGuardarCliente.addActionListener(this);
         this.menu.btnActualizarCliente.addActionListener(this);
@@ -39,6 +43,7 @@ public class CtrlClientes implements ActionListener ,CaretListener{
         this.menu.EditarCliente.addActionListener(this);
         this.menu.BorrarCliente.addActionListener(this);
         this.menu.txtBuscarCliente.addCaretListener(this);
+        this.menu.txtBuscar.addCaretListener(this);
         MostrarClientes("");
         MostrarClienteFactura("");
         Deshabilitar();
@@ -55,6 +60,7 @@ public class CtrlClientes implements ActionListener ,CaretListener{
             if (!nombres.equals("") && !apellidos.equals("")) {
                 clientes.Guardar(nombres, apellidos, telefono, direccion);
                 MostrarClientes("");
+                this.ctrlCreditos.MostrarCreditosAddFactura("");
                 Limpiar();
             } else {
                 JOptionPane.showMessageDialog(null, "Llene los campos Nombres y apellidos", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -80,27 +86,26 @@ public class CtrlClientes implements ActionListener ,CaretListener{
             Limpiar();
             Habilitar();
         }
-        if(e.getSource() == menu.BorrarCliente)
-        {
+        if (e.getSource() == menu.BorrarCliente) {
             int filaSelect;
-        String id;
-        try {
-            filaSelect = menu.tblClientes.getSelectedRow();
-            if (filaSelect == -1) {
-                JOptionPane.showMessageDialog(null, "Seleccione una fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            } else {
-                int confirmar = JOptionPane.showConfirmDialog(null, "Seguro que Quires Borrar Este Cliente", "Informacion", JOptionPane.OK_CANCEL_OPTION);
-                if (confirmar == JOptionPane.YES_OPTION) {
-                    modelo = (DefaultTableModel) menu.tblClientes.getModel();
-                    id = (String) modelo.getValueAt(filaSelect, 0);
-                    clientes.Eliminar(id);
-                    MostrarClientes("");
+            String id;
+            try {
+                filaSelect = menu.tblClientes.getSelectedRow();
+                if (filaSelect == -1) {
+                    JOptionPane.showMessageDialog(null, "Seleccione una fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    int confirmar = JOptionPane.showConfirmDialog(null, "Seguro que Quires Borrar Este Cliente", "Informacion", JOptionPane.OK_CANCEL_OPTION);
+                    if (confirmar == JOptionPane.YES_OPTION) {
+                        modelo = (DefaultTableModel) menu.tblClientes.getModel();
+                        id = (String) modelo.getValueAt(filaSelect, 0);
+                        clientes.Eliminar(id);
+                        MostrarClientes("");
+                    }
                 }
+
+            } catch (Exception err) {
+
             }
-
-        } catch (Exception err) {
-
-        }
         }
         if (e.getSource() == menu.EditarCliente) {
             int filaSeleccionada = 0;
@@ -127,7 +132,7 @@ public class CtrlClientes implements ActionListener ,CaretListener{
                     menu.btnActualizarCliente.setEnabled(true);
                 }
             } catch (Exception err) {
-                JOptionPane.showMessageDialog(null, err+"en la funcion de editar cliente");
+                JOptionPane.showMessageDialog(null, err + "en la funcion de editar cliente");
             }
         }
     }
@@ -157,20 +162,19 @@ public class CtrlClientes implements ActionListener ,CaretListener{
         menu.txtTelefonoCliente.setEnabled(true);
         menu.txtDireccionCliente.setEnabled(true);
     }
-    
-        //metodo para llenar la tabla mostrar los cliente para a agregar a la factura
-    public void MostrarClienteFactura(String buscar)
-    {
+
+    //metodo para llenar la tabla mostrar los cliente para a agregar a la factura
+    public void MostrarClienteFactura(String buscar) {
         //lineas para darle stilo al emcabezado de las tabblas
-        menu.tblAddClienteFactura.getTableHeader().setFont(new Font("Sugoe UI",Font.PLAIN, 14));
-        menu.tblAddClienteFactura.getTableHeader().setOpaque(false);
-        menu.tblAddClienteFactura.getTableHeader().setBackground(new Color(100,100,100));
-        menu.tblAddClienteFactura.getTableHeader().setForeground(new Color(255,255,255));
-        menu.tblAddClienteFactura.setModel(clientes.Consulta(buscar));
+        menu.tblAddClienteCredito.getTableHeader().setFont(new Font("Sugoe UI", Font.PLAIN, 14));
+        menu.tblAddClienteCredito.getTableHeader().setOpaque(false);
+        menu.tblAddClienteCredito.getTableHeader().setBackground(new Color(100, 100, 100));
+        menu.tblAddClienteCredito.getTableHeader().setForeground(new Color(255, 255, 255));
+        menu.tblAddClienteCredito.setModel(clientes.Consulta(buscar));
     }
+
     //metodo para dehabilitar elementos de formulario Cliente
-    public void Deshabilitar()
-    {
+    public void Deshabilitar() {
         menu.btnGuardarCliente.setEnabled(false);
         menu.btnActualizarCliente.setEnabled(false);
         menu.txtNombresCliente.setEnabled(false);
@@ -178,9 +182,16 @@ public class CtrlClientes implements ActionListener ,CaretListener{
         menu.txtTelefonoCliente.setEnabled(false);
         menu.txtDireccionCliente.setEnabled(false);
     }
+
     @Override
     public void caretUpdate(CaretEvent e) {
+        if(e.getSource() == menu.txtBuscarCredito){
         String Buscar = menu.txtBuscarCliente.getText();
         MostrarClientes(Buscar);
+        }
+        if(e.getSource() == menu.txtBuscar)
+        {
+            MostrarClienteFactura(menu.txtBuscar.getText());
+        }
     }
 }

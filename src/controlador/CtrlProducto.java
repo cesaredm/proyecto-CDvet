@@ -28,6 +28,7 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
     Facturacion factura;
     Categorias c;
     Laboratorios L;
+    Date fecha;
     String id;
     DefaultTableModel modelo;
 
@@ -37,6 +38,7 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
         this.factura = new Facturacion();
         this.c = new Categorias();
         this.L = new Laboratorios();
+        this.fecha = new Date();
         this.menu.btnGuardarProducto.addActionListener(this);
         this.menu.btnActualizarProducto.addActionListener(this);
         this.menu.btnNuevoProducto.addActionListener(this);
@@ -53,6 +55,7 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
         this.menu.BorrarProducto.addActionListener(this);
         this.menu.AddProductoStock.addActionListener(this);
         this.menu.btnCalcularGanancia.addActionListener(this);
+        this.menu.btnAgregarProducto.addActionListener(this);
         this.menu.btnBuscarMinStock.addActionListener(this);
         this.menu.rbBuscarCategoria.addActionListener(this);
         this.menu.rbBuscarLaboratorio.addActionListener(this);
@@ -61,20 +64,22 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
         this.menu.txtLaboratorioProducto.addMouseListener(this);
         this.menu.tblAddCategoria.addMouseListener(this);
         this.menu.tblAddLaboratorio.addMouseListener(this);
+        this.menu.AgregarProductoStock.addActionListener(this);
         this.id = null;
         this.modelo = new DefaultTableModel();
-       iniciar();
+        iniciar();
     }
 
     public void iniciar() {
-        
+
         MostrarProductos("");
-        StockMinimoP("", 0);
+        StockMinimoP("", 15);
         MostrarProductosVender("");
         llenarAddCategoria("");
         llenarAddLaboratorio("");
         DeshabilitarProductos();
         menu.rbBuscarNombreCodBarra.setSelected(true);
+        this.menu.jcFechaVProducto.setDate(fecha);
     }
 
     @Override
@@ -95,7 +100,7 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
             java.sql.Date fecha = new java.sql.Date(fechaV);
             //Validacion de que sean ingresados los datos correctos y que no esten vacios
             if (nombre.equals("")) {
-                JOptionPane.showMessageDialog(null, "Llene el campo Nombre", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                //JOptionPane.showMessageDialog(null, "Llene el campo Nombre", "Advertencia", JOptionPane.WARNING_MESSAGE);
             } else if (precioCProducto.equals("")) {
                 JOptionPane.showMessageDialog(null, "Llene el campo Precio Compra", "Advertencia", JOptionPane.WARNING_MESSAGE);
             } else if (precioVProducto.equals("")) {
@@ -159,7 +164,7 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
             long fechaV = fechaVencimiento.getTime();
             java.sql.Date fecha = new java.sql.Date(fechaV);
             if (nombre.equals("")) {
-                JOptionPane.showMessageDialog(null, "Llene el campo Nombre", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                //JOptionPane.showMessageDialog(null, "Llene el campo Nombre", "Advertencia", JOptionPane.WARNING_MESSAGE);
             } else if (precioCProducto.equals("")) {
                 JOptionPane.showMessageDialog(null, "Llene el campo Precio Compra", "Advertencia", JOptionPane.WARNING_MESSAGE);
             } else if (precioVProducto.equals("")) {
@@ -241,7 +246,7 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
                     menu.btnActualizarProducto.setEnabled(true);
                 }
             } catch (Exception err) {
-                JOptionPane.showConfirmDialog(null, err+"en la funcion editar producto");
+                JOptionPane.showConfirmDialog(null, err + "en la funcion editar producto");
             }
         }
         if (e.getSource() == menu.BorrarProducto) {
@@ -267,22 +272,48 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
         }
         if (e.getSource() == menu.AddProductoStock) {
             int filaseleccionada = menu.tblProductos.getSelectedRow();
-            String id, nombre;
+            String id = "", nombre = "", Cantidad = "";
             try {
                 if (filaseleccionada == -1) {
-                    JOptionPane.showMessageDialog(null, "Seleccione una Fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    //JOptionPane.showMessageDialog(null, "Seleccione una Fila", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 } else {
+                    menu.VentanaAddProductoStock.setSize(400, 130);
+                    menu.VentanaAddProductoStock.setVisible(true);
+                    menu.VentanaAddProductoStock.setLocationRelativeTo(null);
                     this.modelo = (DefaultTableModel) menu.tblProductos.getModel();
-                    id = (String) this.modelo.getValueAt(filaseleccionada, 0);
+                    //id = (String) this.modelo.getValueAt(filaseleccionada, 0);
                     nombre = (String) this.modelo.getValueAt(filaseleccionada, 2);
-                    String Cantidad = JOptionPane.showInputDialog("Ingrese la Cantidad de " + nombre);
+                    menu.lblNombreProductStock.setText("Cantidad de " + nombre + " a Agregar");
+                    /*Cantidad = menu.txtCantidadAgregar.getText();//JOptionPane.showInputDialog("Ingrese la Cantidad de " + nombre, "");
+                    if(Cantidad!=null)
+                    {
+                        productos.AgregarProductoStock(id, Cantidad);
+                        MostrarProductos("");
+                        MostrarProductosVender("");
+                    }*/
+                }
+            } catch (Exception err) {
+                JOptionPane.showMessageDialog(null, err + "en la funcion add productoStock");
+            }
+        }
+        if (e.getSource() == menu.btnAgregarProducto) {
+            try {
+                String Cantidad = "";
+                int filaseleccionada = menu.tblProductos.getSelectedRow();
+                this.modelo = (DefaultTableModel) menu.tblProductos.getModel();
+                String id = (String) this.modelo.getValueAt(filaseleccionada, 0);
+                Cantidad = menu.txtCantidadAgregar.getText();//JOptionPane.showInputDialog("Ingrese la Cantidad de " + nombre, "");
+                if (Cantidad != null) {
                     productos.AgregarProductoStock(id, Cantidad);
                     MostrarProductos("");
                     MostrarProductosVender("");
+                    StockMinimoP("", 0);
                 }
             } catch (Exception err) {
-
+                //JOptionPane.showMessageDialog(null, err+"en la funcion AgregarProducto");
             }
+            menu.VentanaAddProductoStock.setVisible(false);
+            menu.txtCantidadAgregar.setText("");
         }
         if (e.getSource() == menu.btnAgregarCategorias) {
             menu.ventanaCategoria.setSize(672, 330);
@@ -535,8 +566,8 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
     public void mouseExited(MouseEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public void DeshabilitarProductos()
-    {
+
+    public void DeshabilitarProductos() {
         menu.txtCodBarraProducto.setEnabled(false);
         menu.txtNombreProducto.setEnabled(false);
         menu.txtCompraProducto.setEnabled(false);
