@@ -45,7 +45,7 @@ public class CtrlClientes implements ActionListener, CaretListener {
         this.menu.txtBuscarCliente.addCaretListener(this);
         this.menu.txtBuscar.addCaretListener(this);
         MostrarClientes("");
-        MostrarClienteFactura("");
+        MostrarClienteCredito("");
         Deshabilitar();
     }
 
@@ -61,6 +61,7 @@ public class CtrlClientes implements ActionListener, CaretListener {
                 clientes.Guardar(nombres, apellidos, telefono, direccion);
                 MostrarClientes("");
                 this.ctrlCreditos.MostrarCreditosAddFactura("");
+                MostrarClienteCredito("");
                 Limpiar();
             } else {
                 JOptionPane.showMessageDialog(null, "Llene los campos Nombres y apellidos", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -163,8 +164,8 @@ public class CtrlClientes implements ActionListener, CaretListener {
         menu.txtDireccionCliente.setEnabled(true);
     }
 
-    //metodo para llenar la tabla mostrar los cliente para a agregar a la factura
-    public void MostrarClienteFactura(String buscar) {
+    //metodo para llenar la tabla mostrar los cliente para a agregar a Credito
+    public void MostrarClienteCredito(String buscar) {
         //lineas para darle stilo al emcabezado de las tabblas
         menu.tblAddClienteCredito.getTableHeader().setFont(new Font("Sugoe UI", Font.PLAIN, 14));
         menu.tblAddClienteCredito.getTableHeader().setOpaque(false);
@@ -191,7 +192,7 @@ public class CtrlClientes implements ActionListener, CaretListener {
         }
         if(e.getSource() == menu.txtBuscar)
         {
-            MostrarClienteFactura(menu.txtBuscar.getText());
+            MostrarClienteCredito(menu.txtBuscar.getText());
         }
     }
 }

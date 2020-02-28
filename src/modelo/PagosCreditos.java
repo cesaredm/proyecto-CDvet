@@ -41,6 +41,7 @@ public class PagosCreditos extends Conexiondb {
             if (this.banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Pago Guardado Exitosamete", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -56,6 +57,7 @@ public class PagosCreditos extends Conexiondb {
             if (this.banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Pago Eliminado Exitosamete", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -74,6 +76,7 @@ public class PagosCreditos extends Conexiondb {
             if (this.banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Pago Actualizado Exitosamete", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -101,8 +104,9 @@ public class PagosCreditos extends Conexiondb {
                 this.resgistros[5] = rs.getString("apellidos");
                 this.modelo.addRow(resgistros);
             }
+            cn.close();
         } catch (SQLException e) {
-
+            JOptionPane.showMessageDialog(null, e);
         }
         return this.modelo;
     }
@@ -118,7 +122,7 @@ public class PagosCreditos extends Conexiondb {
             while (rs.next()) {
                 credito = rs.getFloat("pago");//total de pagos de cliente
             }
-            
+            cn.close();
         } catch (SQLException e) {
         }
         return credito;

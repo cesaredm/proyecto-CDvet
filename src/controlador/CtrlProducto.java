@@ -9,13 +9,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.table.DefaultTableModel;
 import modelo.*;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
@@ -47,8 +53,6 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
         this.menu.btnMostrarStockMinimo.addActionListener(this);
         this.menu.txtBuscarProducto.addCaretListener(this);
         this.menu.txtBuscarPorNombre.addCaretListener(this);
-        this.menu.txtBuscarPorCategoria.addCaretListener(this);
-        this.menu.txtBuscarPorLaboratorio.addCaretListener(this);
         this.menu.txtBuscarCategoriaAdd.addCaretListener(this);
         this.menu.txtLaboratorioAdd.addCaretListener(this);
         this.menu.EditarProducto.addActionListener(this);
@@ -57,14 +61,13 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
         this.menu.btnCalcularGanancia.addActionListener(this);
         this.menu.btnAgregarProducto.addActionListener(this);
         this.menu.btnBuscarMinStock.addActionListener(this);
-        this.menu.rbBuscarCategoria.addActionListener(this);
-        this.menu.rbBuscarLaboratorio.addActionListener(this);
         this.menu.rbBuscarNombreCodBarra.addActionListener(this);
         this.menu.txtCategoriaProducto.addMouseListener(this);
         this.menu.txtLaboratorioProducto.addMouseListener(this);
         this.menu.tblAddCategoria.addMouseListener(this);
         this.menu.tblAddLaboratorio.addMouseListener(this);
         this.menu.AgregarProductoStock.addActionListener(this);
+        this.menu.btnGenerarReporteStock.addMouseListener(this);
         this.id = null;
         this.modelo = new DefaultTableModel();
         iniciar();
@@ -132,6 +135,7 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
                     menu.btnGuardarProducto.setEnabled(true);
                     menu.btnActualizarProducto.setEnabled(false);
                     MostrarProductosVender("");
+                    inversion();
                 }
 
             }
@@ -195,6 +199,7 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
                     MostrarProductos("");
                     MostrarProductosVender("");
                     LimpiarProducto();
+                    inversion();
                     menu.btnGuardarProducto.setEnabled(true);
                     menu.btnActualizarProducto.setEnabled(false);
                 }
@@ -204,6 +209,7 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
         if (e.getSource() == menu.btnNuevoProducto) {
             HabilitarProductos();
             LimpiarProducto();
+            menu.txtCodBarraProducto.requestFocus();
         }
         if (e.getSource() == menu.EditarProducto) {
             int filaseleccionada;
@@ -263,6 +269,7 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
                         id = (String) modelo.getValueAt(filaseleccionada, 0);
                         productos.Eliminar(id);
                         MostrarProductos("");
+                        inversion();
                     }
 
                 }
@@ -308,6 +315,7 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
                     MostrarProductos("");
                     MostrarProductosVender("");
                     StockMinimoP("", 0);
+                    inversion();
                 }
             } catch (Exception err) {
                 //JOptionPane.showMessageDialog(null, err+"en la funcion AgregarProducto");
@@ -316,7 +324,7 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
             menu.txtCantidadAgregar.setText("");
         }
         if (e.getSource() == menu.btnAgregarCategorias) {
-            menu.ventanaCategoria.setSize(672, 330);
+            menu.ventanaCategoria.setSize(680, 330);
             menu.ventanaCategoria.setLocationRelativeTo(null);
             menu.ventanaCategoria.setVisible(true);
             CtrlCategoria cat = new CtrlCategoria(menu, c);
@@ -334,44 +342,18 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
             menu.StockMinimo.setLocationRelativeTo(null);
             //StockMinimo.setModal(true);
             menu.StockMinimo.setVisible(true);
-            StockMinimoP("", 0);
+            StockMinimoP("", 15);
         }
         if (e.getSource() == menu.btnBuscarMinStock) {
-            int cant = 0;
-            if (menu.txtCategoriaStockM.getText().equals("") || menu.txtCantidadStockM.getText().equals("")) {
+            float cant = 0;
+            if (menu.txtCantidadStockM.getText().equals("")) {
 
             } else {
-                cant = Integer.parseInt(menu.txtCantidadStockM.getText());
+                cant = Float.parseFloat(menu.txtCantidadStockM.getText());
                 StockMinimoP(menu.txtCategoriaStockM.getText(), cant);
             }
         }
-        if (e.getSource() == menu.rbBuscarCategoria) {
-            if (menu.rbBuscarCategoria.isSelected() == true) {
-                menu.txtBuscarPorNombre.setEnabled(false);
-                menu.txtBuscarPorCategoria.setEnabled(true);
-                menu.txtBuscarPorLaboratorio.setEnabled(false);
-                menu.txtBuscarPorCategoria.setText("");
-                menu.txtBuscarPorNombre.setText("");
-            }
-        }
-        if (e.getSource() == menu.rbBuscarLaboratorio) {
-            if (menu.rbBuscarLaboratorio.isSelected() == true) {
-                menu.txtBuscarPorNombre.setEnabled(false);
-                menu.txtBuscarPorCategoria.setEnabled(false);
-                menu.txtBuscarPorLaboratorio.setEnabled(true);
-                menu.txtBuscarPorNombre.setText("");
-                menu.txtBuscarPorCategoria.setText("");
-            }
-        }
-        if (e.getSource() == menu.rbBuscarNombreCodBarra) {
-            if (menu.rbBuscarNombreCodBarra.isSelected() == true) {
-                menu.txtBuscarPorNombre.setEnabled(true);
-                menu.txtBuscarPorCategoria.setEnabled(false);
-                menu.txtBuscarPorLaboratorio.setEnabled(false);
-                menu.txtBuscarPorCategoria.setText("");
-                menu.txtBuscarPorLaboratorio.setText("");
-            }
-        }
+        
     }
 
     @Override
@@ -383,14 +365,6 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
         if (e.getSource() == menu.txtBuscarPorNombre) {
             String Buscar = menu.txtBuscarPorNombre.getText();
             MostrarProductosVender(Buscar);
-        }
-        if (e.getSource() == menu.txtBuscarPorLaboratorio) {
-            String laboratorio = menu.txtBuscarPorLaboratorio.getText();
-            MostrarPorLaboratorio(laboratorio);
-        }
-        if (e.getSource() == menu.txtBuscarPorCategoria) {
-            String categoria = menu.txtBuscarPorCategoria.getText();
-            MostrarPorCategoria(categoria);
         }
         if (e.getSource() == menu.txtBuscarCategoriaAdd) {
             String valor = menu.txtBuscarCategoriaAdd.getText();
@@ -459,8 +433,21 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
         menu.btnGuardarProducto.setEnabled(true);
         menu.btnActualizarProducto.setEnabled(false);
     }
-
-    public void StockMinimoP(String categoria, int cantidad)//llenar tabla de productos bajos de estock
+//este metodo iversion es el mismo metodo que esta en reportes lo repite para no crear una nueva instancia de la clase reportes
+    public void inversion()
+    {
+       int filas = menu.tblProductos.getRowCount();
+       float inversion = 0, precio = 0, cantidad = 0;
+       for(int i = 0;i<filas;i++)
+       {
+           precio = Float.parseFloat(menu.tblProductos.getValueAt(i, 3).toString());
+           cantidad = Float.parseFloat(menu.tblProductos.getValueAt(i, 6).toString());
+           inversion += precio*cantidad;
+       }
+        menu.lblInversion.setText(""+inversion);
+    }
+    
+    public void StockMinimoP(String categoria, float cantidad)//llenar tabla de productos bajos de estock
     {
         //los parametros que recibe son para los filtros de bussqueda den la base de datos
         menu.tblStockMin.getTableHeader().setFont(new Font("Sugoe UI", Font.PLAIN, 14));
@@ -543,6 +530,20 @@ public class CtrlProducto implements ActionListener, CaretListener, MouseListene
                 }
             } catch (Exception err) {
 
+            }
+        }
+        if(e.getSource() == menu.btnGenerarReporteStock){
+            float cant = 0;
+            if(menu.txtCantidadStockM.getText().equals(""))
+            {
+                
+            }else{
+                cant = Float.parseFloat(menu.txtCantidadStockM.getText());
+                try {
+                    productos.GenerarReporteStockMin(menu.txtCategoriaStockM.getText(), cant);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CtrlProducto.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }

@@ -36,6 +36,7 @@ public class Clientes extends Conexiondb{
             if (cont > 0) {
                 JOptionPane.showMessageDialog(null, "Cliente Guardado Exitosamente");
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -55,6 +56,7 @@ public class Clientes extends Conexiondb{
             if (banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Dato Actualizado Correctamente");
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, id);
         }
@@ -69,6 +71,7 @@ public class Clientes extends Conexiondb{
             if (banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Dato Borrado Exitosamente");
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -96,6 +99,7 @@ public class Clientes extends Conexiondb{
                 registro[4] = rs.getString("direccion");
                 modelo.addRow(registro);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }

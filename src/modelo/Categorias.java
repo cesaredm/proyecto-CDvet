@@ -37,6 +37,7 @@ public class Categorias extends Conexiondb {
             if (banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Categoria Creada Exitosamente");
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -54,6 +55,7 @@ public class Categorias extends Conexiondb {
             if (banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Dato Actualizado Exitosamente");
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -68,6 +70,7 @@ public class Categorias extends Conexiondb {
             if (banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Dato Borrado Exitosamente");
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -92,6 +95,7 @@ public class Categorias extends Conexiondb {
                 registros[2] = rs.getString("descripcion");
                 modelo.addRow(registros);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }

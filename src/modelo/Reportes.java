@@ -52,6 +52,7 @@ public class Reportes extends Conexiondb {
                 Resultados[7] = rs.getString("idCredito");
                 modelo.addRow(Resultados);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -84,9 +85,11 @@ public class Reportes extends Conexiondb {
                 registros[7] = rs.getString("idCredito");
                 this.modelo.addRow(registros);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        
         return modelo;
     }
 
@@ -113,6 +116,7 @@ public class Reportes extends Conexiondb {
                 registros[6] = rs.getString("totalVenta");
                 this.modelo.addRow(registros);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -133,6 +137,7 @@ public class Reportes extends Conexiondb {
             if (totalCreditos == null) {
                 totalCreditos = "0.0";
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -154,6 +159,7 @@ public class Reportes extends Conexiondb {
             if (totalCreditos == null) {
                 totalCreditos = "0.0";
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -175,6 +181,7 @@ public class Reportes extends Conexiondb {
             if (totalGasto == null) {
                 totalGasto = "0.0";
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -195,6 +202,7 @@ public class Reportes extends Conexiondb {
             if (totalGasto == null) {
                 totalGasto = "0.0";
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -202,6 +210,7 @@ public class Reportes extends Conexiondb {
     }
 
     public String totalPagos(Date fecha1, Date fecha2){
+        cn = Conexion();
         String pagos = "";
         this.consulta = "SELECT SUM(monto) AS TotalPagos FROM pagoscreditos INNER JOIN creditos ON(pagoscreditos.credito = creditos.id) "
                 + "WHERE creditos.estado = 'Pendiente' AND pagoscreditos.fecha BETWEEN ? AND ?";
@@ -218,9 +227,48 @@ public class Reportes extends Conexiondb {
             {
                 pagos = "0";
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
         return pagos;
+    }
+    public String nombreCliente(String id)
+    {
+        cn = Conexion();
+        String Nombres = "";
+        this.consulta = "SELECT clientes.nombres FROM clientes INNER JOIN creditos ON(clientes.id = creditos.cliente) WHERE creditos.id = ?";
+        try {
+            this.pst = this.cn.prepareStatement(consulta);
+            this.pst.setString(1, id);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                Nombres = rs.getString("nombres");
+            }
+            this.cn.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e+"funcion nombres clientes");
+        }
+            return Nombres;
+    }
+    public String apellidoCliente(String id)
+    {
+        cn = Conexion();
+        String apellidos = "";
+        this.consulta = "SELECT clientes.apellidos FROM clientes INNER JOIN creditos ON(clientes.id = creditos.cliente) WHERE creditos.id = ?";
+        try {
+            this.pst = this.cn.prepareStatement(consulta);
+            this.pst.setString(1, id);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next())
+            {
+                apellidos = rs.getString("apellidos");                
+            }
+
+            this.cn.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e+"funcion apellidos clientes");
+        }
+        return apellidos;
     }
 }

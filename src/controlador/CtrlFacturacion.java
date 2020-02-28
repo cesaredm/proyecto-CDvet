@@ -118,7 +118,9 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
                 creditos.MostrarCreditosCreados("");
                 reportes.MostrarFiltroReporte(this.fecha, this.fecha);
                 reportes.SumaTotalFiltroReporte();
+                reportes.inversion();
                 creditos.MostrarCreditos("");
+                creditos.MostrarCreditosAddFactura("");
             } catch (Exception err) {
                 JOptionPane.showMessageDialog(null, err);
             }
@@ -153,12 +155,20 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
                     }
                     menu.txtNumeroFactura.setText(this.factura.ObtenerIdFactura());//Actualizo el campo numero de factura con la funcion obtenerIdFactura
                     LimpiarTablaFactura();//limpio la factura
+                    menu.txtCreditoFactura.setText("");
                     DeshabilitarBtnGuardarFactura();//deshabilito el boton guadar factura
+                    menu.pnlVentas.setVisible(false);
+                    menu.pnlReportes.setVisible(true);
+                    menu.btnRetornar.setVisible(false);
+                    menu.btnActualizarFactura.setVisible(false);
                     productos.MostrarProductos("");//actualizar la tabla de productos inventario
                     productos.MostrarProductosVender("");//actualizar la tabla de productos a vender
-                    reportes.MostrarFiltroReporte(this.fecha, this.fecha);
                     reportes.SumaTotalFiltroReporte();
+                    creditos.ActualizarEstadoCredito();
+                    creditos.ActualizarEstadoCredito2();
+                    reportes.MostrarFiltroReporte(this.fecha, this.fecha);
                     creditos.MostrarCreditos("");
+                    creditos.MostrarCreditosAddFactura("");
                 } else {
                     JOptionPane.showMessageDialog(null, "la factura depende de " + nD.length + " filas");
                 }
@@ -168,6 +178,7 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
             }
         }
         if (e.getSource() == menu.btnEditarFactura) {
+            String nombre = "", apellido = "";
             //obtengo la fila seleccionda de la tabla reporte diario    obtengo el numero las filas de la tabla detalleFactura
             int filaseleccionada = menu.tblReporte.getSelectedRow(), filas = menu.tblMostrarDetalleFactura.getRowCount();
             //la variable modelo va a tomar el modelo de la tabla factura
@@ -191,13 +202,15 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
                 iva = Float.parseFloat(menu.tblReporte.getValueAt(filaseleccionada, 2).toString());
                 //obtengo el total de factura
                 totalFactura = Float.parseFloat(menu.tblReporte.getValueAt(filaseleccionada, 3).toString());
-                //obtengo el cliente
+                //obtengo el credito
                 credito = (String) menu.tblReporte.getValueAt(filaseleccionada, 7);
+                nombre = r.nombreCliente(credito);//obtengo el nombre de credito
+                apellido = r.apellidoCliente(credito);//obtengo el apellido de credito
                 //obtengo la forma de pago
                 pago = menu.tblReporte.getValueAt(filaseleccionada, 5).toString();
                 //realiza el calculo para obtener el subtotal
                 subTotal = totalFactura - iva;
-                //validacion de lo que estoy obteniendo en la variable cliente
+                //validacion de lo que estoy obteniendo en la variable credito
                 if (credito == null) {
                     credito = "";
                 }
@@ -209,6 +222,8 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
                 menu.txtImpuesto.setText("" + iva);
                 menu.txtNumeroFactura.setText(idFactura);
                 menu.txtCompradorFactura.setText(comprador);
+                menu.txtNClienteFactura.setText(nombre);
+                menu.txtAClienteFactura.setText(apellido);
                 //for para recorrer la tabla detalleFactura
                 for (int i = 0; i < filas; i++) {
                     detalle = menu.tblMostrarDetalleFactura.getValueAt(i, 0).toString();//obtengo numero de detalle
@@ -227,11 +242,11 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
                 menu.pnlVentas.setVisible(true);//mostrar panel de ventas 
                 menu.btnRetornar.setVisible(true);//mostrar boton retornar
                 menu.btnActualizarFactura.setVisible(true);//mostrar boton actualizar
-                menu.btnGuardarFactura.setEnabled(false);
+                menu.btnGuardarFactura.setEnabled(false);//deshabilitar boton guardarFactura
                 menu.pnlReportes.setVisible(false);//ocultar panel Reportes
-                menu.vistaDetalleFacturas.setVisible(false);
+                menu.vistaDetalleFacturas.setVisible(false);//ocultar la ventana de detalle de factura de reportes
             } catch (Exception err) {
-                JOptionPane.showMessageDialog(null, err);
+                JOptionPane.showMessageDialog(null, err + "guardar facturas");
             }
         }
         if (e.getSource() == menu.btnAgregarProductoFactura) {
@@ -240,8 +255,8 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
             menu.AddProductoFactura.setLocationRelativeTo(null);
             if (menu.rbBuscarNombreCodBarra.isSelected() == true) {
                 menu.txtBuscarPorNombre.setEnabled(true);
-                menu.txtBuscarPorCategoria.setEnabled(false);
-                menu.txtBuscarPorLaboratorio.setEnabled(false);
+                menu.txtBuscarPorNombre.requestFocus();
+                menu.txtBuscarPorNombre.selectAll();
             }
         }
         if (e.getSource() == menu.btnEliminarFilaFactura) {
@@ -329,8 +344,7 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
             }
             menu.txtNumeroFactura.setText(factura.ObtenerIdFactura());//actualizar numero de factura
         }
-        if(e.getSource() == menu.btnLimpiarCliente)
-        {
+        if (e.getSource() == menu.btnLimpiarCliente) {
             menu.txtNClienteFactura.setText("");
             menu.txtAClienteFactura.setText("");
             menu.lblIdClienteFactura.setText("");
@@ -366,36 +380,42 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
                             nombre = modelo.getValueAt(filaseleccionada, 2).toString();
                             precio = modelo.getValueAt(filaseleccionada, 3).toString();
                             stock = Float.parseFloat(modelo.getValueAt(filaseleccionada, 5).toString());
-                            //stockA = modelo.getValueAt(filaseleccionada, 5).toString();
                             cantidad = JOptionPane.showInputDialog(null, "Cantidad:");
+                            //si cantidad no recibe la cantidad se le va asignar 0
+                            if (cantidad.equals("")) {
+                                cantidad = "0";
+                            }
                             //convertir a flota la variable cantidad
                             cantidadPVender = Float.parseFloat(cantidad);
                             //validacion para la venta sugun lo que hay en stock osea no se pueda vender mas de lo que hay en stock
-                            if (cantidadPVender < stock) {
-                                imp = (Float.parseFloat(precio) * cantidadPVender);//importe total de compra de producto
-                                importe = String.valueOf(imp);
+                            if (cantidadPVender < stock || cantidadPVender == stock) {
+                                //si cantidadPVender es igual a 0 no realizar ninguna accion
+                                if (cantidadPVender == 0) {
 
-                                /*stock = Float.parseFloat(stockA)- Float.parseFloat(cantidad);
-                        stockA = String.valueOf(stock);
-                        modelo.setValueAt(stockA, filaseleccionada, 5);*/
-                                //realizando los calculos de importe
-                                this.modelo = (DefaultTableModel) menu.tblFactura.getModel();
-                                //pasar producto de tabla productos a tabla de factura
-                                String[] FilaElementos = {id, codigo, cantidad, nombre, precio, importe};
-                                this.modelo.addRow(FilaElementos);
-                                calcula = (Float.parseFloat(importe));//convertir importe a float
-                                this.total = this.total + calcula;//calcular el total de factura
-                                impuesto = (float) (this.total * Float.parseFloat(menu.lblImpuestoISV.getText())) / 100;//calcular el impuesto
-                                this.isv = impuesto;//impuesto
-                                this.subTotal = this.total - this.isv;//clacular subtotal de factura
+                                } else {
+                                    imp = (Float.parseFloat(precio) * cantidadPVender);//importe total de compra de producto
+                                    importe = String.valueOf(imp);
+                                    //realizando los calculos de importe
+                                    this.modelo = (DefaultTableModel) menu.tblFactura.getModel();
+                                    //pasar producto de tabla productos a tabla de factura
+                                    String[] FilaElementos = {id, codigo, cantidad, nombre, precio, importe};
+                                    this.modelo.addRow(FilaElementos);
+                                    calcula = (Float.parseFloat(importe));//convertir importe a float
+                                    this.total = this.total + calcula;//calcular el total de factura
+                                    impuesto = (float) (this.total * Float.parseFloat(menu.lblImpuestoISV.getText())) / 100;//calcular el impuesto
+                                    this.isv = impuesto;//impuesto
+                                    this.subTotal = this.total - this.isv;//clacular subtotal de factura
 
-                                menu.txtImpuesto.setText("" + this.isv);//establecer el valor impuesto en el campo impuesto de factura
-                                menu.txtSubTotal.setText("" + this.subTotal);//establecer el valor impuesto en el campo sub total de factura
-                                menu.txtTotal.setText("" + this.total);//establecer el valor impuesto en el campo Total de factura
-                                this.factura.Vender(id, cantidad);//llamar procedimiento sql para vender
-                                productos.MostrarProductosVender("");
-                                productos.MostrarProductosVender("");
-                                DeshabilitarBtnGuardarFactura();
+                                    menu.txtImpuesto.setText("" + this.isv);//establecer el valor impuesto en el campo impuesto de factura
+                                    menu.txtSubTotal.setText("" + this.subTotal);//establecer el valor impuesto en el campo sub total de factura
+                                    menu.txtTotal.setText("" + this.total);//establecer el valor impuesto en el campo Total de factura
+                                    this.factura.Vender(id, cantidad);//llamar procedimiento sql para vender
+                                    productos.MostrarProductosVender("");
+                                    //productos.MostrarProductosVender("");
+                                    menu.txtBuscarPorNombre.selectAll();
+                                    DeshabilitarBtnGuardarFactura();
+                                }
+
                             } else {
                                 JOptionPane.showMessageDialog(null, "No hay Suficiente Producto en Stock para Realizar Esta Venta", "Advertencia", JOptionPane.WARNING_MESSAGE);
                             }
@@ -412,35 +432,40 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
                             descProduct = Float.parseFloat(precio) - this.descuento;
                             //la cantidad que se va a vender
                             cantidad = JOptionPane.showInputDialog(null, "Cantidad:");
+                            if (cantidad.equals("")) {
+                                cantidad = "0";
+                            }
                             //convertir a float la variable cantidad
                             cantidadPVender = Float.parseFloat(cantidad);
                             //condicion para validar el estock con lo que se va a vender 
-                            if (cantidadPVender < stock) {
-                                imp = (descProduct * cantidadPVender);//importe total de compra de producto con descuento
-                                importe = String.valueOf(imp);
+                            if (cantidadPVender < stock || cantidadPVender == stock) {
+                                if (cantidadPVender == 0) {
 
-                                /*stock = Float.parseFloat(stockA)- Float.parseFloat(cantidad);
-                        stockA = String.valueOf(stock);
-                        modelo.setValueAt(stockA, filaseleccionada, 5);*/
-                                //realizando los calculos de importe
-                                this.modelo = (DefaultTableModel) menu.tblFactura.getModel();
-                                //pasar producto de tabla productos a tabla de factura
-                                String[] FilaElementos = {id, codigo, cantidad, nombre, String.valueOf(descProduct), importe};
-                                this.modelo.addRow(FilaElementos);
-                                calcula = (Float.parseFloat(importe));//convertir importe a float
-                                this.total = this.total + calcula;//calcular el total de factura
-                                impuesto = (float) (this.total * Float.parseFloat(menu.lblImpuestoISV.getText())) / 100;//calcular el impuesto
-                                this.isv = impuesto;//impuesto
-                                this.subTotal = this.total - this.isv;//clacular subtotal de factura
+                                } else {
+                                    imp = (descProduct * cantidadPVender);//importe total de compra de producto con descuento
+                                    importe = String.valueOf(imp);
+                                    //realizando los calculos de importe
+                                    this.modelo = (DefaultTableModel) menu.tblFactura.getModel();
+                                    //pasar producto de tabla productos a tabla de factura
+                                    String[] FilaElementos = {id, codigo, cantidad, nombre, String.valueOf(descProduct), importe};
+                                    this.modelo.addRow(FilaElementos);
+                                    calcula = (Float.parseFloat(importe));//convertir importe a float
+                                    this.total = this.total + calcula;//calcular el total de factura
+                                    impuesto = (float) (this.total * Float.parseFloat(menu.lblImpuestoISV.getText())) / 100;//calcular el impuesto
+                                    this.isv = impuesto;//impuesto
+                                    this.subTotal = this.total - this.isv;//clacular subtotal de factura
 
-                                menu.txtImpuesto.setText("" + this.isv);//establecer el valor impuesto en el campo impuesto de factura
-                                menu.txtSubTotal.setText("" + this.subTotal);//establecer el valor impuesto en el campo sub total de factura
-                                menu.txtTotal.setText("" + this.total);//establecer el valor impuesto en el campo Total de factura
-                                this.descuento = 0;
-                                this.factura.Vender(id, cantidad);
-                                productos.MostrarProductosVender("");
-                                productos.MostrarProductosVender("");
-                                DeshabilitarBtnGuardarFactura();
+                                    menu.txtImpuesto.setText("" + this.isv);//establecer el valor impuesto en el campo impuesto de factura
+                                    menu.txtSubTotal.setText("" + this.subTotal);//establecer el valor impuesto en el campo sub total de factura
+                                    menu.txtTotal.setText("" + this.total);//establecer el valor impuesto en el campo Total de factura
+                                    this.descuento = 0;
+                                    this.factura.Vender(id, cantidad);
+                                    productos.MostrarProductosVender("");
+                                    //productos.MostrarProductosVender("");
+                                    menu.txtBuscarPorNombre.selectAll();
+                                    DeshabilitarBtnGuardarFactura();
+                                }
+
                             } else {
                                 JOptionPane.showMessageDialog(null, "No hay Suficiente Producto en Stock para Realizar Esta Venta", "Advertencia", JOptionPane.WARNING_MESSAGE);
                                 this.descuento = 0;//si no hay suficiente producto en stock inicializamos la variable descuento a 0
@@ -527,6 +552,7 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
             menu.txtAClienteFactura.setText("");
             menu.lblIdClienteFactura.setText("");
             menu.txtCreditoFactura.setText("");
+            menu.txtCompradorFactura.setText("");
             this.total = 0;
             this.subTotal = 0;
             this.isv = 0;

@@ -1,10 +1,22 @@
 package modelo;
 
+import controlador.CtrlProducto;
 import java.awt.List;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -46,6 +58,7 @@ public class Productos extends Conexiondb {
             if (this.banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Producto Guardado Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -72,6 +85,7 @@ public class Productos extends Conexiondb {
             if (this.banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Producto Actualizado Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -86,6 +100,7 @@ public class Productos extends Conexiondb {
             if (banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Dato Borrado Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -119,6 +134,7 @@ public class Productos extends Conexiondb {
                 registros[10] = rs.getString("descripcion");
                 this.modelo.addRow(registros);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -147,6 +163,7 @@ public class Productos extends Conexiondb {
                 resultados[2] = rs.getString("descripcion");
                 this.modelo.addRow(resultados);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -174,6 +191,7 @@ public class Productos extends Conexiondb {
                 resultados[2] = rs.getString("descripcion");
                 modelo.addRow(resultados);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -191,6 +209,7 @@ public class Productos extends Conexiondb {
             while (rs.next()) {
                 id = rs.getString("id");
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -208,6 +227,7 @@ public class Productos extends Conexiondb {
             while (rs.next()) {
                 id = rs.getString("id");
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -228,12 +248,13 @@ public class Productos extends Conexiondb {
             if (banderin > 0) {
                 //JOptionPane.showMessageDialog(null, "Se Agrego Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
 
-    public DefaultTableModel MinimoStock(String categoria, int cantidad) {
+    public DefaultTableModel MinimoStock(String categoria, float cantidad) {
         cn = Conexion();
         this.consulta = "SELECT productos.id, productos.codigoBarra, productos.nombre AS nombreProducto, precioCompra, precioVenta, fechaVencimiento,stock, ubicacion, productos.descripcion, categorias.nombre AS nombreCategoria, laboratorios.nombre as nombreLaboratorio FROM productos INNER JOIN categorias ON(productos.categoria=categorias.id) INNER JOIN laboratorios ON(productos.laboratorio=laboratorios.id) WHERE productos.stock < " + cantidad + " AND categorias.nombre LIKE '%" + categoria + "%'";
         String[] titulos = {"Id", "Codigo Barra", "Nombre", "precioCompra", "precioVenta", "Fecha Vencimiento", "Stock", "Categoria", "Laboratorio", "Ubicacion", "Descripcion"};
@@ -263,9 +284,31 @@ public class Productos extends Conexiondb {
                 registros[10] = rs.getString("descripcion");
                 this.modelo.addRow(registros);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
         return this.modelo;
+    }
+    
+    public void GenerarReporteStockMin(String categ, float cantidad) throws SQLException
+    {
+        try {
+            this.cn = Conexion();
+                JasperReport Reporte = null;
+                String path = "/Reportes/minStock.jasper";
+                Map parametros = new HashMap();
+                parametros.put("cantidad", cantidad);
+                parametros.put("categoria", categ);
+                //Reporte = (JasperReport) JRLoader.loadObject(path);
+                Reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/minStock.jasper"));
+                JasperPrint jprint = JasperFillManager.fillReport(Reporte, parametros, cn);
+                JasperViewer vista = new JasperViewer(jprint,false);
+                vista.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                vista.setVisible(true);
+                cn.close();
+            } catch (JRException ex) {
+                Logger.getLogger(CtrlProducto.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 }

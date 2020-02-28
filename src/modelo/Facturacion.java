@@ -43,6 +43,7 @@ public class Facturacion extends Conexiondb {
                 if (banderin > 0) {
                     JOptionPane.showMessageDialog(null, "Factura Guardada Exitosamente", "Informacion", JOptionPane.WARNING_MESSAGE);
                 }
+                cn.close();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
@@ -59,6 +60,7 @@ public class Facturacion extends Conexiondb {
                 if (banderin > 0) {
                     JOptionPane.showMessageDialog(null, "Factura Guardada Exitosamente", "Informacion", JOptionPane.WARNING_MESSAGE);
                 }
+                cn.close();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
@@ -83,6 +85,7 @@ public class Facturacion extends Conexiondb {
             if (banderin > 0) {
                 //JOptionPane.showMessageDialog(null, "detalle guardado");
             }
+            cn.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -116,6 +119,7 @@ public class Facturacion extends Conexiondb {
                 registros[9] = rs.getString("descripcion");
                 this.modelo.addRow(registros);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -152,6 +156,7 @@ public class Facturacion extends Conexiondb {
                 registros[9] = rs.getString("descripcion");
                 this.modelo.addRow(registros);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -188,6 +193,7 @@ public class Facturacion extends Conexiondb {
                 registros[9] = rs.getString("descripcion");
                 this.modelo.addRow(registros);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -206,6 +212,7 @@ public class Facturacion extends Conexiondb {
             while (rs.next()) {
                 combo.addElement(rs.getString("tipoVenta"));
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -232,6 +239,7 @@ public class Facturacion extends Conexiondb {
                 sumaId = Integer.parseInt(obtenerId) + 1;
                 id = String.valueOf(sumaId);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -249,6 +257,7 @@ public class Facturacion extends Conexiondb {
             while (rs.next()) {
                 id = rs.getString("id");
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -265,6 +274,7 @@ public class Facturacion extends Conexiondb {
             cst.setInt(1, idP);
             cst.setFloat(2, cantidadP);
             cst.execute();
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -290,6 +300,7 @@ public class Facturacion extends Conexiondb {
             if (this.banderin > 0) {
                 JOptionPane.showMessageDialog(null, "factura actualizada correctamente");
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -310,6 +321,7 @@ public class Facturacion extends Conexiondb {
             if (this.banderin > 0) {
 
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }

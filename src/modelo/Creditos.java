@@ -45,6 +45,7 @@ public class Creditos extends Conexiondb {
             if (this.banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Credito Agregado exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -64,6 +65,7 @@ public class Creditos extends Conexiondb {
             if (this.banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Credito " + id + " Actualizado exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -80,6 +82,7 @@ public class Creditos extends Conexiondb {
             if (this.banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Credito " + id + " Borrado exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -113,6 +116,7 @@ public class Creditos extends Conexiondb {
                 this.resgistros[5] = rs.getString("estado");
                 this.modelo.addRow(resgistros);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e + " mostrar creditos");
         }
@@ -142,6 +146,7 @@ public class Creditos extends Conexiondb {
                 this.resgistros[5] = rs.getString("estado");
                 this.modelo.addRow(resgistros);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e + " mostrar creditos");
         }
@@ -160,6 +165,7 @@ public class Creditos extends Conexiondb {
             if (this.banderin > 0) {
                 //JOptionPane.showMessageDialog(null,"Credito "+id+" Cancelado");
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e + " Actualizar Estado de Credito");
         }
@@ -181,6 +187,7 @@ public class Creditos extends Conexiondb {
                 idCredito = rs.getInt("id");
                 estado = rs.getString("estado");
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e + " total credito cliente");
         }
@@ -208,6 +215,7 @@ public class Creditos extends Conexiondb {
                 resgistros[5] = rs.getString("apellidos");
                 this.modelo.addRow(resgistros);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -222,6 +230,7 @@ public class Creditos extends Conexiondb {
             pst.setInt(1, idCredito);
             pst.setInt(2, idFactura);
             pst.execute();
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }

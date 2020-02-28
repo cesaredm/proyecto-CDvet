@@ -32,6 +32,7 @@ public class CtrlCategoria implements ActionListener, CaretListener {
         this.menu.btnNuevoCategoria.addActionListener(this);
         this.menu.EditarCategoria.addActionListener(this);
         this.menu.BorrarCategoria.addActionListener(this);
+        this.menu.txtBuscarCategoria.addCaretListener(this);
         this.modelo = new DefaultTableModel();
         this.id = null;
     }
@@ -112,7 +113,9 @@ public class CtrlCategoria implements ActionListener, CaretListener {
 
     @Override
     public void caretUpdate(CaretEvent e) {
-
+        if (e.getSource() == menu.txtBuscarCategoria) {
+            MostrarCategorias(menu.txtBuscarCategoria.getText());
+        }
     }
 
     //metodo para llenar la tabla categorias del formulario Categorias

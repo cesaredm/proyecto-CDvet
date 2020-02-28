@@ -37,6 +37,7 @@ public class Laboratorios extends Conexiondb {
             if (banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Laboratorio Guardado Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -53,7 +54,7 @@ public class Laboratorios extends Conexiondb {
             if (banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Dato Actualizado Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
-
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -68,6 +69,7 @@ public class Laboratorios extends Conexiondb {
             if (banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Dato Eliminado Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -92,6 +94,7 @@ public class Laboratorios extends Conexiondb {
                 registros[2] = rs.getString("descripcion");
                 modelo.addRow(registros);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }

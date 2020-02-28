@@ -30,6 +30,7 @@ public class CtrlLaboratorio implements ActionListener, CaretListener {
         this.menu.btnNuevoLaboratorio.addActionListener(this);
         this.menu.EditarLaboratorio.addActionListener(this);
         this.menu.BorrarLaboratorio.addActionListener(this);
+        this.menu.txtBuscarLaboratorio.addCaretListener(this);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -110,7 +111,9 @@ public class CtrlLaboratorio implements ActionListener, CaretListener {
 
     @Override
     public void caretUpdate(CaretEvent e) {
-
+        if (e.getSource() == menu.txtBuscarLaboratorio) {
+            MostrarLaboratorio(menu.txtBuscarLaboratorio.getText());
+        }
     }
 
     //metodo para llenar la tabla de laboratorios con filtro por Nombre de laboratorio

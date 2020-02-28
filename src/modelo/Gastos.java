@@ -36,6 +36,7 @@ public class Gastos extends Conexiondb {
             if (this.banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Gasto Guardado Exitosamente", "Infromacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -55,6 +56,7 @@ public class Gastos extends Conexiondb {
             if (this.banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Gasto Actualizado Exitosamente", "Infromacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -70,6 +72,7 @@ public class Gastos extends Conexiondb {
             if (this.banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Gasto Borrado Exitosamente", "Infromacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -95,6 +98,7 @@ public class Gastos extends Conexiondb {
                 this.resgistros[3] = rs.getString("descripcion");
                 this.modelo.addRow(this.resgistros);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }

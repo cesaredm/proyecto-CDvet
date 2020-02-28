@@ -52,6 +52,7 @@ public class Login extends Conexiondb {
                 }
 
             }
+            cn.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex+"login");
         }

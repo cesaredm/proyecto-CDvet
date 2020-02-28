@@ -50,6 +50,7 @@ public class CtrlPagos implements ActionListener, CaretListener {
         this.menu.BorrarPago.addActionListener(this);
         this.menu.txtMontoPago.addCaretListener(this);
         this.menu.txtBuscarPago.addCaretListener(this);
+        this.menu.btnMostrarPagosRegistrados.addActionListener(this);
         MostrarPagos("");
         DeshabilitarPagos();
         this.menu.jcFechaPago.setDate(fecha);
@@ -80,6 +81,7 @@ public class CtrlPagos implements ActionListener, CaretListener {
                     ctrlR.SumaTotalFiltroReporte();
                     MostrarPagos("");
                     ctrlC.MostrarCreditosCreados("");
+                    ctrlC.MostrarCreditosAddFactura("");
                     menu.btnGuardarPago.setEnabled(true);
                     menu.btnActualizarPago.setEnabled(false);
                 }
@@ -117,6 +119,7 @@ public class CtrlPagos implements ActionListener, CaretListener {
         if (e.getSource() == menu.btnNuevoPago) {
             HabilitarPago();
             LimpiarPago();
+            menu.txtMontoPago.requestFocus();
         }
         if (e.getSource() == menu.EditarPago) {
             int filaseleccionada = menu.tblPagos.getSelectedRow();
@@ -164,6 +167,11 @@ public class CtrlPagos implements ActionListener, CaretListener {
                 JOptionPane.showMessageDialog(null, e + " en la funcion Borrar Pago", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
+        }
+        if (e.getSource() == menu.btnMostrarPagosRegistrados) {
+            menu.pagosAcreditos.setSize(648, 400);
+            menu.pagosAcreditos.setVisible(true);
+            menu.pagosAcreditos.setLocationRelativeTo(null);
         }
     }
 

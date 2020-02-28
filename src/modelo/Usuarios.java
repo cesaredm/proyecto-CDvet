@@ -36,6 +36,7 @@ public class Usuarios extends Conexiondb {
             if (this.banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Usuario Agregado Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -53,6 +54,7 @@ public class Usuarios extends Conexiondb {
             if (this.banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Usuario Actualizado Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -67,6 +69,7 @@ public class Usuarios extends Conexiondb {
             if (this.banderin > 0) {
                 JOptionPane.showMessageDialog(null, "Usuario Eliminado Exitosamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -93,6 +96,7 @@ public class Usuarios extends Conexiondb {
                 this.resgistros[3] = rs.getString("permiso");
                 this.modelo.addRow(this.resgistros);
             }
+            cn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
