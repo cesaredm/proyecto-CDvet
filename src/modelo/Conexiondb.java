@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class Conexiondb {
 
-    String db = "dbfarmacia";
+    String db = "CDvet";
     String url = "jdbc:mysql://localhost/" + db;
     String user = "root";
     String pass = "";

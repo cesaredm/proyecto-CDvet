@@ -24,21 +24,18 @@ public class Facturacion extends Conexiondb {
     }
 //Guardar Factura
 
-    public void GuardarFactura(Date fecha, String nombreComprador, String credito, String pago, String iva, String total) {
+    public void GuardarFactura(Date fecha, String nombreComprador, String pago, String iva, String total) {
         cn = Conexion();
-        this.consulta = "INSERT INTO facturas(fecha, nombre_comprador, credito, tipoVenta, impuestoISV, totalFactura) VALUES(?,?,?,?,?,?)";
+        this.consulta = "INSERT INTO facturas(fecha, nombre_comprador, tipoVenta, impuestoISV, totalFactura) VALUES(?,?,?,?,?)";
         int idCredito = 0, formaPago = Integer.parseInt(pago);
         float impuestoIVA = Float.parseFloat(iva), totalFactura = Float.parseFloat(total);
-        if (!credito.equals("")) {
-            idCredito = Integer.parseInt(credito);
             try {
                 pst = this.cn.prepareStatement(this.consulta);
                 pst.setDate(1, fecha);
                 pst.setString(2, nombreComprador);
-                pst.setInt(3, idCredito);
-                pst.setInt(4, formaPago);
-                pst.setFloat(5, impuestoIVA);
-                pst.setFloat(6, totalFactura);
+                pst.setInt(3, formaPago);
+                pst.setFloat(4, impuestoIVA);
+                pst.setFloat(5, totalFactura);
                 this.banderin = pst.executeUpdate();
                 if (banderin > 0) {
                     JOptionPane.showMessageDialog(null, "Factura Guardada Exitosamente", "Informacion", JOptionPane.WARNING_MESSAGE);
@@ -47,25 +44,6 @@ public class Facturacion extends Conexiondb {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
-        } else {
-            try {
-                pst = this.cn.prepareStatement(this.consulta);
-                pst.setDate(1, fecha);
-                pst.setString(2, nombreComprador);
-                pst.setNull(3, java.sql.Types.INTEGER);
-                pst.setInt(4, formaPago);
-                pst.setFloat(5, impuestoIVA);
-                pst.setFloat(6, totalFactura);
-                this.banderin = pst.executeUpdate();
-                if (banderin > 0) {
-                    JOptionPane.showMessageDialog(null, "Factura Guardada Exitosamente", "Informacion", JOptionPane.WARNING_MESSAGE);
-                }
-                cn.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-        }
-
     }
 //Guardar detalleFactura
 
@@ -280,21 +258,17 @@ public class Facturacion extends Conexiondb {
         }
     }
 
-    public void ActualizarFactura(String id, Date fecha, String nombreComprador, String credito, String pago, String iva, String total) {
+    public void ActualizarFactura(String id, Date fecha, String nombreComprador, String pago, String iva, String total) {
         cn = Conexion();
-        if (credito.equals("")) {
-            credito = null;
-        }
-        this.consulta = "UPDATE facturas SET credito = ?, nombre_comprador = ?,fecha = ? , tipoVenta = ?, impuestoISV = ?, totalFactura = ? WHERE id=?";
+        this.consulta = "UPDATE facturas SET nombre_comprador = ?,fecha = ? , tipoVenta = ?, impuestoISV = ?, totalFactura = ? WHERE id=?";
         try {
             pst = this.cn.prepareStatement(this.consulta);
-            pst.setString(1, credito);
-            pst.setString(2, nombreComprador);
-            pst.setDate(3, fecha);
-            pst.setString(4, pago);
-            pst.setString(5, iva);
-            pst.setString(6, total);
-            pst.setString(7, id);
+            pst.setString(1, nombreComprador);
+            pst.setDate(2, fecha);
+            pst.setString(3, pago);
+            pst.setString(4, iva);
+            pst.setString(5, total);
+            pst.setString(6, id);
             pst.execute();
             this.banderin = pst.executeUpdate();
             if (this.banderin > 0) {

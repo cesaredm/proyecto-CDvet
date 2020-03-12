@@ -17,7 +17,6 @@ import javax.swing.JOptionPane;
 import modelo.Reportes;
 import vista.IMenu;
 import javax.swing.table.DefaultTableModel;
-import modelo.PagosCreditos;
 
 /**
  *
@@ -27,7 +26,6 @@ public class CtrlReportes implements ActionListener, MouseListener {
 
     IMenu menu;
     Reportes reportes;
-    PagosCreditos pagosC;
     Date fecha;
     DefaultTableModel modelo;
     String idCliente = "";
@@ -36,7 +34,6 @@ public class CtrlReportes implements ActionListener, MouseListener {
     public CtrlReportes(IMenu menu, Reportes reportes) {
         this.menu = menu;
         this.reportes = reportes;
-        this.pagosC = new PagosCreditos();
         this.fecha = new Date();
         this.menu.btnReporteMensaul.addActionListener(this);
         this.menu.tblReporte.addMouseListener(this);
@@ -141,21 +138,9 @@ public class CtrlReportes implements ActionListener, MouseListener {
             //ontengo todos los datos de la columna Total de factura y los sumo para obtener el total vendido
             totalFiltroReporte += Float.parseFloat(this.modelo.getValueAt(cont, 3).toString());
         }
-        //lleno el lbl de total vendido
-        menu.lblTotalFiltroReporte.setText(String.valueOf(totalFiltroReporte));//suma toda la columna de total de factura de la tabla reportes 
-        //obtengo el valor del label total de creditos
-        creditoMensual = Float.parseFloat(menu.lblTotalCreditosFiltroReporte.getText());
-        //obtengo el valor de label total gastos
         totalGastos = Float.parseFloat(menu.lblGastos.getText());
-        //obtengo el valor de label total pagos de creditos
-        totalPagos = Float.parseFloat(menu.lblTotalPagos.getText());
-        if(!this.estadoC){
-             totalCaja = totalPagos + (totalFiltroReporte - creditoMensual); 
-        }else{
-             totalCaja = (totalFiltroReporte - creditoMensual); 
-        }
-        totalExist = (totalFiltroReporte - creditoMensual - totalGastos);
-        menu.lblTotalCajaFiltroReporte.setText("" + totalCaja);
+        totalExist = (totalFiltroReporte - totalGastos);
+        menu.lblTotalCajaFiltroReporte.setText("" + totalFiltroReporte);
         menu.lblTotalExistencia.setText("" + totalExist);
     }
 
@@ -164,19 +149,14 @@ public class CtrlReportes implements ActionListener, MouseListener {
         long f1 = fecha1.getTime(), f2 = fecha2.getTime();//
         java.sql.Date fechaInicio = new java.sql.Date(f1);//convertir la fecha a formato sql
         java.sql.Date fechaFinal = new java.sql.Date(f2);//convertir la fecha a formato sql
-        String totalCreditoMensual = reportes.TotalCreditosMensual(fechaInicio, fechaFinal);//obtengo el valor de total de creditos cn la funcion TotalCreditoMensula de la clase reortes
-        String totalGastos = reportes.TotalGastos(fechaInicio, fechaFinal);//total de gastos 
-        String totalPagos = reportes.totalPagos(fechaInicio, fechaFinal);//total pagos 
-        float creditosPendiente = Float.parseFloat(totalCreditoMensual) - Float.parseFloat(totalPagos);//refleja el creditos menos los pagos
+        String totalGastos = reportes.TotalGastos(fechaInicio, fechaFinal);//total de gastos
         menu.tblReporte.getTableHeader().setFont(new Font("Sugoe UI", Font.PLAIN, 14));
         menu.tblReporte.getTableHeader().setOpaque(false);
         menu.tblReporte.getTableHeader().setBackground(new Color(100, 100, 100));
         menu.tblReporte.getTableHeader().setForeground(new Color(255, 255, 255));
         try {
             menu.tblReporte.setModel(reportes.ReporteMensual(fechaInicio, fechaFinal));
-            menu.lblTotalCreditosFiltroReporte.setText(String.valueOf(creditosPendiente));//lleno el lblTotalCreditoFiltroRepote con el  total creditos 
             menu.lblGastos.setText(totalGastos);//lleno lblGastos con el total de gastos
-            menu.lblTotalPagos.setText(totalPagos);
         } catch (Exception err) {
 
         }
