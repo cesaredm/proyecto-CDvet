@@ -11,8 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
@@ -62,7 +65,7 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
         this.menu.tblAddProductoFactura.addMouseListener(this);
         this.menu.btnEditarImpuesto.addActionListener(this);
         this.menu.btnAgregarProductoFactura.addActionListener(this);
-        this.menu.btnEditarFactura.addActionListener(this);
+        //this.menu.btnEditarFactura.addActionListener(this);
         this.menu.btnRetornar.addActionListener(this);
         this.menu.Descuento.addActionListener(this);
         EstiloTablaFacturacion();
@@ -80,7 +83,9 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
                 this.modelo = (DefaultTableModel) menu.tblFactura.getModel();//obtengo el modelo de tabla factura y sus datos
                 int filas = this.modelo.getRowCount();//Cuento las filas de la tabla Factura
                 Date fecha;
-                String factura, id, cantidad, precio, totalDetalle, iva, totalFactura, formaPago, idFormaPago, comprador;//variables para capturar los datos a guardar
+                String[] ArregloImprimir = new String[filas];
+                String factura = "", id, cantidad, precio, totalDetalle, iva, totalFactura, formaPago, idFormaPago, comprador,subtotal, nombreProduct;//variables para capturar los datos a guardar
+                subtotal = menu.txtSubTotal.getText();
                 comprador = menu.txtCompradorFactura.getText();
                 fecha = menu.jcFechaFactura.getDate();//capturo la fecha del dateshooser
                 long fechaF = fecha.getTime();//
@@ -94,11 +99,13 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
                 {
                     id = (String) this.modelo.getValueAt(cont, 0);//capturo el id de producto para guardar en detallefactura
                     cantidad = (String) this.modelo.getValueAt(cont, 2);//capturo la cantidad de producto de la columna dos y la paso a String para guardar en detallefactura
+                    nombreProduct = (String) this.modelo.getValueAt(cont, 3);//capturo el nombre de producto
                     precio = (String) this.modelo.getValueAt(cont, 4);//capturo el precio de producto para guardar en detallefactura
                     totalDetalle = (String) this.modelo.getValueAt(cont, 5);//capturo el total de detalle compra de producto para guardar en detallefactura
                     factura = menu.txtNumeroFactura.getText();//capturo id de factura ala que pertenece el detalle de factura
                     this.factura.DetalleFactura(factura, id, precio, cantidad, totalDetalle);//envio los datos a guardar de los detalles
                     this.factura.Vender(id, cantidad);//funcion para diminuir el stock segun la cantidad que se venda
+                    ArregloImprimir[cont] =nombreProduct+"  "+cantidad+"   "+precio+"   "+totalDetalle+"\n";
                 }
                 menu.txtNumeroFactura.setText(this.factura.ObtenerIdFactura());//Actualizo el campo numero de factura con la funcion obtenerIdFactura
                 LimpiarTablaFactura();//limpio la factura
@@ -108,8 +115,9 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
                 reportes.MostrarFiltroReporte(this.fecha, this.fecha);
                 reportes.SumaTotalFiltroReporte();
                 reportes.inversion();
+                Imprimir(factura,comprador,ArregloImprimir,subtotal,iva,totalFactura,fechaFactura.toString());
             } catch (Exception err) {
-                JOptionPane.showMessageDialog(null, err);
+                //JOptionPane.showMessageDialog(null, err +"en funcion guardar Factura");
             }
         }
         if (e.getSource() == menu.btnActualizarFactura) {
@@ -158,7 +166,7 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
                 JOptionPane.showMessageDialog(null, err);
             }
         }
-        if (e.getSource() == menu.btnEditarFactura) {
+        /*if (e.getSource() == menu.btnEditarFactura) {
             String nombre = "", apellido = "";
             //obtengo la fila seleccionda de la tabla reporte diario    obtengo el numero las filas de la tabla detalleFactura
             int filaseleccionada = menu.tblReporte.getSelectedRow(), filas = menu.tblMostrarDetalleFactura.getRowCount();
@@ -224,7 +232,7 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
             } catch (Exception err) {
                 JOptionPane.showMessageDialog(null, err + "guardar facturas");
             }
-        }
+        }*/
         if (e.getSource() == menu.btnAgregarProductoFactura) {
             menu.AddProductoFactura.setSize(1071, 456);
             menu.AddProductoFactura.setVisible(true);
@@ -311,7 +319,7 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
             }
             menu.txtNumeroFactura.setText(factura.ObtenerIdFactura());//actualizar numero de factura
         }
-        
+
     }
 
     @Override
@@ -533,5 +541,37 @@ public class CtrlFacturacion implements ActionListener, CaretListener, MouseList
         } else {
             menu.lblImpuestoISV.setText(isv);
         }
+    }
+    //crear Fctaura de impresion
+
+    public void Imprimir(String Nfactura,String cliente, String[] Datos, String subtotal, String isv, String total, String fecha) {
+        /*
+        cod para clase CodTicket
+        codTicket datos = new codTicket();
+        datos.setEmpresa("Tienda Kamell");
+        datos.setPropietario("Ing. Cesar Eduardo Diaz");
+        datos.setRfc("");
+        datos.setDireccion("Ocotal");
+        datos.setTelefono("+505 87963256");
+        datos.setNfactura(Nfactura);
+        datos.setCliente(cliente);
+        datos.setArticulos("1");
+        datos.setSubTotal(subtotal);
+        datos.setIsv(isv);
+        datos.setTotal(total);
+        datos.setTotalLetra("");
+        datos.setRecibo("");
+        datos.setCambio("");
+        datos.setFecha(fecha);
+        datos.setMatriz("");
+        datos.setVendedor("");
+        
+        datos.print(true);*/
+        for(int i = 0;i<Datos.length;i++)
+        {
+         System.out.println(Datos[i]);   
+        }
+        Ticket d = new Ticket("Tienda Kamell","Ocotal","1",Nfactura,"1",cliente,fecha,Datos,subtotal,isv,total,"","");
+        d.print();
     }
 }

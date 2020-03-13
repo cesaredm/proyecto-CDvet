@@ -24,17 +24,18 @@ import javax.swing.JOptionPane;
  *
  * @author CESAR DIAZ MARADIAGA
  */
-public class CtrlImprimirTicket {
+public class codTicket {
     private String empresa;
     private String propietario;
     private String rfc;
     private String direccion;
     private String telefono;
-    private String folio;
+    private String Nfactura;
     private String cliente;
     private String rfcCliente;
     private String articulos;
     private String subTotal;
+    private String isv;
     private String total;
     private String recibo;
     private String cambio;
@@ -63,6 +64,7 @@ public class CtrlImprimirTicket {
     "{{articulos}}\n"+
     "================================\n"+
     "SUBTOTAL: {{subTotal}}\n"+
+    "ISV:     $ {{isv}}\n"+    
     "TOTAL:   $ {{total}}\n"+
     "RECIBIDO:$ {{recibo}}\n"+
     "CAMBIO:  $ {{cambio}}\n"+
@@ -109,8 +111,8 @@ public class CtrlImprimirTicket {
     /**
      * @param folio el folio de la venta
      */
-    public void setFolio(String folio) {
-        this.folio = folio;
+    public void setNfactura(String Nfactura) {
+        this.Nfactura = Nfactura;
     }
 
     /**
@@ -140,7 +142,15 @@ public class CtrlImprimirTicket {
     public void setSubTotal(String subTotal) {
         this.subTotal = subTotal;
     }
-
+    
+    /**
+     * @param isv impuesto de la compra
+     */
+    public void setIsv(String isv)
+    {
+        this.isv = isv;
+    }
+    
     /**
      * @param total total de la compra
      */
@@ -195,7 +205,7 @@ public class CtrlImprimirTicket {
     *Configuración del documento de impresión y reemplazo de los campos
     *con el valor de las propiedades
     */
-    public void print(boolean flagServicio) throws IOException {
+    public void print(boolean flagServicio){
         //Datos de impresion.
         //Datos de la Empresa y/o negocio
         this.formatoTicket=formatoTicket.replace("{{empresa}}", this.empresa);
@@ -204,11 +214,12 @@ public class CtrlImprimirTicket {
         this.formatoTicket=formatoTicket.replace("{{direccion}}", this.direccion);
         this.formatoTicket=formatoTicket.replace("{{telefono}}", this.telefono);
         //Datos de la venta
-        this.formatoTicket=formatoTicket.replace("{{folio}}", this.folio);
+        this.formatoTicket=formatoTicket.replace("{{folio}}", this.Nfactura);
         this.formatoTicket=formatoTicket.replace("{{cliente}}", this.cliente);
         this.formatoTicket=formatoTicket.replace("{{rfcCliente}}", this.rfcCliente);
         this.formatoTicket=formatoTicket.replace("{{articulos}}", this.articulos);
         this.formatoTicket=formatoTicket.replace("{{descuento}}", this.subTotal);
+        this.formatoTicket=formatoTicket.replace("{{isv}}",this.isv);
         this.formatoTicket=formatoTicket.replace("{{total}}", this.total);
         this.formatoTicket=formatoTicket.replace("{{recibo}}", this.recibo);
         this.formatoTicket=formatoTicket.replace("{{cambio}}", this.cambio);
@@ -218,6 +229,7 @@ public class CtrlImprimirTicket {
         this.formatoTicket=formatoTicket.replace("{{matriz}}", this.matriz);
         this.formatoTicket=formatoTicket.replace("{{fecha}}", this.fecha);
         
+        System.out.println(this.formatoTicket);
         //Especificamos el tipo de dato a imprimir
         //Tipo: bytes -- Subtipo: autodetectado
         DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
@@ -228,7 +240,7 @@ public class CtrlImprimirTicket {
         Doc doc = new SimpleDoc(bytes,flavor,null);
 
         //Creamos un trabajo de impresión
-        DocPrintJob job =null;
+        DocPrintJob job = null;
         //Creamos una bandera para determinar si se encontro la impresora
         //que especificamos en este caso "subarasi" O si usamos la impresora predeterminada del S.O.
         boolean flagJob=false;

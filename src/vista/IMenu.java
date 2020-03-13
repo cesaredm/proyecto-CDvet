@@ -186,7 +186,6 @@ public class IMenu extends javax.swing.JFrame {
         Descuento = new javax.swing.JMenuItem();
         vistaDetalleFacturas = new javax.swing.JDialog();
         jPanel19 = new javax.swing.JPanel();
-        btnEditarFactura = new javax.swing.JButton();
         jScrollPane15 = new javax.swing.JScrollPane();
         tblMostrarDetalleFactura = new javax.swing.JTable();
         Usuarios = new javax.swing.JPopupMenu();
@@ -1096,14 +1095,6 @@ public class IMenu extends javax.swing.JFrame {
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnEditarFactura.setBackground(new java.awt.Color(255, 150, 118));
-        btnEditarFactura.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        btnEditarFactura.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditarFactura.setText("Editar");
-        btnEditarFactura.setBorderPainted(false);
-        btnEditarFactura.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnEditarFactura.setFocusPainted(false);
-
         tblMostrarDetalleFactura.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tblMostrarDetalleFactura.setForeground(new java.awt.Color(64, 64, 64));
         tblMostrarDetalleFactura.setModel(new javax.swing.table.DefaultTableModel(
@@ -1131,21 +1122,15 @@ public class IMenu extends javax.swing.JFrame {
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(btnEditarFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel19Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel19Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnEditarFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2946,7 +2931,6 @@ public class IMenu extends javax.swing.JFrame {
     public javax.swing.JButton btnCancel;
     public javax.swing.JPanel btnCerrarSesion;
     public javax.swing.JPanel btnComprasGastos;
-    public javax.swing.JButton btnEditarFactura;
     public javax.swing.JButton btnEditarImpuesto;
     public javax.swing.JButton btnEliminarFilaFactura;
     public javax.swing.JButton btnGenerarReporteStock;
